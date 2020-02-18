@@ -1,38 +1,27 @@
 <template>
   <div class="w-full flex-col justify-around mt-2">
-    <div id="contact">
-<div class="mdc-slider mdc-slider--discrete mdc-slider--display-markers" tabindex="0" role="slider"
-     aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
-     aria-label="Select Value">
-  <div class="mdc-slider__track-container">
-    <div class="mdc-slider__track"></div>
-    <div class="mdc-slider__track-marker-container"></div>
-  </div>
-  <div class="mdc-slider__thumb-container">
-    <div class="mdc-slider__pin">
-      <span class="mdc-slider__pin-value-marker"></span>
-    </div>
-    <svg class="mdc-slider__thumb" width="21" height="21">
-      <circle cx="10.5" cy="10.5" r="7.875"></circle>
-    </svg>
-    <div class="mdc-slider__focus-ring"></div>
-  </div>
-</div>
-
+    <div id="contact" class="w-full mt-8 flex-col">
+      <div id="variables" class="text-left w-1/2 px-24 text-lg">
+        <p>Variablen zu Berechnen:</p>
+        <div class="slider flex justify-between mt-4">
+          <input type="range" min="0" max="20" step="1">
+          <p class="label">{{input.variables}}</p>
+          </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {MDCSlider} from '@material/slider';
-
-const slider = new MDCSlider(document.querySelector('.mdc-slider'));
-slider.listen('MDCSlider:change', () => console.log(`Value changed to ${slider.value}`));
-</script>
-
-<script>
   export default {
     name: 'home',
+    data() {
+      return {
+        input: {
+          variables: 3
+        }
+      }
+    }
 
   }
 </script>
