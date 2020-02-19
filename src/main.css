@@ -6,7 +6,8 @@
 
 body {
     font-family: 'Archivo Narrow', sans-serif;
-  }
+    overflow-x: hidden;
+}
   
   a {
     transition: 0.3s;
@@ -22,6 +23,11 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  .img {
+    background-size: cover;
+    background-position-y: 20%;
   }
   
   .theme_dark {
@@ -40,6 +46,11 @@ body {
       --main-secondary: #818fa0;
       --main-focus: #e84855;
       --main-focus-active: #ec6973;
+    }
+
+    .svg-light {
+      stroke: var(--bg-primary);
+      fill: var(--bg-primary);
     }
   
     svg {
@@ -65,4 +76,8 @@ body {
 
     .svg-xl {
       width: 4rem;
+    }
+
+    li {
+      list-style: none;
     }
