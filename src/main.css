@@ -29,6 +29,8 @@ body {
       --main-primary: #868686;
       --bg-secondary: #363636;
       --main-secondary: #AEAEAE;
+      --main-focus: #e84855;
+      --main-focus-active: #ec6973;
     }
     
     .theme_light {
@@ -36,6 +38,8 @@ body {
       --main-primary: #5d6f85;
       --bg-secondary: rgb(238, 238, 238);
       --main-secondary: #818fa0;
+      --main-focus: #e84855;
+      --main-focus-active: #ec6973;
     }
   
     svg {
