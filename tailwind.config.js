@@ -7,7 +7,10 @@ module.exports = {
         "96": "24rem",
         "128": "36rem",
         "156": "46rem"
-      } 
+      },
+      borderRadius: {
+        'full': '9999px'
+      }
      },
     colors: {
       bg_primary: "var(--bg-primary)",

@@ -3,16 +3,18 @@
     <div id="head" class="mb-8 h-96 lg:h-128 w-full">
       <div class="img w-full h-full" :style="get_background_image"></div>
     </div>
-    <div id="products" class="w-full flex justify-around mt-16">
+    <!-- <div id="products" class="w-full flex justify-around mt-16">
       <div
         class="container text-center pt-4 w-1/2 h-96 bg-main_primary text-bg_primary rounded-xl flex justify-between">
         <div id="correlation" class="w-1/2 px-2 py-2 text-xl">
           <li>
             <ul class="w-full flex justify-around mb-2">
               <svg class="svg-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <path d="M154.5 124.3a71.4 71.4 0 0163 9 7.5 7.5 0 009.4-11.8c-1.3-1-32-25-76.7-11.5a7.5 7.5 0 004.3 14.3zM154.5 175a71.4 71.4 0 0163 9 7.5 7.5 0 009.4-11.8c-1.3-1-32-25-76.7-11.5a7.5 7.5 0 004.3 14.4zM217.5 234.7A7.5 7.5 0 00227 223c-1.3-1-32-25.1-76.7-11.5a7.5 7.5 0 004.3 14.3 71.4 71.4 0 0163 8.9zM361.8 110a86.4 86.4 0 00-76.7 11.5 7.5 7.5 0 009.4 11.7c1-.8 26.1-20 63-8.9a7.5 7.5 0 104.3-14.3zM361.8 160.7a86.4 86.4 0 00-76.7 11.5 7.5 7.5 0 009.4 11.8c1-.9 26.1-20.1 63-9a7.5 7.5 0 104.3-14.3zM361.8 211.5a86.4 86.4 0 00-76.7 11.5 7.5 7.5 0 009.4 11.7c1-.8 26.1-20 63-8.9a7.5 7.5 0 104.3-14.3z"/>
-  <path d="M492 391h-13V137.7c0-18.5-15.1-33.5-33.6-33.5h-43.1v-37a16 16 0 00-12-15.4 170 170 0 00-100.1 3.4A154 154 0 00256 71.9c-6-4-17.8-11-34.2-16.7a170 170 0 00-100.1-3.4 16 16 0 00-12 15.5v36.9H66.6c-18.5 0-33.5 15-33.5 33.5V391H19.9C9 391 0 399.9 0 410.9A55.3 55.3 0 0055.2 466h401.6A55.3 55.3 0 00512 411c0-11-9-20-20-20zm-222-81.8a153.7 153.7 0 01116-14.7l-2.3 12c-.2.7-1 1.2-1.7 1a166.3 166.3 0 00-119.7 18.2c-3.9 2.3-8.7 2.3-12.6 0A166.3 166.3 0 00130 307.5c-.8.2-1.5-.3-1.7-1l-2.4-12a153.7 153.7 0 01116.2 14.7c8.6 5 19.2 5 27.8 0zm-145.3-242c0-.4.4-.7.8-.9 31-8.2 61.5-7.2 90.8 2.8 16 5.6 27.3 12.5 32.2 15.8v210.7c-10.7-6.1-27.8-14-49.8-18.4a170 170 0 00-74 2.2zm-76.6 70.5c0-10.2 8.3-18.5 18.5-18.5h43.1v20.2h-27c-8 0-14.4 6.4-14.4 14.3v144.8a7.5 7.5 0 1015 0V154.4h26.4v134.8l.2 1.3v.2l3.7 18.6c1.8 9 10.6 14.8 19.6 12.9 51.3-11.1 90.3 5.5 108.9 16.4 8.6 5 19.2 5 27.8 0a151.3 151.3 0 01108.9-16.4c9 2 17.8-3.8 19.6-12.9l3.7-18.6v-.2l.2-1.3V230a7.5 7.5 0 10-15 0v49.5a170 170 0 00-74-2.2c-22 4.3-39 12.3-49.8 18.4V85c5-3.4 16.2-10.3 32.2-15.9 29.3-10 59.8-11 90.8-2.8.4.2.8.5.8 1v127.6a7.5 7.5 0 1015 0v-40.5h26.4v201.4H83.3v-22.3a7.5 7.5 0 10-15 0v22.9c0 8 6.4 14.4 14.4 14.4h346.6c8 0 14.4-6.5 14.4-14.4V153.7c0-7.9-6.4-14.3-14.4-14.3h-27v-20.2h43.1c10.2 0 18.5 8.3 18.5 18.5V391H48.1zM183.7 406h144.6v7.5c0 4.2-3.4 7.5-7.5 7.5H191.2a7.5 7.5 0 01-7.5-7.5zm273 45.1H55.3C33 451.1 15 433.1 15 411a5 5 0 015-5h148.7v7.6a22.6 22.6 0 0022.5 22.5h129.6a22.6 22.6 0 0022.5-22.5V406h148.8a5 5 0 014.9 4.9c0 22.2-18 40.2-40.2 40.2z"/>
-</svg>
+                <path
+                  d="M154.5 124.3a71.4 71.4 0 0163 9 7.5 7.5 0 009.4-11.8c-1.3-1-32-25-76.7-11.5a7.5 7.5 0 004.3 14.3zM154.5 175a71.4 71.4 0 0163 9 7.5 7.5 0 009.4-11.8c-1.3-1-32-25-76.7-11.5a7.5 7.5 0 004.3 14.4zM217.5 234.7A7.5 7.5 0 00227 223c-1.3-1-32-25.1-76.7-11.5a7.5 7.5 0 004.3 14.3 71.4 71.4 0 0163 8.9zM361.8 110a86.4 86.4 0 00-76.7 11.5 7.5 7.5 0 009.4 11.7c1-.8 26.1-20 63-8.9a7.5 7.5 0 104.3-14.3zM361.8 160.7a86.4 86.4 0 00-76.7 11.5 7.5 7.5 0 009.4 11.8c1-.9 26.1-20.1 63-9a7.5 7.5 0 104.3-14.3zM361.8 211.5a86.4 86.4 0 00-76.7 11.5 7.5 7.5 0 009.4 11.7c1-.8 26.1-20 63-8.9a7.5 7.5 0 104.3-14.3z" />
+                <path
+                  d="M492 391h-13V137.7c0-18.5-15.1-33.5-33.6-33.5h-43.1v-37a16 16 0 00-12-15.4 170 170 0 00-100.1 3.4A154 154 0 00256 71.9c-6-4-17.8-11-34.2-16.7a170 170 0 00-100.1-3.4 16 16 0 00-12 15.5v36.9H66.6c-18.5 0-33.5 15-33.5 33.5V391H19.9C9 391 0 399.9 0 410.9A55.3 55.3 0 0055.2 466h401.6A55.3 55.3 0 00512 411c0-11-9-20-20-20zm-222-81.8a153.7 153.7 0 01116-14.7l-2.3 12c-.2.7-1 1.2-1.7 1a166.3 166.3 0 00-119.7 18.2c-3.9 2.3-8.7 2.3-12.6 0A166.3 166.3 0 00130 307.5c-.8.2-1.5-.3-1.7-1l-2.4-12a153.7 153.7 0 01116.2 14.7c8.6 5 19.2 5 27.8 0zm-145.3-242c0-.4.4-.7.8-.9 31-8.2 61.5-7.2 90.8 2.8 16 5.6 27.3 12.5 32.2 15.8v210.7c-10.7-6.1-27.8-14-49.8-18.4a170 170 0 00-74 2.2zm-76.6 70.5c0-10.2 8.3-18.5 18.5-18.5h43.1v20.2h-27c-8 0-14.4 6.4-14.4 14.3v144.8a7.5 7.5 0 1015 0V154.4h26.4v134.8l.2 1.3v.2l3.7 18.6c1.8 9 10.6 14.8 19.6 12.9 51.3-11.1 90.3 5.5 108.9 16.4 8.6 5 19.2 5 27.8 0a151.3 151.3 0 01108.9-16.4c9 2 17.8-3.8 19.6-12.9l3.7-18.6v-.2l.2-1.3V230a7.5 7.5 0 10-15 0v49.5a170 170 0 00-74-2.2c-22 4.3-39 12.3-49.8 18.4V85c5-3.4 16.2-10.3 32.2-15.9 29.3-10 59.8-11 90.8-2.8.4.2.8.5.8 1v127.6a7.5 7.5 0 1015 0v-40.5h26.4v201.4H83.3v-22.3a7.5 7.5 0 10-15 0v22.9c0 8 6.4 14.4 14.4 14.4h346.6c8 0 14.4-6.5 14.4-14.4V153.7c0-7.9-6.4-14.3-14.4-14.3h-27v-20.2h43.1c10.2 0 18.5 8.3 18.5 18.5V391H48.1zM183.7 406h144.6v7.5c0 4.2-3.4 7.5-7.5 7.5H191.2a7.5 7.5 0 01-7.5-7.5zm273 45.1H55.3C33 451.1 15 433.1 15 411a5 5 0 015-5h148.7v7.6a22.6 22.6 0 0022.5 22.5h129.6a22.6 22.6 0 0022.5-22.5V406h148.8a5 5 0 014.9 4.9c0 22.2-18 40.2-40.2 40.2z" />
+              </svg>
 
             </ul>
             <ul>
@@ -36,6 +38,12 @@
           </li>
         </div>
       </div>
+    </div> -->
+    <div id="products_header" class="text-2xl md:text-3xl mt-16 text-left w-full px-16">
+      <h3>Artificial Intelligence für ihr Herzensgut.</h3>
+    </div>
+    <div id="products" class="w-full h-128 mt-4 bg-main_primary">
+
     </div>
     <div id="dsgvo" class="text-2xl mt-32 flex-col text-main_primary text-center w-128">
       <svg class="svg-2xl" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -53,24 +61,24 @@
       <div id="option" class="flex justify-between">
         <template v-if="input.active_reg == true">
           <div
-            class="button bg-main_secondary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded mx-2 cursor-pointer"
+            class="button bg-main_secondary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded-tl-xl rounded-bl-xl ml-2 cursor-pointer"
             v-on:click="set_active('correlation')">
             <p>Korrelation</p>
           </div>
           <div
-            class="button bg-main_primary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded mx-2 cursor-pointer"
+            class="button bg-main_primary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded-tr-xl rounded-br-xl mr-2 cursor-pointer"
             v-on:click="set_active('regression')">
             <p>Prognose</p>
           </div>
         </template>
         <template v-else>
           <div
-            class="button bg-main_primary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded mx-2 cursor-pointer"
+            class="button bg-main_primary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded-tl-xl rounded-bl-xl ml-2 cursor-pointer"
             v-on:click="set_active('correlation')">
             <p>Korrelation</p>
           </div>
           <div
-            class="button bg-main_secondary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded mx-2 cursor-pointer"
+            class="button bg-main_secondary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded-tr-xl rounded-br-xl mr-2 cursor-pointer"
             v-on:click="set_active('regression')">
             <p>Prognose</p>
           </div>

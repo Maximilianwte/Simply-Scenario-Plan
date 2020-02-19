@@ -31,19 +31,19 @@ body {
   }
   
   .theme_dark {
-      --bg-primary: #222222;
-      --main-primary: #868686;
-      --bg-secondary: #363636;
-      --main-secondary: #AEAEAE;
+      --bg-primary: #344c6b;
+      --main-primary: rgb(255, 255, 255);
+      --bg-secondary: #7488a0;
+      --main-secondary: rgb(238, 238, 238);
       --main-focus: #e84855;
       --main-focus-active: #ec6973;
     }
     
     .theme_light {
       --bg-primary: rgb(255, 255, 255);
-      --main-primary: #5d6f85;
+      --main-primary: #344c6b;
       --bg-secondary: rgb(238, 238, 238);
-      --main-secondary: #818fa0;
+      --main-secondary: #7488a0;
       --main-focus: #e84855;
       --main-focus-active: #ec6973;
     }
