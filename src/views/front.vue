@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full flex-col justify-around mb-8">
-    <div id="head" class="mb-8 h-96 lg:h-128 w-full">
+  <div class="w-full flex-col justify-around">
+    <div id="head" class="h-96 lg:h-128 w-full">
       <div class="img w-full h-full" :style="get_background_image"></div>
     </div>
     <!-- <div id="products" class="w-full flex justify-around mt-16">
@@ -56,30 +56,31 @@
       </svg>
       <h5 class="mt-4">Alle Daten werden natürlich DSGVO konform von uns für sie verarbeitet.</h5>
     </div>
-    <div id="contact" class="w-full mt-24 lg:w-2/3 mt-20 flex-col rounded-xl lg:border-2 py-12 mb-12">
-      <p class="mb-2">Ihre gewünschten Reporte:</p>
-      <div id="option_product" class="flex justify-between">
+    <div id="contact" class="w-full mt-24 lg:w-4/5 mt-20 flex-col rounded-xl lg:border-2 py-12 mb-12">
+      <p class="mb-2">Ihre gewünschten Reporte: ({{input.nProducts}}/4)</p>
+      <div id="option_product" class="flex-col md:flex-row justify-between w-full xl:w-3/4 px-32">
         <div :class="get_class('product')"
-          class="button text-bg_primary py-4 px-8 lg:px-16 rounded-tl-xl rounded-bl-xl ml-2 cursor-pointer"
+          class="button text-bg_primary py-4 w-32 md:w-1/4 text-center rounded-tl-xl rounded-tr-xl md:rounded-tr-none md:rounded-bl-xl md:ml-2 cursor-pointer"
           v-on:click="set_active('product')">
           <p>Produktsegment</p>
         </div>
-        <div :class="get_class('finance')" class="button text-bg_primary py-4 px-8 lg:px-16 cursor-pointer"
+        <div :class="get_class('finance')" class="button text-bg_primary py-4 w-32 md:w-1/4 text-center cursor-pointer"
           v-on:click="set_active('finance')">
           <p>Finanzen</p>
         </div>
-        <div :class="get_class('marketing')" class="button text-bg_primary py-4 px-8 lg:px-16 cursor-pointer"
+        <div :class="get_class('marketing')"
+          class="button text-bg_primary py-4 w-32 md:w-1/4 text-center cursor-pointer"
           v-on:click="set_active('marketing')">
           <p>Marketing</p>
         </div>
         <div :class="get_class('supplyChain')"
-          class="button text-bg_primary py-4 px-8 lg:px-16 rounded-tr-xl rounded-br-xl mr-2 cursor-pointer"
+          class="button text-bg_primary py-4 w-32 md:w-1/4 text-center rounded-bl-xl md:rounded-bl-none md:rounded-tr-xl rounded-br-xl md:mr-2 cursor-pointer"
           v-on:click="set_active('supplyChain')">
           <p>Supply Chain</p>
         </div>
       </div>
       <p class="mt-12">Ihre Anzahl an Mitarbeitern:</p>
-      <div id="option_size" class="flex justify-between mt-2">
+      <div id="option_size" class="flex justify-center mt-2 w-5/6 md:w-full">
         <div :class="get_class_size('1')"
           class="button text-bg_primary py-4 px-8 lg:px-16 rounded-tl-xl rounded-bl-xl ml-2 cursor-pointer"
           v-on:click="input.size = 1">
@@ -95,12 +96,13 @@
           <p>Über 50</p>
         </div>
       </div>
-      <div id="price" class="text-lg text-center mt-6 w-96 lg:w-128">
+      <div id="price" class="text-lg text-center mt-6 w-5/6 md:w-96 lg:w-128">
         <p>{{get_price_text}}</p>
       </div>
       <div id="send" class="mt-20 text-lg">
-        <input type="email" placeholder="Email" class="mb-6 w-full border-2 border-main_secondary px-2 py-1">
-        <div
+        <input type="email" placeholder="Email" v-model="input.email"
+          class="mb-6 w-full border-2 border-main_secondary px-2 py-1">
+        <div v-on:click="pushSend"
           class="button bg-main_focus hover:bg-main_focus_active text-bg_primary py-4 px-12 lg:px-24 rounded mx-2 cursor-pointer">
           <p>Anfrage senden</p>
         </div>
@@ -110,6 +112,8 @@
 </template>
 
 <script>
+  import data_functions from "../data/data_functions";
+
   export default {
     name: 'home',
     data() {
@@ -119,15 +123,17 @@
             product: true,
             finance: true,
             marketing: true,
-            supply_chain: true
+            supplyChain: true
           },
-          size: 1
+          size: 1,
+          nProducts: 4,
+          email: ""
         },
         prices: {
           product: 90,
           finance: 140,
           marketing: 70,
-          supply_chain: 120
+          supplyChain: 120
         }
       }
     },
@@ -152,8 +158,8 @@
               case "marketing":
                 price = (this.input.products.marketing == true) ? price + this.prices.marketing : price
                 break;
-              case "supply_chain":
-                price = (this.input.products.supply_chain == true) ? price + this.prices.supply_chain : price
+              case "supplyChain":
+                price = (this.input.products.supplyChain == true) ? price + this.prices.supplyChain : price
                 break;
             }
           }
@@ -164,7 +170,7 @@
         var products = "";
         for (var item in this.input.products) {
           if (products.length > 0 && products.slice(-1) != " ") {
-            products = products + ", "
+            products = (this.input.products[item] == true) ? products + ", " : products
           }
           switch (item) {
             case "product":
@@ -176,8 +182,8 @@
             case "marketing":
               products = (this.input.products.marketing == true) ? products + "Marketinganalyse" : products;
               break;
-            case "supply_chain":
-              products = (this.input.products.supply_chain == true) ? products + "Supply Chain Analyse" : products;
+            case "supplyChain":
+              products = (this.input.products.supplyChain == true) ? products + "Supply Chain Analyse" : products;
               break;
           }
         }
@@ -186,35 +192,13 @@
     },
     methods: {
       set_active: function (input) {
-        if (input == "product") {
-          this.input.products.product = !this.input.products.product
-        } else if (input == "finance") {
-          this.input.products.finance = !this.input.products.finance
-        } else if (input == "marketing") {
-          this.input.products.marketing = !this.input.products.marketing
-        } else if (input == "supplyChain") {
-          this.input.products.supply_chain = !this.input.products.supply_chain
+        if (this.input.nProducts > 1 || this.input.products[input] == false) {
+          this.input.products[input] = !this.input.products[input]
         }
+        this.get_nProducts();
       },
       get_class(id) {
-        var dataSource = null
-
-        switch (id) {
-          case "product":
-            dataSource = this.input.products.product
-            break;
-          case "finance":
-            dataSource = this.input.products.finance
-            break;
-          case "marketing":
-            dataSource = this.input.products.marketing
-            break;
-          case "supplyChain":
-            dataSource = this.input.products.supply_chain
-            break;
-        }
-
-        if (dataSource == true) {
+        if (this.input.products[id] == true) {
           return "bg-main_primary hover:bg-main_primary"
         } else {
           return "bg-main_secondary hover:bg-main_primary"
@@ -225,6 +209,35 @@
           return "bg-main_primary hover:bg-main_primary"
         } else {
           return "bg-main_secondary hover:bg-main_primary"
+        }
+      },
+      get_nProducts() {
+        var nProducts = 0
+        for (var item in this.input.products) {
+          if (this.input.products[item] == true) {
+            nProducts++
+          };
+        }
+        this.input.nProducts = nProducts;
+        return 0;
+      },
+      pushSend() {
+        this.sendRequest();
+        this.$router.push({
+            path: 'buy'
+          });
+      },
+      sendRequest() {
+        var reqObject = {
+          email: this.input.email,
+          size: this.input.size,
+          products: []
+        }
+        if (reqObject.email.length > 5 && reqObject.email.includes("@") && reqObject.email.includes(".")) {
+          for (var item in this.input.products) {
+            reqObject.products.push((this.input.products[item] == true) ? item : null)
+          }
+          data_functions.upload_request(reqObject);
         }
       }
     }

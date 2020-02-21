@@ -9,6 +9,7 @@ module.exports = {
         "156": "46rem"
       },
       borderRadius: {
+        'none': '0px',
         'full': '9999px'
       }
      },
