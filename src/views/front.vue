@@ -43,7 +43,6 @@
       <h3>Artificial Intelligence für ihr Herzensgut.</h3>
     </div>
     <div id="products" class="w-full h-128 mt-4 bg-main_primary">
-
     </div>
     <div id="dsgvo" class="text-2xl mt-32 flex-col text-main_primary text-center w-128">
       <svg class="svg-2xl" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -58,37 +57,42 @@
       <h5 class="mt-4">Alle Daten werden natürlich DSGVO konform von uns für sie verarbeitet.</h5>
     </div>
     <div id="contact" class="w-full mt-24 lg:w-2/3 mt-20 flex-col rounded-xl lg:border-2 py-12 mb-12">
-      <div id="option" class="flex justify-between">
-        <template v-if="input.active_reg == true">
-          <div
-            class="button bg-main_secondary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded-tl-xl rounded-bl-xl ml-2 cursor-pointer"
-            v-on:click="set_active('correlation')">
-            <p>Korrelation</p>
-          </div>
-          <div
-            class="button bg-main_primary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded-tr-xl rounded-br-xl mr-2 cursor-pointer"
-            v-on:click="set_active('regression')">
-            <p>Prognose</p>
-          </div>
-        </template>
-        <template v-else>
-          <div
-            class="button bg-main_primary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded-tl-xl rounded-bl-xl ml-2 cursor-pointer"
-            v-on:click="set_active('correlation')">
-            <p>Korrelation</p>
-          </div>
-          <div
-            class="button bg-main_secondary hover:bg-main_primary text-bg_primary py-4 px-8 lg:px-16 rounded-tr-xl rounded-br-xl mr-2 cursor-pointer"
-            v-on:click="set_active('regression')">
-            <p>Prognose</p>
-          </div>
-        </template>
+      <p class="mb-2">Ihre gewünschten Reporte:</p>
+      <div id="option_product" class="flex justify-between">
+        <div :class="get_class('product')"
+          class="button text-bg_primary py-4 px-8 lg:px-16 rounded-tl-xl rounded-bl-xl ml-2 cursor-pointer"
+          v-on:click="set_active('product')">
+          <p>Produktsegment</p>
+        </div>
+        <div :class="get_class('finance')" class="button text-bg_primary py-4 px-8 lg:px-16 cursor-pointer"
+          v-on:click="set_active('finance')">
+          <p>Finanzen</p>
+        </div>
+        <div :class="get_class('marketing')" class="button text-bg_primary py-4 px-8 lg:px-16 cursor-pointer"
+          v-on:click="set_active('marketing')">
+          <p>Marketing</p>
+        </div>
+        <div :class="get_class('supplyChain')"
+          class="button text-bg_primary py-4 px-8 lg:px-16 rounded-tr-xl rounded-br-xl mr-2 cursor-pointer"
+          v-on:click="set_active('supplyChain')">
+          <p>Supply Chain</p>
+        </div>
       </div>
-      <div id="variables" class="text-left w-64 lg:w-96 mt-4">
-        <p>Variablen zu Berechnen:</p>
-        <div class="slider flex justify-between mt-4">
-          <input id="range_variables" type="range" min="1" max="20" step="1" v-model="input.variables">
-          <p class="label">{{input.variables}}</p>
+      <p class="mt-12">Ihre Anzahl an Mitarbeitern:</p>
+      <div id="option_size" class="flex justify-between mt-2">
+        <div :class="get_class_size('1')"
+          class="button text-bg_primary py-4 px-8 lg:px-16 rounded-tl-xl rounded-bl-xl ml-2 cursor-pointer"
+          v-on:click="input.size = 1">
+          <p>Unter 10</p>
+        </div>
+        <div :class="get_class_size('3')" class="button text-bg_primary py-4 px-8 lg:px-16 cursor-pointer"
+          v-on:click="input.size = 3">
+          <p>10 - 50</p>
+        </div>
+        <div :class="get_class_size('6')"
+          class="button text-bg_primary py-4 px-8 lg:px-16 rounded-tr-xl rounded-br-xl mr-2 cursor-pointer"
+          v-on:click="input.size = 6">
+          <p>Über 50</p>
         </div>
       </div>
       <div id="price" class="text-lg text-center mt-6 w-96 lg:w-128">
@@ -111,75 +115,118 @@
     data() {
       return {
         input: {
-          active_reg: true,
-          variables: 1
+          products: {
+            product: true,
+            finance: true,
+            marketing: true,
+            supply_chain: true
+          },
+          size: 1
         },
-        price: {
-          korrelation: 30,
-          regression: 60
-        },
-        factor: 0.195
+        prices: {
+          product: 90,
+          finance: 140,
+          marketing: 70,
+          supply_chain: 120
+        }
       }
     },
     computed: {
-      get_price_text: {
-        get() {
-          if (this.input.active_reg == true) {
-            return "Unser Preis für eine Regressionsanalyse mit " + this.get_variable_text +
-              " sind " + this.get_price + "€. "
-          } else {
-            return "Unser Preis für eine Korrelationsanalyse mit " + this.get_variable_text +
-              " sind " + this.get_price + "€. "
-          }
-        }
-      },
       get_background_image() {
         return {
-          'background-image': 'url(' + require('../assets/repair.jpg') + ')'
+          'background-image': 'url(' + require('../assets/coffee.jpg') + ')'
         }
       },
       get_price: {
         get() {
-          if (this.input.active_reg == true) {
-            return Math.round((this.input.variables * this.price.regression - (((this.input.variables - 1) ** 1.32) *
-              this.factor * this.price.regression)) * 100) / 100
-          } else {
-            return Math.round((this.input.variables * this.price.korrelation - (((this.input.variables - 1) ** 1.32) *
-              this.factor * this.price.korrelation)) * 100) / 100
+          var price = 120;
+          var key = null;
+          for (var item in this.input.products) {
+            switch (item) {
+              case "product":
+                price = (this.input.products.product == true) ? price + this.prices.product : price
+                break;
+              case "finance":
+                price = (this.input.products.finance == true) ? price + this.prices.finance : price
+                break;
+              case "marketing":
+                price = (this.input.products.marketing == true) ? price + this.prices.marketing : price
+                break;
+              case "supply_chain":
+                price = (this.input.products.supply_chain == true) ? price + this.prices.supply_chain : price
+                break;
+            }
           }
+          return price * this.input.size;
         }
       },
-      get_variable_text: {
-        get() {
-          if (this.input.variables == 1) {
-            return "einer Variable"
-          } else {
-            return String(this.input.variables) + " Variablen"
+      get_price_text() {
+        var products = "";
+        for (var item in this.input.products) {
+          if (products.length > 0 && products.slice(-1) != " ") {
+            products = products + ", "
+          }
+          switch (item) {
+            case "product":
+              products = (this.input.products.product == true) ? "Produktanalyse" : products;
+              break;
+            case "finance":
+              products = (this.input.products.finance == true) ? products + "Finanzanalyse" : products;
+              break;
+            case "marketing":
+              products = (this.input.products.marketing == true) ? products + "Marketinganalyse" : products;
+              break;
+            case "supply_chain":
+              products = (this.input.products.supply_chain == true) ? products + "Supply Chain Analyse" : products;
+              break;
           }
         }
+        return "Unser Preis für ihre Analyse mit der " + products + " sind " + this.get_price + "€."
       }
     },
     methods: {
       set_active: function (input) {
-        if (input == "regression") {
-          this.input.active_reg = true
+        if (input == "product") {
+          this.input.products.product = !this.input.products.product
+        } else if (input == "finance") {
+          this.input.products.finance = !this.input.products.finance
+        } else if (input == "marketing") {
+          this.input.products.marketing = !this.input.products.marketing
+        } else if (input == "supplyChain") {
+          this.input.products.supply_chain = !this.input.products.supply_chain
+        }
+      },
+      get_class(id) {
+        var dataSource = null
+
+        switch (id) {
+          case "product":
+            dataSource = this.input.products.product
+            break;
+          case "finance":
+            dataSource = this.input.products.finance
+            break;
+          case "marketing":
+            dataSource = this.input.products.marketing
+            break;
+          case "supplyChain":
+            dataSource = this.input.products.supply_chain
+            break;
+        }
+
+        if (dataSource == true) {
+          return "bg-main_primary hover:bg-main_primary"
         } else {
-          this.input.active_reg = false
+          return "bg-main_secondary hover:bg-main_primary"
+        }
+      },
+      get_class_size(id) {
+        if (this.input.size == id) {
+          return "bg-main_primary hover:bg-main_primary"
+        } else {
+          return "bg-main_secondary hover:bg-main_primary"
         }
       }
     }
   }
 </script>
-
-/*
-
-<svg height="512" viewBox="0 0 56 49" width="512" xmlns="http://www.w3.org/2000/svg">
-  <g fill="#000" fill-rule="nonzero">
-    <path
-      d="M52.2 17h.2c.2.1 1 .8 1.8 4l-3.2.3v-1c0-2.1 0-2.9 1.2-3.3zM48.8 24.2c.1-.3.4-.6.7-.6l.5-.1c1.8-.3 3.6-.5 5.3-.5.3 0 .6.2.6.4.2 2 .1 4-.3 6a15 15 0 01-1.7 4 22.9 22.9 0 00-6.1-7.2c.4-.6.8-1.3 1-2zM39.1 28.4l5-1.9c5.4 2.1 8.7 9 9.3 10.3-.6 1-2.4 3.3-7 5-1.5.7-3.2 1-4.9 1.2h-1.3a8 8 0 01-2-.4l-.2-1c-.5-2.4-1.3-8.7 1.1-13.2zM35.7 40.4c-1.3-.4-2.6-1.1-3.7-2a17.2 17.2 0 01-3.8-4.4c0-.2 0-.5.2-.7 1.4-1.2 2.9-2.3 4.4-3.3.2 0 .4-.2.5-.3.3-.1.6-.1.8 0a8 8 0 002 1c-.7 3.1-.9 6.4-.4 9.7zM27 26.7l.3-.2c1-.4 1.5 0 2.8 1.7l.7.8-2.7 2c-1-2.3-1.2-3.7-1-4.3zM0 28.5c0-4 .6-8.5 5.2-8.5 1 0 1.9.1 2.8.4v2.2c-.9-.4-1.9-.6-2.8-.6-3 0-3.2 3-3.2 6.5C2 31.9 3.2 34 5.2 34c1 0 1.9-.2 2.8-.5v.5l.1 1.6c-1 .2-2 .4-3 .4C2 36 0 33.2 0 28.5z" />
-    <path
-      d="M10.2 36l-.2-2V18c0-.6.4-1 1-1h22c.6 0 1 .4 1 1v9.6l-1.5.3a23 23 0 01-.8-1c-1.2-1.4-2.6-3.2-5.1-2.3-.7.3-1.2.8-1.4 1.4-.5 1.3 0 3.5 1.4 6.4-.6.8-.6 1.9 0 2.7 1 1.9 2.5 3.5 4.2 5l.5.3A9 9 0 0125 43h-6a9 9 0 01-8.8-7zM56 47c0 1-1.4 2-3 2H7c-1.6 0-3-1-3-2v-2H56zM21 12a1 1 0 01-1-1c0-1.2.4-2.3 1.2-3.1a2.6 2.6 0 000-3.8c-.8-.8-1.2-2-1.2-3.1a1 1 0 012 0c0 .7.3 1.4.8 1.9a4.6 4.6 0 010 6.2c-.5.5-.8 1.2-.8 1.9 0 .6-.4 1-1 1zM15 12a1 1 0 01-1-1c0-1.2.4-2.3 1.2-3.1a2.6 2.6 0 000-3.8c-.8-.8-1.2-2-1.2-3.1a1 1 0 012 0c0 .7.3 1.4.8 1.9a4.6 4.6 0 010 6.2c-.5.5-.8 1.2-.8 1.9 0 .6-.4 1-1 1zM27 12a1 1 0 01-1-1c0-1.2.4-2.3 1.2-3.1a2.6 2.6 0 000-3.8c-.8-.8-1.2-2-1.2-3.1a1 1 0 012 0c0 .7.3 1.4.8 1.9a4.6 4.6 0 010 6.2c-.5.5-.8 1.2-.8 1.9 0 .6-.4 1-1 1z" />
-  </g>
-</svg>
-
-*/
