@@ -25,10 +25,20 @@ let logic_functions = {
     },
     upload_requestx(in_file) {
         console.log("here")
-        $.post('https://determined-meitner-4c20bf.netlify.com/.netlify/functions/send_upload',
-        function(in_file, status, jqXHR) {
-                 $('p').append('status: ' + status + ', data: ' + in_file);
-         })
+        $.ajax({
+            url: 'https://app.netlify.com/sites/determined-meitner-4c20bf/functions/send_upload',
+            dataType: 'json',
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify(in_file),
+            processData: false,
+            success: function( data, textStatus, jQxhr ){
+                $('#response pre').html( JSON.stringify( data ) );
+            },
+            error: function( jqXhr, textStatus, errorThrown ){
+                console.log( errorThrown );
+            }
+        });
     },
     set_authCookie(input = 7) {
         var d = new Date();
