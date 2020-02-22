@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev-functions": "netlify-lambda serve functions",
-    "build-functions": "netlify-lambda build functions"
+    "dev-functions": "netlify-lambda serve-functions",
+    "build-functions": "netlify-lambda build-functions"
   },
   "dependencies": {
     "@material/slider": "^5.0.0",
