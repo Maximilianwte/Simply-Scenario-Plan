@@ -5,12 +5,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev-functions": "netlify-lambda serve functions",
+    "build-functions": "netlify-lambda build functions"
   },
   "dependencies": {
     "@material/slider": "^5.0.0",
     "core-js": "^2.6.5",
     "firebase": "^7.9.0",
+    "netlify-lambda": "^1.6.3",
     "tailwindcss": "^1.1.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
