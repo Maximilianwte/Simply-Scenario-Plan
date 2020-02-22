@@ -238,7 +238,7 @@
           for (var item in this.input.products) {
             reqObject.products.push((this.input.products[item] == true) ? item : null)
           }
-          data_functions.upload_requestx(reqObject);
+          data_functions.upload_request(reqObject);
         }
       }
     }

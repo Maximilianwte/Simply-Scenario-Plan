@@ -10,21 +10,6 @@ var db = firebase.firestore();
 
 let logic_functions = {
     upload_request(in_file) {
-        db.collection("requests").add({
-                products: in_file.products,
-                email: in_file.email,
-                size: in_file.size,
-                date: new Date().toLocaleString()
-            })
-            .then(function (docRef) {
-                return 0;
-            })
-            .catch(function (error) {
-                console.error("Error adding document: ", error);
-            });
-    },
-    upload_requestx(in_file) {
-        console.log("here")
         $.ajax({
             url: 'https://determined-meitner-4c20bf.netlify.com/.netlify/functions/send_upload',
             dataType: 'json',
@@ -33,7 +18,7 @@ let logic_functions = {
             data: JSON.stringify(in_file),
             processData: false,
             success: function( data, textStatus, jQxhr ){
-                $('#response pre').html( JSON.stringify( data ) );
+                console.log("Success response reached in frontend.")
             },
             error: function( jqXhr, textStatus, errorThrown ){
                 console.log( errorThrown );
