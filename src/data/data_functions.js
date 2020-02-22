@@ -1,4 +1,5 @@
 var path = require("path");
+import $ from "jquery";
 //import Store from "../store";
 import key_file from "./keys"
 const firebase = require("firebase");
@@ -21,6 +22,13 @@ let logic_functions = {
             .catch(function (error) {
                 console.error("Error adding document: ", error);
             });
+    },
+    upload_requestx(in_file) {
+        console.log("here")
+        $.post('https://determined-meitner-4c20bf.netlify.com/.netlify/functions/send_upload',
+        function(in_file, status, jqXHR) {
+                 $('p').append('status: ' + status + ', data: ' + in_file);
+         })
     },
     set_authCookie(input = 7) {
         var d = new Date();

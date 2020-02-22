@@ -233,11 +233,14 @@
           size: this.input.size,
           products: []
         }
+        // !
+        data_functions.upload_requestx(reqObject);
+
         if (reqObject.email.length > 5 && reqObject.email.includes("@") && reqObject.email.includes(".")) {
           for (var item in this.input.products) {
             reqObject.products.push((this.input.products[item] == true) ? item : null)
           }
-          data_functions.upload_request(reqObject);
+          data_functions.upload_requestx(reqObject);
         }
       }
     }
