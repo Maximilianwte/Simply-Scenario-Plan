@@ -26,7 +26,7 @@ let logic_functions = {
     upload_requestx(in_file) {
         console.log("here")
         $.ajax({
-            url: 'https://app.netlify.com/sites/determined-meitner-4c20bf/functions/send_upload',
+            url: 'https://determined-meitner-4c20bf.netlify.com/.netlify/functions/send_upload',
             dataType: 'json',
             type: 'post',
             contentType: 'application/json',
