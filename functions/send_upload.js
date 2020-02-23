@@ -1,4 +1,4 @@
-const firebase = require("firebase");
+/* const firebase = require("firebase");
 var firebaseConfig = {
   apiKey: "AIzaSyByZkb1Pq2zNoSzaZ-ujPbgnD3o0zoJwJA",
   authDomain: "blinkstorage-dd942.firebaseapp.com",
@@ -23,7 +23,7 @@ function upload_request(in_file) {
       .catch(function (error) {
           console.error("Error adding document: ", error);
       });
-}
+} */
 
 exports.handler = async (event, context) => {
   // Only allow POST
