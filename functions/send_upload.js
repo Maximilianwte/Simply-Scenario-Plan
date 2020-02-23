@@ -39,8 +39,10 @@ exports.handler = async (event, context) => {
   const data = JSON.parse(event.body);
   //const params = querystring.parse(event.body);
   //const name = params.name || "World";
-  console.log("Request worked with data: " + data)
-  upload_request(data)
+  console.log("Request worked with data:")
+  console.log(data)
+  // Upload off for firebase.
+  //upload_request(data)
   return {
     statusCode: 200,
     body: "Upload to database worked."
