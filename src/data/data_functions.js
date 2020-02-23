@@ -1,36 +1,13 @@
-var path = require("path");
 import $ from "jquery";
-//import Store from "../store";
-import key_file from "./keys"
-const firebase = require("firebase");
-var firebaseConfig = key_file;
-firebase.initializeApp(firebaseConfig);
-
-var db = firebase.firestore();
 
 let logic_functions = {
     upload_request(in_file) {
-
-        /* $.post('https://determined-meitner-4c20bf.netlify.com/.netlify/functions/send_upload',
+        $.post("http://localhost:8888/.netlify/functions/send_upload",
             JSON.stringify(in_file),
-            function (data, status, jqXHR) {
-                console.log("Success response reached in frontend.")
-            }) */
-
-        $.ajax({
-            url: 'https://determined-meitner-4c20bf.netlify.com/.netlify/functions/send_upload',
-            dataType: 'json',
-            type: 'post',
-            contentType: 'application/json',
-            data: JSON.stringify(in_file),
-            processData: false,
-            success: function (data, textStatus, jQxhr) {
-                console.log("Success response reached in frontend.")
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
-                console.log(errorThrown);
+            function (response) {
+                return 0;
             }
-        });
+        );
     },
     set_authCookie(input = 7) {
         var d = new Date();
