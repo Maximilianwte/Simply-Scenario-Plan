@@ -10,20 +10,27 @@ var db = firebase.firestore();
 
 let logic_functions = {
     upload_request(in_file) {
-        $.ajax({
-            url: 'https://determined-meitner-4c20bf.netlify.com/.netlify/functions/send_upload',
-            dataType: 'json',
-            type: 'post',
-            contentType: 'application/json',
-            data: JSON.stringify(in_file),
-            processData: false,
-            success: function( data, textStatus, jQxhr ){
+
+        $.post('https://determined-meitner-4c20bf.netlify.com/.netlify/functions/send_upload',
+            JSON.stringify(in_file),
+            function (data, status, jqXHR) {
                 console.log("Success response reached in frontend.")
-            },
-            error: function( jqXhr, textStatus, errorThrown ){
-                console.log( errorThrown );
-            }
-        });
+            })
+
+        /*   $.ajax({
+              url: 'https://determined-meitner-4c20bf.netlify.com/.netlify/functions/send_upload',
+              dataType: 'json',
+              type: 'post',
+              contentType: 'application/json',
+              data: JSON.stringify(in_file),
+              processData: false,
+              success: function( data, textStatus, jQxhr ){
+                  console.log("Success response reached in frontend.")
+              },
+              error: function( jqXhr, textStatus, errorThrown ){
+                  console.log( errorThrown );
+              }
+          }); */
     },
     set_authCookie(input = 7) {
         var d = new Date();
