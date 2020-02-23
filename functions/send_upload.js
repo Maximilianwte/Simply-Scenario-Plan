@@ -1,4 +1,4 @@
-/* const firebase = require("firebase");
+const firebase = require("firebase");
 var firebaseConfig = {
   apiKey: "AIzaSyByZkb1Pq2zNoSzaZ-ujPbgnD3o0zoJwJA",
   authDomain: "blinkstorage-dd942.firebaseapp.com",
@@ -10,7 +10,7 @@ var firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig);
 
-function upload_request(in_file) {
+/* function upload_request(in_file) {
   db.collection("requests").add({
           products: in_file.products,
           email: in_file.email,
@@ -37,10 +37,7 @@ exports.handler = async (event, context) => {
   // When the method is POST, the name will no longer be in the event’s
   // queryStringParameters – it’ll be in the event body encoded as a query string
   const data = JSON.parse(event.body);
-  //const params = querystring.parse(event.body);
-  //const name = params.name || "World";
-  console.log("Request worked with data:")
-  console.log(data)
+
   // Upload off for firebase.
   //upload_request(data)
   return {
