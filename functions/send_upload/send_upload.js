@@ -11,7 +11,7 @@ admin.initializeApp({
 });
 let db = admin.firestore();
 
-function upload_request(in_file) {
+/* function upload_request(in_file) {
   db.collection("requests").add({
       products: in_file.products,
       email: in_file.email,
@@ -24,7 +24,7 @@ function upload_request(in_file) {
     .catch(function (error) {
       console.error("Error adding document: ", error);
     });
-}
+} */
 
 // Express
 const app = express();
