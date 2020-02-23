@@ -37,7 +37,7 @@ exports.handler = async (event, context) => {
   // When the method is POST, the name will no longer be in the event’s
   // queryStringParameters – it’ll be in the event body encoded as a query string
   const data = JSON.parse(event.body);
-
+  console.log(data)
   // Upload off for firebase.
   //upload_request(data)
   return {
