@@ -1,5 +1,5 @@
 const firebase = require("firebase");
-var firebaseConfig = {
+/* var firebaseConfig = {
   apiKey: "AIzaSyByZkb1Pq2zNoSzaZ-ujPbgnD3o0zoJwJA",
   authDomain: "blinkstorage-dd942.firebaseapp.com",
   databaseURL: "https://blinkstorage-dd942.firebaseio.com",
@@ -8,7 +8,7 @@ var firebaseConfig = {
   messagingSenderId: "867910258491",
   appId: "1:867910258491:web:9c8fd240448d70e0"
 }
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig); */
 
 /* function upload_request(in_file) {
   db.collection("requests").add({

@@ -7,15 +7,17 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "dev-functions": "netlify-lambda serve functions",
-    "build-functions": "netlify-lambda build functions",
-    "postinstall": "netlify-lambda install"
+    "build-functions": "netlify-lambda build functions"
   },
   "dependencies": {
     "@material/slider": "^5.0.0",
     "core-js": "^2.6.5",
-    "firebase": "^7.9.0",
+    "express": "^4.17.1",
+    "firebase": "^7.9.1",
+    "firebase-admin": "^8.9.2",
     "jquery": "^3.4.1",
     "netlify-lambda": "^1.6.3",
+    "serverless-http": "^2.3.1",
     "tailwindcss": "^1.1.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
