@@ -31,53 +31,90 @@ body {
   }
   
   .theme_dark {
-      --bg-primary: #344c6b;
-      --main-primary: rgb(255, 255, 255);
-      --bg-secondary: #7488a0;
-      --main-secondary: rgb(238, 238, 238);
-      --main-focus: #e84855;
-      --main-focus-active: #ec6973;
+      --main: #fff;
+      --alternative: #7488a0;
+      --bg: #344c6b;
+      --focus: #e84855;
     }
     
     .theme_light {
-      --bg-primary: rgb(255, 255, 255);
-      --main-primary: #344c6b;
-      --bg-secondary: rgb(238, 238, 238);
-      --main-secondary: #7488a0;
-      --main-focus: #e84855;
-      --main-focus-active: #ec6973;
+      --main: #344c6b;
+      --alternative: #7488a0;
+      --bg: #fff;
+      --focus: #e84855;
     }
 
     .svg-light {
-      stroke: var(--bg-primary);
-      fill: var(--bg-primary);
+      stroke: var(--bg);
+      fill: var(--bg);
     }
   
     svg {
-      stroke: var(--main-primary);
-      fill: var(--main-primary);
-      width: 3rem;
+      stroke: var(--main);
+      fill: var(--main);
       transition: 0.3s;
     }
   
     svg:hover {
-      stroke: var(--main-secondary);
-      fill: var(--main-secondary);
+      stroke: var(--alternative);
+      fill: var(--alternative);
       transition: 0.3s;
-    }
-  
-    .svg-3xl {
-      width: 12rem;
-    }
-
-    .svg-2xl {
-      width: 8rem;
-    }
-
-    .svg-xl {
-      width: 4rem;
     }
 
     li {
       list-style: none;
+    }
+
+    .quarterCircleTopLeft {
+      width: 140px; 
+      height: 140px; 
+      cursor: pointer;
+      border-radius: 140px 0 0 0;
+      -moz-border-radius: 140px 0 0 0;
+      -webkit-border-radius: 140px 0 0 0;
+    }
+    
+    .circle:hover {
+      background: var(--focus)
+    }
+    
+    .quarterCircleTopRight {
+      width: 140px; 
+      height: 140px; 
+      cursor: pointer;
+      border-radius: 0 140px 0 0;
+      -moz-border-radius: 0 140px 0 0;
+      -webkit-border-radius: 0 140px 0 0;
+    }
+    
+    .quarterCircleBottomRight {
+      width: 140px; 
+      height: 140px; 
+      cursor: pointer;
+      border-radius: 0 0 140px 0;
+      -moz-border-radius: 0 0 140px 0;
+      -webkit-border-radius: 0 0 140px 0;
+    }
+    
+    .quarterCircleBottomLeft {
+      width: 140px; 
+      height: 140px; 
+      cursor: pointer;
+      border-radius: 0 0 0 140px;
+      -moz-border-radius: 0 0 0 140px;
+      -webkit-border-radius: 0 0 0 140px;
+    }
+    
+    .right {
+      transform: rotate(-90deg);
+      -webkit-transform: rotate(-90deg);
+    }
+    
+    .left {
+      transform: rotate(90deg);
+      -webkit-transform: rotate(90deg);
+    }
+    
+    #progressBar {
+      transition: 0.5s;
     }

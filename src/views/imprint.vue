@@ -1,7 +1,7 @@
 <template>
     <div id="imprint">
         <div id="message" class="theme_dark bg-bg_primary text-main_primary w-full h-screen flex-col">
-            <h3 class="text-4xl uppercase">The Cognitive Network.</h3>
+            <h3 class="text-4xl uppercase">FinanceX.</h3>
             <div id="contact" class="text-center text-2xl mt-16">
                 <li>
                     <ul>

@@ -6,20 +6,15 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev-functions": "netlify-lambda serve functions",
-    "build-functions": "netlify-lambda build functions",
     "functions": "cd functions/send_upload && npm install --s"
   },
   "dependencies": {
-    "@material/slider": "^5.0.0",
+    "chart.js": "^2.9.3",
     "core-js": "^2.6.5",
-    "express": "^4.17.1",
-    "firebase": "^7.9.1",
-    "firebase-admin": "^8.9.2",
-    "jquery": "^3.4.1",
-    "serverless-http": "^2.3.1",
+    "jquery": "^3.5.1",
     "tailwindcss": "^1.1.2",
     "vue": "^2.6.10",
+    "vue-chartjs": "^3.5.0",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },

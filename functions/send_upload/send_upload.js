@@ -21,6 +21,7 @@ function upload_request(in_file) {
     products: in_file.products,
     email: in_file.email,
     size: in_file.size,
+    price: in_file.price.toString() + "€",
     date: new Date().toLocaleString()
   });
 }
@@ -35,7 +36,7 @@ function upload_request(in_file) {
   router.post('/', function (req, res) {
     var data = JSON.parse(req.body)
     upload_request(data)
-    res.send(JSON.stringify(data))
+    res.send("Send POST worked.")
   })
 
   app.use('/.netlify/functions/send_upload', router);

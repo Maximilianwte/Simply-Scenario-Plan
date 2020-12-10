@@ -5,7 +5,7 @@ let logic_functions = {
         $.post("http://localhost:8888/.netlify/functions/send_upload",
             JSON.stringify(in_file),
             function (response) {
-                return 0;
+                return response;
             }
         );
     },

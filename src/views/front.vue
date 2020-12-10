@@ -1,245 +1,98 @@
 <template>
-  <div class="w-full flex-col justify-around">
-    <div id="head" class="h-96 lg:h-128 w-full">
-      <div class="img w-full h-full" :style="get_background_image"></div>
-    </div>
-    <!-- <div id="products" class="w-full flex justify-around mt-16">
-      <div
-        class="container text-center pt-4 w-1/2 h-96 bg-main_primary text-bg_primary rounded-xl flex justify-between">
-        <div id="correlation" class="w-1/2 px-2 py-2 text-xl">
-          <li>
-            <ul class="w-full flex justify-around mb-2">
-              <svg class="svg-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  d="M154.5 124.3a71.4 71.4 0 0163 9 7.5 7.5 0 009.4-11.8c-1.3-1-32-25-76.7-11.5a7.5 7.5 0 004.3 14.3zM154.5 175a71.4 71.4 0 0163 9 7.5 7.5 0 009.4-11.8c-1.3-1-32-25-76.7-11.5a7.5 7.5 0 004.3 14.4zM217.5 234.7A7.5 7.5 0 00227 223c-1.3-1-32-25.1-76.7-11.5a7.5 7.5 0 004.3 14.3 71.4 71.4 0 0163 8.9zM361.8 110a86.4 86.4 0 00-76.7 11.5 7.5 7.5 0 009.4 11.7c1-.8 26.1-20 63-8.9a7.5 7.5 0 104.3-14.3zM361.8 160.7a86.4 86.4 0 00-76.7 11.5 7.5 7.5 0 009.4 11.8c1-.9 26.1-20.1 63-9a7.5 7.5 0 104.3-14.3zM361.8 211.5a86.4 86.4 0 00-76.7 11.5 7.5 7.5 0 009.4 11.7c1-.8 26.1-20 63-8.9a7.5 7.5 0 104.3-14.3z" />
-                <path
-                  d="M492 391h-13V137.7c0-18.5-15.1-33.5-33.6-33.5h-43.1v-37a16 16 0 00-12-15.4 170 170 0 00-100.1 3.4A154 154 0 00256 71.9c-6-4-17.8-11-34.2-16.7a170 170 0 00-100.1-3.4 16 16 0 00-12 15.5v36.9H66.6c-18.5 0-33.5 15-33.5 33.5V391H19.9C9 391 0 399.9 0 410.9A55.3 55.3 0 0055.2 466h401.6A55.3 55.3 0 00512 411c0-11-9-20-20-20zm-222-81.8a153.7 153.7 0 01116-14.7l-2.3 12c-.2.7-1 1.2-1.7 1a166.3 166.3 0 00-119.7 18.2c-3.9 2.3-8.7 2.3-12.6 0A166.3 166.3 0 00130 307.5c-.8.2-1.5-.3-1.7-1l-2.4-12a153.7 153.7 0 01116.2 14.7c8.6 5 19.2 5 27.8 0zm-145.3-242c0-.4.4-.7.8-.9 31-8.2 61.5-7.2 90.8 2.8 16 5.6 27.3 12.5 32.2 15.8v210.7c-10.7-6.1-27.8-14-49.8-18.4a170 170 0 00-74 2.2zm-76.6 70.5c0-10.2 8.3-18.5 18.5-18.5h43.1v20.2h-27c-8 0-14.4 6.4-14.4 14.3v144.8a7.5 7.5 0 1015 0V154.4h26.4v134.8l.2 1.3v.2l3.7 18.6c1.8 9 10.6 14.8 19.6 12.9 51.3-11.1 90.3 5.5 108.9 16.4 8.6 5 19.2 5 27.8 0a151.3 151.3 0 01108.9-16.4c9 2 17.8-3.8 19.6-12.9l3.7-18.6v-.2l.2-1.3V230a7.5 7.5 0 10-15 0v49.5a170 170 0 00-74-2.2c-22 4.3-39 12.3-49.8 18.4V85c5-3.4 16.2-10.3 32.2-15.9 29.3-10 59.8-11 90.8-2.8.4.2.8.5.8 1v127.6a7.5 7.5 0 1015 0v-40.5h26.4v201.4H83.3v-22.3a7.5 7.5 0 10-15 0v22.9c0 8 6.4 14.4 14.4 14.4h346.6c8 0 14.4-6.5 14.4-14.4V153.7c0-7.9-6.4-14.3-14.4-14.3h-27v-20.2h43.1c10.2 0 18.5 8.3 18.5 18.5V391H48.1zM183.7 406h144.6v7.5c0 4.2-3.4 7.5-7.5 7.5H191.2a7.5 7.5 0 01-7.5-7.5zm273 45.1H55.3C33 451.1 15 433.1 15 411a5 5 0 015-5h148.7v7.6a22.6 22.6 0 0022.5 22.5h129.6a22.6 22.6 0 0022.5-22.5V406h148.8a5 5 0 014.9 4.9c0 22.2-18 40.2-40.2 40.2z" />
-              </svg>
-
-            </ul>
-            <ul>
-              <h5>Korrelationsanalyse</h5>
-            </ul>
-          </li>
+  <div id="front" class="w-full">
+    <div id="main" class="flex-col justify-around pt-56">
+      <div id="topRow" class="flex">
+        <div @click="toggleCategorie('electricity')" class="quarterCircleTopLeft circle bg-main"
+          :class="[{'bg-focus': activeCategories.electricity == true}]">
+          <svg class="svg-light h-16 mt-10 ml-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480.096 480.096">
+            <path
+              d="M370.032 178.808h-107.08L292.744 0l-182.68 258.808h108.704l-29.504 221.288 180.768-301.288zm-229.088 64l124.512-176.4-21.4 128.4h97.72L215.352 405.52l21.688-162.712h-96.096z" />
+          </svg>
         </div>
-        <div id="regression" class="w-1/2 px-2 py-2 text-xl">
-          <li>
-            <ul class="w-full flex justify-around mb-2">
-              <svg class="svg-light px-1" viewBox="0 0 480 480.1" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M448 416.1h-24v-16a32 32 0 00-30.7-31.9 216 216 0 10-306.5 0 32 32 0 00-30.7 31.9v16H32a32 32 0 00-32 32v24a8 8 0 008 8h464a8 8 0 008-8v-24a32 32 0 00-32-32zm-408-200a200 200 0 11330 152H110a199.5 199.5 0 01-70-152zm32 184a16 16 0 0116-16h304a16 16 0 0116 16v16H72zm392 64H16v-16a16 16 0 0116-16h416a16 16 0 0116 16zm0 0" />
-                <path
-                  d="M296 136.1a30.6 30.6 0 0132 32 8 8 0 0016 0 30.6 30.6 0 0132-32 8 8 0 000-16 30.6 30.6 0 01-32-32 8 8 0 00-16 0 30.6 30.6 0 01-32 32 8 8 0 000 16zm40-20.4c3.3 5 7.5 9.1 12.4 12.4a44.4 44.4 0 00-12.3 12.4 44.4 44.4 0 00-12.4-12.4c4.9-3.3 9-7.5 12.4-12.4zm0 0M240 64.1v-16a168 168 0 00-162.6 126l15.5 4A152 152 0 01240 64.1zm0 0M72 216.1h16c0-7.6.6-15.3 1.8-22.8l-15.9-2.4c-1.2 8.3-1.8 16.8-1.8 25.2zm0 0M288 240.1h16v-16h16v-16h-16v-16h-16v16h-16v16h16zm0 0" />
-              </svg>
-            </ul>
-            <ul>
-              <h5>Regressionsanalyse</h5>
-            </ul>
-          </li>
+        <div @click="toggleCategorie('water')" class="quarterCircleTopRight bg-main circle"
+          :class="[{'bg-focus': activeCategories.water == true}]">
+          <svg class="svg-light h-16 px-1 mt-10 ml-3" viewBox="0 0 510.684 510.684" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M199.242 439.486c-49.257-15.316-82.352-60.297-82.352-111.931 0-25.238 7.901-49.283 22.85-69.536.341-.462.649-.967.906-1.481 2.47-4.939.464-10.938-4.476-13.408-4.471-2.239-9.819-.801-12.625 3.153-17.437 23.688-26.654 51.788-26.654 81.272 0 29.858 9.428 58.247 27.264 82.095 17.24 23.051 41.797 40.43 69.149 48.934a9.98 9.98 0 002.972.454c4.263 0 8.214-2.749 9.546-7.034 1.64-5.274-1.306-10.878-6.58-12.518z" />
+            <path
+              d="M455.573 233.679c0-19.035-5.932-37.17-17.158-52.464l-63.301-93.971a10 10 0 00-16.588 0l-26.674 39.597L249.378 4.413a9.998 9.998 0 00-16.586 0L91.216 214.576c-23.622 32.101-36.105 70.177-36.105 110.134 0 102.546 83.428 185.974 185.974 185.974s185.974-83.428 185.974-185.974c0-8.186-.547-16.387-1.61-24.46 18.458-16.276 30.124-40.085 30.124-66.571zM366.82 110.73l55.005 81.654c.11.17.226.337.347.501 8.767 11.873 13.401 25.979 13.401 40.793 0 37.91-30.842 68.752-68.753 68.752-37.91 0-68.752-30.842-68.752-68.752 0-14.814 4.634-28.92 13.401-40.793.116-.157.227-.317.334-.482l28.323-42.045c.052-.077.106-.153.156-.232zm40.238 213.98c0 91.519-74.456 165.974-165.974 165.974-91.519 0-165.974-74.455-165.974-165.974 0-35.744 11.19-69.799 32.362-98.481.121-.163.238-.334.351-.509L241.085 27.898l78.711 116.842-24.571 36.476c-11.225 15.293-17.157 33.429-17.157 52.463 0 48.938 39.814 88.752 88.752 88.752 14.31 0 27.837-3.409 39.819-9.45.273 3.9.419 7.816.419 11.729z" />
+            <path
+              d="M331.561 231.24c0-4.845.987-9.521 2.933-13.898 2.244-5.047-.029-10.957-5.075-13.2-5.047-2.241-10.956.028-13.2 5.075-3.091 6.952-4.658 14.361-4.658 22.023 0 18.149 9.016 35.019 24.117 45.123a9.95 9.95 0 005.552 1.689 9.99 9.99 0 008.32-4.439c3.071-4.591 1.84-10.802-2.75-13.873-9.542-6.385-15.239-17.039-15.239-28.5zM236.343 453.34c-2.448-6.434-11.582-8.269-16.31-3.24-5.629 5.455-2.599 15.471 5.12 16.87 7.653 1.677 14.324-6.446 11.19-13.63zM361.552 285.479c6.448 4.466 15.682-.472 15.55-8.31.145-7.839-9.107-12.787-15.55-8.32-5.84 3.66-5.863 12.982 0 16.63z" />
+          </svg>
         </div>
       </div>
-    </div> -->
-    <div id="products_header" class="text-2xl md:text-3xl mt-16 text-left w-full px-16">
-      <h3>Artificial Intelligence für ihr Herzensgut.</h3>
-    </div>
-    <div id="products" class="w-full h-128 mt-4 bg-main_primary">
-    </div>
-    <div id="dsgvo" class="text-2xl mt-32 flex-col text-main_primary text-center w-128">
-      <svg class="svg-2xl" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-        <path
-          d="M455.8 62.6C392 58.6 326.6 38 261.6 1.5c-3.5-2-7.7-2-11.2 0-65 36.5-130.3 57.1-194.2 61.1-6 .4-10.7 5.3-10.7 11.4V290c0 35.8 11.2 69.8 33.2 101.2a280.6 280.6 0 0071.3 68.3 435.7 435.7 0 00102.5 51.9 11.4 11.4 0 007 0c2-.7 52-17 102.5-51.9 30-20.7 54-43.7 71.3-68.3 22-31.4 33.2-65.4 33.2-101.2V74c0-6-4.7-11-10.7-11.4zm-12 227.5c0 56.6-31.8 107.3-94.3 150.5a426 426 0 01-93.5 48c-12-4.3-52.7-19.8-93.1-47.7-62.8-43.3-94.6-94-94.6-150.8V84.5c62-5.6 125-25.8 187.7-60.1 62.6 34.3 125.7 54.5 187.7 60.1v205.6z" />
-        <path
-          d="M298.5 298.3c-1.6-9.6-3.3-19.6-4.7-29.4a68.3 68.3 0 10-75.6 0c-1.4 9.8-3.1 19.8-4.7 29.4-3.3 19.8-6.7 40.2-8.7 60.6a11.4 11.4 0 0011.4 12.4h79.6a11.4 11.4 0 0011.3-12.4c-1.9-20.4-5.3-40.8-8.6-60.6zm-28.4-33.8c1.8 12.6 4 25.3 6 37.6 2.5 15.2 5.1 31 7 46.5H229c1.9-15.6 4.5-31.3 7-46.5 2-12.3 4.2-25 6-37.6.6-4.8-1.9-9.6-6.2-11.8a45.6 45.6 0 1140.7 0c-4.4 2.2-7 7-6.3 11.8z" />
-        <path
-          d="M250.8 52.9a509.6 509.6 0 01-150.2 50.5c-5.5.9-9.6 5.6-9.6 11.2v175.5c0 48.3 28 92.4 83.1 130.9a404.9 404.9 0 0077.6 41.6 11.4 11.4 0 008.6 0 422 422 0 0036.3-16.7 11.4 11.4 0 10-10.5-20.2 401.6 401.6 0 01-30.1 14c-16-6.6-42.8-19.1-68.8-37.4-48.7-34-73.4-71.7-73.4-112.2v-166c47.3-8.6 95-24.8 142.2-48.3a534.5 534.5 0 00142.2 48.4v166c0 29.9-13.6 58.5-40.5 85.1a11.4 11.4 0 1016 16.2c31.4-31 47.3-65.1 47.3-101.4V114.6c0-5.6-4-10.3-9.6-11.2-49.8-8-100.4-25-150.2-50.5a11.4 11.4 0 00-10.4 0z" />
-        <path d="M322.9 403.8l-1 1a11.4 11.4 0 1016 16.2l1.1-1.2a11.4 11.4 0 10-16.1-16z" />
-      </svg>
-      <h5 class="mt-4">Alle Daten werden natürlich DSGVO konform von uns für sie verarbeitet.</h5>
-    </div>
-    <div id="contact" class="w-full mt-24 lg:w-4/5 mt-20 flex-col rounded-xl lg:border-2 py-12 mb-12">
-      <p class="mb-2">Ihre gewünschten Reporte: ({{input.nProducts}}/4)</p>
-      <div id="option_product" class="flex-col md:flex-row justify-between w-full xl:w-3/4 px-32">
-        <div :class="get_class('product')"
-          class="button text-bg_primary py-4 w-32 md:w-1/4 text-center rounded-tl-xl rounded-tr-xl md:rounded-tr-none md:rounded-bl-xl md:ml-2 cursor-pointer"
-          v-on:click="set_active('product')">
-          <p>Produktsegment</p>
+      <div id="bottomRow" class="flex">
+        <div @click="toggleCategorie('heating')" class="quarterCircleBottomLeft bg-main circle"
+          :class="[{'bg-focus': activeCategories.heating == true}]">
+          <svg class="svg-light h-16 mt-4 ml-12" viewBox="0 0 56.69 56.69" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M41.741 10.852v2h-7.75v-2zm-3.25 4.359h-4.5v2h4.5zm-4.5 6.359h7.75v-2h-7.75zm4.5 2.36h-4.5v2h4.5zm-4.5 6.359h7.75v-2h-7.75zm1.208 11.396c0 5.583-4.542 10.125-10.125 10.125s-10.125-4.542-10.125-10.125c0-3.618 1.9-6.906 5-8.725V10.006c0-2.826 2.299-5.125 5.125-5.125s5.125 2.299 5.125 5.125V32.96c3.1 1.817 5 5.106 5 8.725zm-2 0a8.088 8.088 0 00-4.453-7.24l-.547-.278v-24.16c0-1.724-1.402-3.125-3.125-3.125s-3.125 1.401-3.125 3.125v24.16l-.547.278a8.09 8.09 0 00-4.453 7.24c0 4.48 3.645 8.125 8.125 8.125s8.125-3.645 8.125-8.125zm-1.666 0a6.465 6.465 0 01-6.459 6.458 6.465 6.465 0 01-6.458-6.458 6.459 6.459 0 014.796-6.233l.371-.099v-22.23h2.583v22.229l.371.1a6.458 6.458 0 014.796 6.233zm-6.139-4.305a1.292 1.292 0 00-1.543-.974 5.31 5.31 0 00-4.158 5.207c0 .711.579 1.29 1.29 1.29s1.29-.579 1.29-1.29c0-1.277.902-2.409 2.147-2.69a1.296 1.296 0 00.974-1.543z" />
+          </svg>
         </div>
-        <div :class="get_class('finance')" class="button text-bg_primary py-4 w-32 md:w-1/4 text-center cursor-pointer"
-          v-on:click="set_active('finance')">
-          <p>Finanzen</p>
-        </div>
-        <div :class="get_class('marketing')"
-          class="button text-bg_primary py-4 w-32 md:w-1/4 text-center cursor-pointer"
-          v-on:click="set_active('marketing')">
-          <p>Marketing</p>
-        </div>
-        <div :class="get_class('supplyChain')"
-          class="button text-bg_primary py-4 w-32 md:w-1/4 text-center rounded-bl-xl md:rounded-bl-none md:rounded-tr-xl rounded-br-xl md:mr-2 cursor-pointer"
-          v-on:click="set_active('supplyChain')">
-          <p>Supply Chain</p>
-        </div>
-      </div>
-      <p class="mt-12">Ihre Anzahl an Mitarbeitern:</p>
-      <div id="option_size" class="flex justify-center mt-2 w-5/6 md:w-full">
-        <div :class="get_class_size('1')"
-          class="button text-bg_primary py-4 px-8 lg:px-16 rounded-tl-xl rounded-bl-xl ml-2 cursor-pointer"
-          v-on:click="input.size = 1">
-          <p>Unter 10</p>
-        </div>
-        <div :class="get_class_size('3')" class="button text-bg_primary py-4 px-8 lg:px-16 cursor-pointer"
-          v-on:click="input.size = 3">
-          <p>10 - 50</p>
-        </div>
-        <div :class="get_class_size('6')"
-          class="button text-bg_primary py-4 px-8 lg:px-16 rounded-tr-xl rounded-br-xl mr-2 cursor-pointer"
-          v-on:click="input.size = 6">
-          <p>Über 50</p>
-        </div>
-      </div>
-      <div id="price" class="text-lg text-center mt-6 w-5/6 md:w-96 lg:w-128">
-        <p>{{get_price_text}}</p>
-      </div>
-      <div id="send" class="mt-20 text-lg">
-        <input type="email" placeholder="Email" v-model="input.email"
-          class="mb-6 w-full border-2 border-main_secondary px-2 py-1">
-        <div v-on:click="pushSend"
-          class="button bg-main_focus hover:bg-main_focus_active text-bg_primary py-4 px-12 lg:px-24 rounded mx-2 cursor-pointer">
-          <p>Anfrage senden</p>
-        </div>
+        <div @click="toggleCategorie('trash')" class="quarterCircleBottomRight bg-main circle"
+          :class="[{'bg-focus': activeCategories.trash == true}]">
+          <svg class="svg-light w-16 mt-4 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 407.51 407.51">
+            <g fill="">
+              <path
+                d="M303.709 407.51H120.847a10.584 10.584 0 01-10.393-8.558L59.246 135.713c-1.112-5.735 2.629-11.293 8.364-12.405 5.841-1.182 11.311 2.612 12.423 8.382l49.549 254.663H294.41l32.945-254.01c.759-5.805 6.052-10.023 11.858-9.14 5.805.741 9.899 6.07 9.14 11.858l-34.144 263.221a10.588 10.588 0 01-10.5 9.228zM361.005 105.468H46.488c-5.858 0-10.587-4.747-10.587-10.587s4.729-10.587 10.587-10.587h314.535a10.573 10.573 0 0110.587 10.587c-.018 5.841-4.747 10.587-10.605 10.587zM317.526 58.284H89.967c-5.858 0-10.587-4.747-10.587-10.587S84.127 37.11 89.967 37.11h227.559c5.841 0 10.587 4.747 10.587 10.587s-4.729 10.587-10.587 10.587z" />
+              <path
+                d="M153.332 350.815c-5.841 0-10.587-4.747-10.587-10.587v-187.98c0-5.841 4.747-10.587 10.587-10.587 5.858 0 10.587 4.747 10.587 10.587v187.98c.001 5.84-4.728 10.587-10.587 10.587zM203.746 350.815c-5.858 0-10.587-4.747-10.587-10.587v-187.98c0-5.841 4.747-10.587 10.587-10.587 5.858 0 10.587 4.747 10.587 10.587v187.98c.001 5.84-4.728 10.587-10.587 10.587zM254.16 350.815c-5.858 0-10.587-4.747-10.587-10.587v-187.98c0-5.841 4.747-10.587 10.587-10.587 5.841 0 10.587 4.747 10.587 10.587v187.98c.001 5.84-4.746 10.587-10.587 10.587zM230.585 17.646h-53.678c-4.87 0-8.823-3.953-8.823-8.823S172.037 0 176.907 0h53.678c4.87 0 8.823 3.953 8.823 8.823s-3.952 8.823-8.823 8.823z" />
+            </g>
+          </svg></div>
       </div>
     </div>
+    <div id="ux">
+      <div id="progressIndicator" v-if="step > 0">
+        <div id="progressBar" class="w-full h-2 absolute top-0 bg-main" :style="handleProgressBar" />
+        <div id="pageIndicator">
+          <h3 class="text-4xl text-main absolute top-0 left-0 pt-2 pl-4">{{step}} / {{maxStep}}</h3>
+        </div>
+      </div>
+      <div id="leftArrow">
+        <svg @click="handleProgress('dec')" class="w-16 left absolute top-0 left-0 mt-72 cursor-pointer"
+          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 213.333 213.333">
+          <path d="M0 53.333L106.667 160 213.333 53.333z" /></svg>
+      </div>
+      <div id="rightArrow">
+        <svg @click="handleProgress('inc')" class="w-16 right absolute top-0 right-0 mt-72 cursor-pointer"
+          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 213.333 213.333">
+          <path d="M0 53.333L106.667 160 213.333 53.333z" /></svg>
+      </div>
+    </div>
+    <ElectricityInput />
   </div>
 </template>
 
 <script>
-  import data_functions from "../data/data_functions";
+  import store from "../store";
+  import ElectricityInput from "../components/ElectricityInput";
+
 
   export default {
-    name: 'home',
+    components: {
+      ElectricityInput
+    },
     data() {
       return {
-        input: {
-          products: {
-            product: true,
-            finance: true,
-            marketing: true,
-            supplyChain: true
-          },
-          size: 1,
-          nProducts: 4,
-          email: ""
-        },
-        prices: {
-          product: 90,
-          finance: 140,
-          marketing: 70,
-          supplyChain: 120
-        }
+        activeCategories: store.state.activeCategories,
+        step: store.state.step,
+        maxStep: store.state.maxStep
       }
     },
     computed: {
-      get_background_image() {
-        return {
-          'background-image': 'url(' + require('../assets/coffee.jpg') + ')'
-        }
-      },
-      get_price: {
-        get() {
-          var price = 120;
-          var key = null;
-          for (var item in this.input.products) {
-            switch (item) {
-              case "product":
-                price = (this.input.products.product == true) ? price + this.prices.product : price
-                break;
-              case "finance":
-                price = (this.input.products.finance == true) ? price + this.prices.finance : price
-                break;
-              case "marketing":
-                price = (this.input.products.marketing == true) ? price + this.prices.marketing : price
-                break;
-              case "supplyChain":
-                price = (this.input.products.supplyChain == true) ? price + this.prices.supplyChain : price
-                break;
-            }
-          }
-          return price * this.input.size;
-        }
-      },
-      get_price_text() {
-        var products = "";
-        for (var item in this.input.products) {
-          if (products.length > 0 && products.slice(-1) != " ") {
-            products = (this.input.products[item] == true) ? products + ", " : products
-          }
-          switch (item) {
-            case "product":
-              products = (this.input.products.product == true) ? "Produktanalyse" : products;
-              break;
-            case "finance":
-              products = (this.input.products.finance == true) ? products + "Finanzanalyse" : products;
-              break;
-            case "marketing":
-              products = (this.input.products.marketing == true) ? products + "Marketinganalyse" : products;
-              break;
-            case "supplyChain":
-              products = (this.input.products.supplyChain == true) ? products + "Supply Chain Analyse" : products;
-              break;
-          }
-        }
-        return "Unser Preis für ihre Analyse mit der " + products + " sind " + this.get_price + "€."
+      handleProgressBar() {
+        var amount = (1 - (this.step / this.maxStep)) * 100;
+        return `transform: translateX(-${amount}%)`
       }
     },
     methods: {
-      set_active: function (input) {
-        if (this.input.nProducts > 1 || this.input.products[input] == false) {
-          this.input.products[input] = !this.input.products[input]
-        }
-        this.get_nProducts();
+      toggleCategorie(id) {
+        store.commit("toggleCategorie", id);
       },
-      get_class(id) {
-        if (this.input.products[id] == true) {
-          return "bg-main_primary hover:bg-main_primary"
-        } else {
-          return "bg-main_secondary hover:bg-main_primary"
-        }
-      },
-      get_class_size(id) {
-        if (this.input.size == id) {
-          return "bg-main_primary hover:bg-main_primary"
-        } else {
-          return "bg-main_secondary hover:bg-main_primary"
-        }
-      },
-      get_nProducts() {
-        var nProducts = 0
-        for (var item in this.input.products) {
-          if (this.input.products[item] == true) {
-            nProducts++
-          };
-        }
-        this.input.nProducts = nProducts;
-        return 0;
-      },
-      pushSend() {
-        this.sendRequest();
-        this.$router.push({
-            path: 'buy'
-          });
-      },
-      sendRequest() {
-        var reqObject = {
-          email: this.input.email,
-          size: this.input.size,
-          products: []
-        }
-
-        if (reqObject.email.length > 5 && reqObject.email.includes("@") && reqObject.email.includes(".")) {
-          for (var item in this.input.products) {
-            reqObject.products.push((this.input.products[item] == true) ? item : null)
-          }
-          data_functions.upload_request(reqObject);
-        }
+      handleProgress(id) {
+        // !! Caution this here updates the bar, not the value from the store! I still need to figure that out
+        this.step++;
+        store.commit("handleProgress", id)
       }
     }
   }
