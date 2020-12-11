@@ -48,6 +48,11 @@ body {
       stroke: var(--bg);
       fill: var(--bg);
     }
+
+    .svg-noClick {
+      stroke: var(--alternative);
+      fill: var(--alternative);
+    }
   
     svg {
       stroke: var(--main);

@@ -5,8 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    step: 0,
-    maxStep: 1,
+    steps: {
+      current: 0,
+      fulFilled: true,
+      maxStep: 1
+    },
     activeCategories: {
       electricity: false,
       water: true,
@@ -18,28 +21,33 @@ export default new Vuex.Store({
     toggleCategorie(state, payload) {
       state.activeCategories[payload] = !state.activeCategories[payload]
     },
+    handleFulfilled(state, payload) {
+      state.steps.fulFilled = payload;
+    },
     handleProgress(state, payload) {
-      if (payload == "inc" && state.step < 4) {
-        state.step = state.step + 1;
+      if (payload == "inc" && state.steps.current < state.steps.maxStep) {
+        state.steps.current++;
+        state.steps.fulFilled = false;
       }
-      else if (payload == "dec" && state.step > 1) {
-        state.step--;
+      else if (payload == "dec" && state.steps.current > 0) {
+        state.steps.current--;
       }
 
-      if (payload == "inc" && state.step == 1) {
-        console.log("calculate maxStep")
+      if (state.steps.current == 0) {
+        state.steps.maxStep = 1;
+      }
+
+      if (payload == "inc" && state.steps.current == 1) {
         if (state.activeCategories.electricity == true) {
-          state.maxStep = state.maxStep + 3;
-          console.log("Electricity added")
+          state.steps.maxStep = state.steps.maxStep + 3;
         }
         if (state.activeCategories.water) {
-          state.maxStep = state.maxStep + 3;
+          state.steps.maxStep = state.steps.maxStep + 3;
         }
         if (state.activeCategories.heating) {
-          state.maxStep = state.maxStep + 4;
+          state.steps.maxStep = state.steps.maxStep + 4;
         }
       }
-      console.log(state.step)
     }
   },
   actions: {
