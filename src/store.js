@@ -11,15 +11,22 @@ export default new Vuex.Store({
       maxStep: 1
     },
     activeCategories: {
-      electricity: false,
-      water: true,
+      electricity: true,
+      water: false,
       heating: false,
       trash: false,
+      nActive: 1
     }
   },
   mutations: {
     toggleCategorie(state, payload) {
       state.activeCategories[payload] = !state.activeCategories[payload]
+      if (state.activeCategories[payload] == true) {
+        state.activeCategories.nActive++;
+      }
+      else {
+        state.activeCategories.nActive--;
+      }
     },
     handleFulfilled(state, payload) {
       state.steps.fulFilled = payload;

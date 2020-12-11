@@ -1,9 +1,10 @@
 <template>
   <div id="front" class="w-full">
-<transition name="fade">
+    <transition name="fade">
       <TheCircle v-if="getSteps.current == 0" />
-    <ElectricityInput v-if="activeCategories.electricity && getSteps.current == 1" />
-</transition>
+      <ElectricityInput v-if="activeCategories.electricity && getSteps.current == 1" />
+      <HeatingInput v-if="activeCategories.water && getSteps.current == 2" />
+    </transition>
     <div id="ux" class="z-20">
       <div id="progressIndicator" v-if="getSteps.current > 0">
         <div id="progressBar" class="w-full h-2 absolute top-0 bg-main" :style="handleProgressBar" />
@@ -12,15 +13,15 @@
           </h3>
         </div>
       </div>
-      <div id="leftArrow" v-if="getSteps.current > 0">
+      <div id="leftArrow" v-if="getSteps.current > 0" title="Zurück">
         <svg @click="handleProgress('dec')" class="w-16 left absolute top-0 left-0 mt-72 cursor-pointer"
           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 213.333 213.333">
           <path d="M0 53.333L106.667 160 213.333 53.333z" /></svg>
       </div>
-      <div id="rightArrow">
+      <div id="rightArrow" title="Weiter">
         <svg @click="getSteps.fulFilled ? handleProgress('inc') : ''" class="w-16 right absolute top-0 right-0 mt-72"
-          title="Weiter" :class="getSteps.fulFilled == false ? 'svg-noClick' : 'cursor-pointer'"
-          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 213.333 213.333">
+          :class="getSteps.fulFilled == false ? 'svg-noClick' : 'cursor-pointer'" xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 213.333 213.333">
           <path d="M0 53.333L106.667 160 213.333 53.333z" /></svg>
       </div>
     </div>
@@ -31,12 +32,14 @@
   import store from "../store";
   import TheCircle from "../components/TheCircle";
   import ElectricityInput from "../components/ElectricityInput";
+  import HeatingInput from "../components/HeatingInput";
 
 
   export default {
     components: {
       TheCircle,
-      ElectricityInput
+      ElectricityInput,
+      HeatingInput
     },
     data() {
       return {

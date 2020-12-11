@@ -1,7 +1,7 @@
 <template>
-    <div id="circle" class="flex-col justify-around pt-56">
+    <div id="circle" class="flex-col pt-56">
         <div id="topRow" class="flex">
-            <div @click="toggleCategorie('electricity')" class="quarterCircleTopLeft circle bg-main"
+            <div @click="toggleCategorie('electricity')" class="quarterCircleTopLeft circle bg-main" title="Strom"
                 :class="[{'bg-focus': activeCategories.electricity == true}]">
                 <svg class="svg-light h-16 mt-10 ml-12" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 480.096 480.096">
@@ -9,7 +9,7 @@
                         d="M370.032 178.808h-107.08L292.744 0l-182.68 258.808h108.704l-29.504 221.288 180.768-301.288zm-229.088 64l124.512-176.4-21.4 128.4h97.72L215.352 405.52l21.688-162.712h-96.096z" />
                 </svg>
             </div>
-            <div @click="toggleCategorie('water')" class="quarterCircleTopRight bg-main circle"
+            <div @click="toggleCategorie('water')" class="quarterCircleTopRight bg-main circle" title="Warmwasser"
                 :class="[{'bg-focus': activeCategories.water == true}]">
                 <svg class="svg-light h-16 px-1 mt-10 ml-3" viewBox="0 0 510.684 510.684"
                     xmlns="http://www.w3.org/2000/svg">
@@ -23,14 +23,14 @@
             </div>
         </div>
         <div id="bottomRow" class="flex">
-            <div @click="toggleCategorie('heating')" class="quarterCircleBottomLeft bg-main circle"
+            <div @click="toggleCategorie('heating')" class="quarterCircleBottomLeft bg-main circle" title="Heizung"
                 :class="[{'bg-focus': activeCategories.heating == true}]">
                 <svg class="svg-light h-16 mt-4 ml-12" viewBox="0 0 56.69 56.69" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M41.741 10.852v2h-7.75v-2zm-3.25 4.359h-4.5v2h4.5zm-4.5 6.359h7.75v-2h-7.75zm4.5 2.36h-4.5v2h4.5zm-4.5 6.359h7.75v-2h-7.75zm1.208 11.396c0 5.583-4.542 10.125-10.125 10.125s-10.125-4.542-10.125-10.125c0-3.618 1.9-6.906 5-8.725V10.006c0-2.826 2.299-5.125 5.125-5.125s5.125 2.299 5.125 5.125V32.96c3.1 1.817 5 5.106 5 8.725zm-2 0a8.088 8.088 0 00-4.453-7.24l-.547-.278v-24.16c0-1.724-1.402-3.125-3.125-3.125s-3.125 1.401-3.125 3.125v24.16l-.547.278a8.09 8.09 0 00-4.453 7.24c0 4.48 3.645 8.125 8.125 8.125s8.125-3.645 8.125-8.125zm-1.666 0a6.465 6.465 0 01-6.459 6.458 6.465 6.465 0 01-6.458-6.458 6.459 6.459 0 014.796-6.233l.371-.099v-22.23h2.583v22.229l.371.1a6.458 6.458 0 014.796 6.233zm-6.139-4.305a1.292 1.292 0 00-1.543-.974 5.31 5.31 0 00-4.158 5.207c0 .711.579 1.29 1.29 1.29s1.29-.579 1.29-1.29c0-1.277.902-2.409 2.147-2.69a1.296 1.296 0 00.974-1.543z" />
                 </svg>
             </div>
-            <div @click="toggleCategorie('trash')" class="quarterCircleBottomRight bg-main circle"
+            <div @click="toggleCategorie('trash')" class="quarterCircleBottomRight bg-main circle" title="Abfall"
                 :class="[{'bg-focus': activeCategories.trash == true}]">
                 <svg class="svg-light w-16 mt-4 ml-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 407.51 407.51">
                     <g fill="">
@@ -40,6 +40,9 @@
                             d="M153.332 350.815c-5.841 0-10.587-4.747-10.587-10.587v-187.98c0-5.841 4.747-10.587 10.587-10.587 5.858 0 10.587 4.747 10.587 10.587v187.98c.001 5.84-4.728 10.587-10.587 10.587zM203.746 350.815c-5.858 0-10.587-4.747-10.587-10.587v-187.98c0-5.841 4.747-10.587 10.587-10.587 5.858 0 10.587 4.747 10.587 10.587v187.98c.001 5.84-4.728 10.587-10.587 10.587zM254.16 350.815c-5.858 0-10.587-4.747-10.587-10.587v-187.98c0-5.841 4.747-10.587 10.587-10.587 5.841 0 10.587 4.747 10.587 10.587v187.98c.001 5.84-4.746 10.587-10.587 10.587zM230.585 17.646h-53.678c-4.87 0-8.823-3.953-8.823-8.823S172.037 0 176.907 0h53.678c4.87 0 8.823 3.953 8.823 8.823s-3.952 8.823-8.823 8.823z" />
                     </g>
                 </svg></div>
+        </div>
+        <div id="activeText" class="mt-8 text-2xl" title="Aktive Kategorien im Vergleich">
+            <p>{{getActiveText}}</p>
         </div>
     </div>
 </template>
@@ -58,11 +61,9 @@
             getMaxStep() {
                 return store.state.steps.maxStep
             },
-            /* getActivatedState() {
-                if (false) {
-                    return "transform: translateX(20%)"
-                }
-            } */
+            getActiveText() {
+                return `${store.state.activeCategories.nActive} / 4 Aktiv`
+            }
         },
         methods: {
             toggleCategorie(id) {
