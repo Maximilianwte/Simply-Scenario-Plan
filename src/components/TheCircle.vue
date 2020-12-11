@@ -1,5 +1,5 @@
 <template>
-    <div id="main" class="flex-col justify-around pt-56">
+    <div id="circle" class="flex-col justify-around pt-56">
         <div id="topRow" class="flex">
             <div @click="toggleCategorie('electricity')" class="quarterCircleTopLeft circle bg-main"
                 :class="[{'bg-focus': activeCategories.electricity == true}]">
@@ -57,7 +57,12 @@
             },
             getMaxStep() {
                 return store.state.steps.maxStep
-            }
+            },
+            /* getActivatedState() {
+                if (false) {
+                    return "transform: translateX(20%)"
+                }
+            } */
         },
         methods: {
             toggleCategorie(id) {

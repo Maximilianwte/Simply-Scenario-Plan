@@ -1,10 +1,15 @@
 <template>
   <div id="front" class="w-full">
-    <div id="ux">
+<transition name="fade">
+      <TheCircle v-if="getSteps.current == 0" />
+    <ElectricityInput v-if="activeCategories.electricity && getSteps.current == 1" />
+</transition>
+    <div id="ux" class="z-20">
       <div id="progressIndicator" v-if="getSteps.current > 0">
         <div id="progressBar" class="w-full h-2 absolute top-0 bg-main" :style="handleProgressBar" />
         <div id="pageIndicator">
-          <h3 class="text-4xl text-main absolute top-0 left-0 pt-2 pl-4">{{getSteps.current}} / {{getSteps.maxStep}}</h3>
+          <h3 class="text-4xl text-main absolute top-0 left-0 pt-2 pl-4">{{getSteps.current}} / {{getSteps.maxStep}}
+          </h3>
         </div>
       </div>
       <div id="leftArrow" v-if="getSteps.current > 0">
@@ -13,13 +18,12 @@
           <path d="M0 53.333L106.667 160 213.333 53.333z" /></svg>
       </div>
       <div id="rightArrow">
-        <svg @click="getSteps.fulFilled ? handleProgress('inc') : ''" class="w-16 right absolute top-0 right-0 mt-72" title="Weiter" :class="getSteps.fulFilled == false ? 'svg-noClick' : 'cursor-pointer'"
+        <svg @click="getSteps.fulFilled ? handleProgress('inc') : ''" class="w-16 right absolute top-0 right-0 mt-72"
+          title="Weiter" :class="getSteps.fulFilled == false ? 'svg-noClick' : 'cursor-pointer'"
           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 213.333 213.333">
           <path d="M0 53.333L106.667 160 213.333 53.333z" /></svg>
       </div>
     </div>
-    <TheCircle v-if="getSteps.current == 0" />
-    <ElectricityInput v-if="activeCategories.electricity && getSteps.current == 1" />
   </div>
 </template>
 

@@ -123,3 +123,21 @@ body {
     #progressBar {
       transition: 0.5s;
     }
+
+    #circle {
+      transition: .3s;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: all 0.5s .5s;
+    }
+
+    .fade-enter{
+      transform: translateX(20%);
+      opacity: 0;
+    }
+
+    .fade-leave-to{
+      transform: translateX(-20%);
+      opacity: 0;
+    }
