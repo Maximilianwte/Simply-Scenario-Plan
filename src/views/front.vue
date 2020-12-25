@@ -1,7 +1,7 @@
 <template>
   <div id="front" class="w-full">
     <transition name="fade">
-      <TheCircle v-if="getSteps.current == 0" />
+      <BlockQuest v-if="getSteps.current == 0" />
       <ElectricityInput v-if="activeCategories.electricity && getSteps.current == 1" />
       <HeatingInput v-if="activeCategories.water && getSteps.current == 2" />
     </transition>
@@ -31,6 +31,7 @@
 <script>
   import store from "../store";
   import TheCircle from "../components/TheCircle";
+  import BlockQuest from "../components/BlockQuest";
   import ElectricityInput from "../components/ElectricityInput";
   import HeatingInput from "../components/HeatingInput";
 
@@ -38,6 +39,7 @@
   export default {
     components: {
       TheCircle,
+      BlockQuest,
       ElectricityInput,
       HeatingInput
     },

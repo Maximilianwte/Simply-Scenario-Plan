@@ -11,7 +11,7 @@ export default new Vuex.Store({
       maxStep: 1
     },
     activeCategories: {
-      electricity: true,
+      electricity: false,
       water: false,
       heating: false,
       trash: false,
