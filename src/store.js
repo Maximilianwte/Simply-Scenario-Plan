@@ -8,14 +8,15 @@ export default new Vuex.Store({
     steps: {
       current: 0,
       fulFilled: true,
-      maxStep: 1
+      maxStep: 1,
+      toDo: ["general"]
     },
     activeCategories: {
       electricity: false,
       water: false,
       heating: false,
       trash: false,
-      nActive: 1
+      nActive: 0
     }
   },
   mutations: {
@@ -38,21 +39,21 @@ export default new Vuex.Store({
       }
       else if (payload == "dec" && state.steps.current > 0) {
         state.steps.current--;
+        state.steps.fulFilled = true;
       }
 
       if (state.steps.current == 0) {
         state.steps.maxStep = 1;
+        state.steps.toDo = ["general"];
       }
-
+      
       if (payload == "inc" && state.steps.current == 1) {
-        if (state.activeCategories.electricity == true) {
-          state.steps.maxStep = state.steps.maxStep + 3;
-        }
-        if (state.activeCategories.water) {
-          state.steps.maxStep = state.steps.maxStep + 3;
-        }
-        if (state.activeCategories.heating) {
-          state.steps.maxStep = state.steps.maxStep + 4;
+        state.steps.maxStep++;
+        for (var index in state.activeCategories) {
+          if (index != "nActive" && state.activeCategories[index] == true) {
+            state.steps.maxStep++;
+            state.steps.toDo.push(index);
+          }
         }
       }
     }

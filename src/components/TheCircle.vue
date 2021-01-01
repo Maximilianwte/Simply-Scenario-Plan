@@ -1,5 +1,6 @@
 <template>
-    <div id="circle" class="flex-col pt-56">
+    <div id="circle" class="flex-col pt-12">
+        <div id="header" class="text-main mt-40 text-3xl mb-12">Welche Kategorien könnten ein Upgrade vertragen?</div>
         <div id="topRow" class="flex">
             <div @click="toggleCategorie('electricity')" class="quarterCircleTopLeft circle bg-main" title="Strom"
                 :class="[{'bg-focus': activeCategories.electricity == true}]">

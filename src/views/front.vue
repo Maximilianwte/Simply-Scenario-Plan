@@ -1,9 +1,10 @@
 <template>
   <div id="front" class="w-full">
     <transition name="fade">
-      <BlockQuest v-if="getSteps.current == 0" />
-      <ElectricityInput v-if="activeCategories.electricity && getSteps.current == 1" />
-      <HeatingInput v-if="activeCategories.water && getSteps.current == 2" />
+      <TheCircle v-if="getSteps.current == 0" />
+      <GeneralInput v-if="getSteps.toDo[getSteps.current-1] == 'general'" />
+      <ElectricityInput v-if="activeCategories.electricity && getSteps.current == 2" />
+      <HeatingInput v-if="activeCategories.water && getSteps.current == 3" />
     </transition>
     <div id="ux" class="z-20">
       <div id="progressIndicator" v-if="getSteps.current > 0">
@@ -34,12 +35,14 @@
   import BlockQuest from "../components/BlockQuest";
   import ElectricityInput from "../components/ElectricityInput";
   import HeatingInput from "../components/HeatingInput";
+  import GeneralInput from "../components/GeneralInput";
 
 
   export default {
     components: {
       TheCircle,
       BlockQuest,
+      GeneralInput,
       ElectricityInput,
       HeatingInput
     },
