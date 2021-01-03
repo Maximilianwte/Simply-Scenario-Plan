@@ -78,6 +78,18 @@
         methods: {
             handleFulfilled(value) {
                 store.commit("handleFulfilled", value)
+                if (value == true) {
+                    var data = {
+                        id: "heating",
+                        doKnowType: this.doKnowType,
+                        doKnowCost: this.doKnowCost,
+                        doKnowAmount: this.doKnowAmount,
+                        heatingBill: this.heatingBill,
+                        heatingAmount: this.heatingAmount,
+                        peopleInHouse: this.peopleInHouse
+                    }
+                    store.commit("pushData", data)
+                }
             }
         }
     }
