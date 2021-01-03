@@ -57,7 +57,7 @@
         </div>
         <div v-if="doKnowCost == 'false' && doKnowCost == 'false'" id="people" class="flex-col items-center px-12">
             <p>5. Wie viele Personen wohnen in ihrem Haushalt?</p>
-            <input type="range" v-model="peopleInHouse" min="1" max="20">
+            <input type="range" v-model="peopleInHouse" min="1" max="20" @change="handleFulfilled(true)">
             <p>{{peopleInHouse}}</p>
         </div>
     </div>

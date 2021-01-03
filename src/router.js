@@ -8,8 +8,9 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [{
-      path: '/',
+      path: '/:component',
       name: 'home',
+      props: true,
       component: Front
     },
     {
@@ -21,8 +22,9 @@ export default new Router({
       component: () => import( /* webpackChunkName: "about" */ './views/imprint.vue')
     },
     {
-      path: '/results',
+      path: '/results/:id',
       name: 'results',
+      props: true,
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.

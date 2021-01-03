@@ -1,6 +1,6 @@
 <template>
     <div class="img text-3xl">
-        <img :src="resolve_img_url(src)" :alt="alt" />
+        <img :src="resolve_img_url(src)" :alt="alt" :title="alt" />
     </div>
 </template>
 <script>

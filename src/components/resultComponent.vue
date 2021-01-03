@@ -1,12 +1,12 @@
 <template>
     <div class="resultComponent pt-12 text-center flex-col text-3xl" :id="data.title">
-        <h2>{{data.title}}</h2>
-        <div class="info flex w-128 mt-4 justify-between">
-            <div class="image px-2"><srcFromPropPicture class="w-40" :src="data.image" :alt="data.title" /></div>
+        <h2>{{data.index + ". " + data.title}}</h2>
+        <div class="info flex w-full px-6 md:w-128 mt-4 justify-between">
+            <div class="image px-2"><srcFromPropPicture class="w-32 md:w-48" :src="data.image" :alt="data.title" /></div>
             <div class="text text-xl px-2 text-left">{{data.description}}</div>
         </div>
         <!-- <bar-chart class="w-96" :chart-data="datacollection" /> -->
-        <line-chart class="w-96 mt-8" :chart-data="datacollection" />
+        <line-chart class="w-3/4 md:w-96 mt-8" :chart-data="datacollection" />
     </div>
 </template>
 <script>

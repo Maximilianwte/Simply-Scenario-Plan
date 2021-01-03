@@ -5,17 +5,24 @@
 </template>
 
 <script>
-import texts from "./data/text.json";
+  import texts from "./data/text.json";
 
-export default {
-  data() {
-    return {
-      currentLang: "de",
-      text: texts
-    }
+  export default {
+    data() {
+      return {
+        currentLang: "de",
+        text: texts
+      }
+    },
+    mounted() {
+      this.$router.push({
+        name: 'home',
+        params: {
+          component: 0
+        }
+      })
+    },
   }
-}
 </script>
 
 <style src="./main.css" />
-

@@ -3,8 +3,8 @@
     <transition name="fade">
       <TheCircle v-if="getSteps.current == 0" />
       <GeneralInput v-if="getSteps.toDo[getSteps.current-1] == 'general'" />
-      <ElectricityInput v-if="activeCategories.electricity && getSteps.current == 2" />
-      <HeatingInput v-if="activeCategories.water && getSteps.current == 3" />
+      <ElectricityInput v-if="getSteps.toDo[getSteps.current-1] == 'electricity'" />
+      <HeatingInput v-if="getSteps.toDo[getSteps.current-1] == 'heating'" />
     </transition>
     <div id="ux" class="z-20">
       <div id="progressIndicator" v-if="getSteps.current > 0">
@@ -63,7 +63,13 @@
     methods: {
       handleProgress(id) {
         store.commit("handleProgress", id)
-      }
+        this.$router.push({
+          name: 'home',
+          params: {
+            component: this.getSteps.current
+          }
+        })
+      },
     }
   }
 </script>
