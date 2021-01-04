@@ -46,6 +46,7 @@
       ElectricityInput,
       HeatingInput
     },
+    props: ['component'],
     data() {
       return {
         activeCategories: store.state.activeCategories,
@@ -58,6 +59,16 @@
       },
       getSteps() {
         return store.state.steps;
+      }
+    },
+    watch: {
+      component: function () {
+        if (this.getSteps.current < Number(this.component)) {
+          store.commit("handleProgress", "inc")
+        }
+        else if (this.getSteps.current > Number(this.component)) {
+          store.commit("handleProgress", "dec")
+        }
       }
     },
     methods: {

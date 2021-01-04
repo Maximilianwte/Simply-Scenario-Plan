@@ -129,11 +129,12 @@ body {
     }
 
     .fade-enter-active, .fade-leave-active {
-      transition: all 0.5s .5s;
+      transition: all 0.5s;
     }
 
-    .fade-enter{
+    .fade-enter-to{
       transform: translateX(20%);
+      transition: all 0.5 0.5;
       opacity: 0;
     }
 
