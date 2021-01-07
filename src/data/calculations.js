@@ -1,18 +1,26 @@
-let calculations = {
-    calculate_electricity() {
-        var data = {
-            kWhKnown: true,
-            kWh : 1440,
-            electricityCost: 297
-        }
+import store from "../store";
 
-        if (kWhKnown) {
-            data.electricityCost = data.kWh * 0.3
+let calculations = {
+    calElectricity() {
+        let input = store.state.input;
+        var data = {}
+
+        if (input.electricity.doKnowAmount) {
+            data.electricityCost = input.electricity.electricityAmount * 0.3
         }
         else {
-            data.kWh = data.electricityCost / 0.3
+            data.kWh = input.electricity.electricityBill / 0.3
         }
         
         return data;
+    },
+    calPV() {
+        let input = store.state.input;
+        if (input.general.haveHouse) {
+            if (input.general.typeOfHouse != "Appartement") {
+                var roofSpace = input.general.sizeOfHouse / input.general.nFloors;
+            }
+        }
+        return null;
     }
 }

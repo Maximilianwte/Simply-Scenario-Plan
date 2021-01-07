@@ -19,10 +19,31 @@ export default new Vuex.Store({
       nActive: 0
     },
     input: {
-      general: {},
-      electricity: {},
+      general: {
+        id: "general",
+        haveHouse: null,
+        typeOfHouse: null,
+        sizeOfHouse: null,
+        nFloors: null
+      },
+      electricity: {
+        id: "electricity",
+        doKnowCost: null,
+        doKnowAmount: null,
+        electricityBill: null,
+        electricityAmount: null,
+        peopleInHouse: null
+      },
       water: {},
-      heating: {}
+      heating: {
+        id: "heating",
+        doKnowType: null,
+        doKnowCost: null,
+        doKnowAmount: null,
+        heatingBill: null,
+        heatingAmount: null,
+        peopleInHouse: null
+      }
     }
   },
   mutations: {
@@ -62,8 +83,8 @@ export default new Vuex.Store({
       }
     },
     pushData(state, payload) {
-        state.input[payload.id] = payload
-        console.log(state.input[payload.id])
+      state.input[payload.id] = payload
+      console.log(state.input[payload.id])
     }
   },
   actions: {
