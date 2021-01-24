@@ -2,7 +2,9 @@
     <div class="resultComponent pt-12 text-center flex-col text-3xl" :id="data.title">
         <h2>{{data.index + ". " + data.title}}</h2>
         <div class="info flex w-full px-6 md:w-128 mt-4 justify-between">
-            <div class="image px-2"><srcFromPropPicture class="w-32 md:w-48" :src="data.image" :alt="data.title" /></div>
+            <div class="image px-2">
+                <srcFromPropPicture class="w-32 md:w-48" :src="data.image" :alt="data.title" />
+            </div>
             <div class="text text-xl px-2 text-left">{{data.description}}</div>
         </div>
         <!-- <bar-chart class="w-96" :chart-data="datacollection" /> -->
@@ -20,10 +22,23 @@
             LineChart,
             srcFromPropPicture
         },
-        props: ['data'],
+        props: ['data', 'id'],
         data() {
             return {
-                datacollection: {
+                datacollection: null,
+            }
+        },
+        mounted() {
+            this.fillData();
+        },
+        watch: {
+            id: function () {
+                this.fillData()
+            }
+        },
+        methods: {
+            fillData() {
+                this.datacollection = {
                     labels: ["1000 kWh", "1200 kWh", "1400 kWh", "1600 kWh"],
                     datasets: [{
                         label: this.data.label,
@@ -31,7 +46,7 @@
                         data: this.data.data,
                         fill: false
                     }],
-                },
+                };
             }
         }
     }

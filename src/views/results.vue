@@ -1,15 +1,15 @@
 <template>
     <div id="results" class="flex-col">
-        <resultComponent :data="data[currentResult]" />
+        <resultComponent :data="data[currentResult]" :id="this.currentResult" />
         <h2 class="text-xl mt-4">{{currentResult+1}}</h2>
         <div id="ux" class="z-20">
             <div id="leftArrow" v-if="currentResult > 0" title="Zurück">
-                <svg @click="currentResult--" class="w-16 left absolute top-0 left-0 mt-72 cursor-pointer"
+                <svg @click="handleArrow('dec')" class="w-16 left absolute top-0 left-0 mt-72 cursor-pointer"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 213.333 213.333">
                     <path d="M0 53.333L106.667 160 213.333 53.333z" /></svg>
             </div>
             <div id="rightArrow" title="Weiter">
-                <svg @click="currentResult++" class="w-16 right absolute top-0 right-0 mt-72"
+                <svg @click="handleArrow('inc')" class="w-16 right absolute top-0 right-0 mt-72"
                     :class="currentResult >= nResults ? 'svg-noClick' : 'cursor-pointer'"
                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 213.333 213.333">
                     <path d="M0 53.333L106.667 160 213.333 53.333z" /></svg>
@@ -32,7 +32,7 @@
                         index: this.currentResult + 1,
                         title: "Photovoltaik",
                         label: "Stromkosten",
-                        data: [200, 224.80, 249.20, 268.40],
+                        data: [200, 224.80, 249.20, 1268.40],
                         image: "PV.png",
                         description: "Eine Photovoltaik Anlage kann einen Teil bis zu ihrem gesamten Strombedarf durch die Sonne erstellen."
                     },
@@ -45,6 +45,22 @@
                         description: "Eine Pellets Heizung basiert auf Holz. Mit einer solchen Heizung können Sie bis zu 50% ihrer Heizkosten einsparen."
                     }
                 ]
+            }
+        },
+        methods: {
+            handleArrow(id) {
+                if (id == "inc") {
+                    this.currentResult++;
+                } else {
+                    this.currentResult--
+                }
+                this.$router.push({
+                    name: 'results',
+                    params: {
+                        id: this.currentResult
+                    }
+                })
+                return null;
             }
         }
     }
