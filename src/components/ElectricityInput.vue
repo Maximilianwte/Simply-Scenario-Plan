@@ -46,6 +46,7 @@
 </template>
 <script>
     import store from "../store";
+    import calculations from "../data/calculations";
     export default {
         data() {
             return {
@@ -68,6 +69,7 @@
                         electricityAmount: this.electricityAmount,
                         peopleInHouse: this.peopleInHouse
                     }
+                    calculations.calElectricity();
                     store.commit("pushData", data)
                 }
             }

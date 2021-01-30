@@ -63,6 +63,7 @@
     </div>
 </template>
 <script>
+    import calculations from "../data/calculations";
     import store from "../store";
     export default {
         data() {
@@ -88,6 +89,7 @@
                         heatingAmount: this.heatingAmount,
                         peopleInHouse: this.peopleInHouse
                     }
+                    calculations.calHeating();
                     store.commit("pushData", data)
                 }
             }

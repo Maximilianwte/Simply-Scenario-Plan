@@ -32,9 +32,11 @@
                         index: this.currentResult + 1,
                         title: "Photovoltaik",
                         label: "Stromkosten",
-                        data: [200, 224.80, 249.20, 1268.40],
+                        data: ["200", "224.80", "249.20", "1268.40"],
                         image: "PV.png",
-                        description: "Eine Photovoltaik Anlage kann einen Teil bis zu ihrem gesamten Strombedarf durch die Sonne erstellen."
+                        description: "Eine Photovoltaik Anlage kann einen Teil bis zu ihrem gesamten Strombedarf durch die Sonne erstellen.",
+                        investCost: 5300,
+                        savingsY: 630
                     },
                     {
                         index: this.currentResult + 1,
@@ -42,7 +44,9 @@
                         label: "Heizkosten",
                         data: [92, 112.80, 224.20, 268.40],
                         image: "Pellets.png",
-                        description: "Eine Pellets Heizung basiert auf Holz. Mit einer solchen Heizung können Sie bis zu 50% ihrer Heizkosten einsparen."
+                        description: "Eine Pellets Heizung basiert auf Holz. Mit einer solchen Heizung können Sie bis zu 50% ihrer Heizkosten einsparen.",
+                        investCost: 12400,
+                        savingsY: 1190
                     }
                 ]
             }

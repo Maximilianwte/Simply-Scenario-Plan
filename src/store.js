@@ -43,6 +43,9 @@ export default new Vuex.Store({
         heatingBill: null,
         heatingAmount: null,
         peopleInHouse: null
+      },
+      upgrades: {
+        id: "upgrades"
       }
     }
   },
