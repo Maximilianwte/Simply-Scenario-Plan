@@ -15,12 +15,6 @@
       }
     },
     mounted() {
-/*       this.$router.push({
-        name: 'home',
-        params: {
-          component: 0
-        }
-      }) */
     },
   }
 </script>
