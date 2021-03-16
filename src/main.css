@@ -142,7 +142,3 @@ body {
       transform: translateX(-20%);
       opacity: 0;
     }
-
-    .konvajs-content {
-      z-index: 0;
-    }

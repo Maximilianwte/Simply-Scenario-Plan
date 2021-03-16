@@ -4,18 +4,22 @@
       <v-layer>
         <v-rect v-for="item in moreDragRects" :key="item.index" :config="item.config"></v-rect>
         <v-rect v-for="item in moreListRects" :key="item.index" :config="item.config"></v-rect>
+        <v-rect :x="250" :y="125" :color="'#FADA89'" :dataProps="vRect1" @click="vRect1.open = true"/>
       </v-layer>
     </v-stage>
     <button class="x-4 y-4 absolute bottom-0 mb-12 ml-12 cursor-pointer z-30 px-6 py-3 text-xl bg-main text-bg rounded-full"
       @click="addListRect">+</button>
+      <button class="x-4 y-4 absolute bottom-0 mb-12 ml-32 cursor-pointer z-30 px-6 py-3 text-xl bg-main text-bg rounded-full"
+      @click="delText">Delete Text</button>
   </div>
 </template>
 
 <script>
+  import vRect from "../components/vRect";
   const width = window.innerWidth;
   const height = window.innerHeight;
   export default {
-    components: {},
+    components: {vRect},
     data() {
       return {
         configKonva: {
@@ -25,7 +29,11 @@
         moreDragRects: [],
         moreListRects: [],
         colors: ["#FADA89", "#70C1FF", "#FF5964", "#F7DCF9"],
-        index: 0
+        index: 0,
+        vRect1: {
+          title: "Employee happiness",
+          open: false
+        }
       }
     },
     methods: {
@@ -59,6 +67,11 @@
           config: config
         });
         this.index < 3 ? this.index++ : this.index = 0;
+      },
+      delText() {
+        this.testText.text = "A Variable";
+        this.testRect.width = 250;
+        this.testRect.height = 100;
       }
     },
     mounted() {
