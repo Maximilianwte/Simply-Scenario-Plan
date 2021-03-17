@@ -2,15 +2,13 @@
   <div id="front" class="w-full">
     <v-stage class="absolute z-0" :config="configKonva">
       <v-layer>
-        <v-rect v-for="item in moreDragRects" :key="item.index" :config="item.config"></v-rect>
-        <v-rect v-for="item in moreListRects" :key="item.index" :config="item.config"></v-rect>
-        <v-rect :x="250" :y="125" :color="'#FADA89'" :dataProps="vRect1" @click="vRect1.open = true"/>
+        <vRect v-for="item in moreDragRects" :key="item.index" :x="250" :y="125+280*index" :color="'#FADA89'" :dataProps="vRect1"/>
+        <vRect v-for="item in moreListRects" :key="item.index" :x="250" :y="125+130*index" :color="colors[index]" :dataProps="vRect1" />
+        <vRect :x="250" :y="125" :color="'#FADA89'" :dataProps="vRect1"/>
       </v-layer>
     </v-stage>
     <button class="x-4 y-4 absolute bottom-0 mb-12 ml-12 cursor-pointer z-30 px-6 py-3 text-xl bg-main text-bg rounded-full"
       @click="addListRect">+</button>
-      <button class="x-4 y-4 absolute bottom-0 mb-12 ml-32 cursor-pointer z-30 px-6 py-3 text-xl bg-main text-bg rounded-full"
-      @click="delText">Delete Text</button>
   </div>
 </template>
 
@@ -67,11 +65,6 @@
           config: config
         });
         this.index < 3 ? this.index++ : this.index = 0;
-      },
-      delText() {
-        this.testText.text = "A Variable";
-        this.testRect.width = 250;
-        this.testRect.height = 100;
       }
     },
     mounted() {
