@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Front from './views/front2.vue'
+import Front from './views/front.vue'
 
 Vue.use(Router)
 
