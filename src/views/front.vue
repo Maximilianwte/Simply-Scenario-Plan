@@ -1,12 +1,14 @@
 <template>
   <div id="front" class="w-full">
-    <varList />
+    <!-- <varList /> -->
+    <varDraggableCanvas />
   </div>
 </template>
 
 <script>
 import varList from "../components/varList";
+import varDraggableCanvas from "../components/varDraggableCanvas";
 export default {
-  components: {varList},
+  components: {varList, varDraggableCanvas},
 };
 </script>

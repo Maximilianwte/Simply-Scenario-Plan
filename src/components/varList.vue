@@ -13,6 +13,7 @@
         draggable
         @dragover.prevent
         @dragenter.prevent
+        @click.right.prevent
       >
         <div
           class="dropZoneTop w-64 py-10 -mt-6 absolute cursor-pointer"
@@ -20,7 +21,8 @@
         ></div>
         <div
           v-if="item.id != openID"
-          @click="setOpen(item.id)"
+          @click.right="setOpen(item.id)"
+          @click.right.prevent
           class="item w-64 text-center cursor-pointer front rounded-lg bg-gray-300"
           :class="getHeight"
         >
@@ -28,6 +30,8 @@
         </div>
         <div
           v-else
+          @click.right="setOpen(item.id)"
+          @click.right.prevent
           class="open w-64 h-48 bg-gray-300 rounded-lg cursor-pointer"
         >
           <div class="inner mt-3 flex">
@@ -41,7 +45,7 @@
               <div id="probTitle">Prob.</div>
               <div id="probability">
                 <form>
-                <input type="text" v-model="item.prob"
+                <input type="number" v-model="item.prob" min="0" max="100" step="any"
                     class="w-full cursor-pointer bg-gray-300 text-main text-center" />
                 </form></div>
               </div>
@@ -66,17 +70,17 @@ export default {
         {
           id: 0,
           title: "Item A",
-          prob: 0.3,
+          prob: 30,
         },
         {
           id: 1,
           title: "Item B",
-          prob: 0.112,
+          prob: 11.2,
         },
         {
           id: 2,
           title: "Item C",
-          prob: 0.23,
+          prob: 23,
         },
       ],
     };

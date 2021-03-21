@@ -34,6 +34,10 @@ body {
     z-index: 20;
   }
   
+  input {
+    background: none;
+  }
+  
   .theme_dark {
       --main: #fff;
       --alternative: #7488a0;
