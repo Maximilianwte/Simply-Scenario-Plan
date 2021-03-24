@@ -13,7 +13,7 @@
         class="rect absolute text-2xl text-bg w-64 py-12 rounded-lg cursor-pointer flex justify-center"
         :style="{
           backgroundColor: getColor(item.id),
-          top: (item.id == 0 ? 6 : 6 + 9 * item.id) + 'rem',
+          top: item.top + 'px',
         }"
         style="left: 4rem"
         :id="item.id"
@@ -31,7 +31,7 @@
         @drag="onDrag(item.id)"
         :style="{
           backgroundColor: getColor(item.id),
-          top: (item.id == 0 ? 6 : 6 + 9 * item.id) + 'rem',
+          top: item.top + 'px',
         }"
         style="left: 4rem"
         :id="item.id"
@@ -71,16 +71,19 @@ export default {
         {
           id: 0,
           title: "Item A",
+          top: 100,
         },
         {
           id: 1,
           title: "Item B",
+          top: 250,
         },
       ],
     };
   },
   methods: {
     onDrag(id) {
+      const vm = this;
       const elmnt = document.getElementById(id);
       console.log("triggered");
       var pos1 = 0,
@@ -116,22 +119,31 @@ export default {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
-        console.log(elmnt.style.top);
+        vm.moveAway(id);
       }
     },
     moveAway(id) {
       const elmnt = document.getElementById(id);
       const dim = {
-        top : elmnt.style.top,
-        left : elmnt.style.left
-      }
+        top: parseInt(elmnt.style.top),
+        left: parseInt(elmnt.style.left),
+      };
       for (var i = 0; i < this.items.length; i++) {
-        var elmnt2 = document.getElementById(this.items[i].id);
-        const dim2 = {
-        top : elmnt2.style.top,
-        left : elmnt2.style.left
-      }
-      
+        if (this.items[i].id != id) {
+          var elmnt2 = document.getElementById(this.items[i].id);
+          const dim2 = {
+            top: parseInt(elmnt2.style.top),
+            left: parseInt(elmnt2.style.left),
+          };
+          if (dim.top - dim2.top >= -100) {
+            console.log(dim.top - dim2.top);
+            if (dim2.top < dim.top) {
+              elmnt2.style.top = dim2.top - 100 + "px";
+            } else {
+              elmnt2.style.top = dim2.top + 100 + "px";
+            }
+          }
+        }
       }
     },
     buildLine() {
@@ -204,6 +216,7 @@ export default {
         id: this.items.length,
         title: "New item",
         prob: 0,
+        top: 100 + 150 * this.items.length,
       });
     },
     setOpen(id) {

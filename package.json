@@ -13,6 +13,7 @@
     "core-js": "^2.6.5",
     "jquery": "^3.5.1",
     "konva": "^7.2.5",
+    "plain-draggable": "^2.5.12",
     "tailwindcss": "^1.1.2",
     "two.js": "^0.7.1",
     "vue": "^2.6.10",
