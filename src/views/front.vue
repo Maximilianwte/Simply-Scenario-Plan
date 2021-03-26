@@ -1,7 +1,15 @@
 <template>
-  <div id="front" class="w-full flex-col">
-   <varList />
-  <varDraggableCanvas />
+  <div id="svgContainer" class="w-full flex-col">
+    <varList />
+    <varDraggableCanvas />
+    <svg id="svg1" width="0" height="0">
+      <path
+        id="myNewPath"
+        d="M0 0"
+        stroke-width="0.3em"
+        style="stroke: #555; fill: none"
+      />
+    </svg>
   </div>
 </template>
 
@@ -9,8 +17,9 @@
 import varList from "../components/varList";
 import varDraggableCanvas from "../components/varDraggableCanvas";
 import store from "../store";
+import svgDraw from "../data/svgDraw";
 export default {
-  components: {varList, varDraggableCanvas},
+  components: { varList, varDraggableCanvas },
   methods: {
     buildLine(id1, id2) {
       var div1 = document.getElementById(id1);
@@ -72,11 +81,12 @@ export default {
       for (var i = 0; i < connections.length; i++) {
         this.buildLine(connections[i][0], connections[i][1]);
       }
-    }
+    },
   },
   mounted() {
-   /*  dragDIV1 = new PlainDraggable(document.getElementById("div1")) */
-   /* this.updateLines(); */
-}
-}
+    /*  dragDIV1 = new PlainDraggable(document.getElementById("div1")) */
+    /* this.updateLines(); */
+    svgDraw.connectElementsMe("svg1", "myNewPath", "free0", "list1")
+  },
+};
 </script>
