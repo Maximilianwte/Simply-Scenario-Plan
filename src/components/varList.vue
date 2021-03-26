@@ -1,5 +1,5 @@
 <template>
-  <div class="list text-2xl">
+  <div class="draggableList text-2xl">
     <div
       class="drop-zone flex-col bg-gray-100 h-screen w-80"
       @drop="onDrop($event, items.length)"
@@ -23,6 +23,8 @@
           v-if="item.id != openID"
           @click.right="setOpen(item.id)"
           @click.right.prevent
+          :item="'list' + item.id"
+          :id="'list' + item.id"
           class="item w-64 text-center cursor-pointer front rounded-lg bg-gray-300"
           :class="getHeight"
         >
@@ -32,7 +34,9 @@
           v-else
           @click.right="setOpen(item.id)"
           @click.right.prevent
-          class="open w-64 h-48 bg-gray-300 rounded-lg cursor-pointer"
+          :item="'list' + item.id"
+          :id="'list' + item.id"
+          class="open item w-64 h-48 bg-gray-300 rounded-lg cursor-pointer"
         >
           <div class="inner mt-3 flex">
             <div id="left" class="flex-col w-1/2 h-48 justify-around">

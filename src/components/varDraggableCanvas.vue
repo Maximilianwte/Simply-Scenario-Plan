@@ -1,6 +1,6 @@
 <template>
-  <div class="w-80 flex-col text-2xl">
-    <div v-for="item in items" :key="item.id" class="cards">
+  <div class="draggableCards w-80 flex-col text-2xl">
+    <div v-for="item in items" :key="item.id">
       <div
         v-if="item.id != openID"
         @click.right="setOpen(item.id)"
@@ -8,15 +8,14 @@
         @click.right.prevent
         @dragover.prevent
         @dragenter.prevent
-        @dragend="moveAway(item.id)"
-        @drag="onDrag(item.id)"
+        @drag="onDrag('free' + item.id)"
         class="rect absolute text-2xl text-bg w-64 py-12 rounded-lg cursor-pointer flex justify-center"
         :style="{
           backgroundColor: getColor(item.id),
           top: item.top + 'px',
         }"
         style="left: 4rem"
-        :id="item.id"
+        :id="'free' + item.id"
       >
         {{ item.title }}
       </div>
@@ -28,13 +27,13 @@
         @click.right.prevent
         @dragover.prevent
         @dragenter.prevent
-        @drag="onDrag(item.id)"
+        @drag="onDrag('free' + item.id)"
         :style="{
           backgroundColor: getColor(item.id),
           top: item.top + 'px',
         }"
         style="left: 4rem"
-        :id="item.id"
+        :id="'free' + item.id"
       >
         <div class="inner mt-3 flex">
           <div id="left" class="flex-col w-1/2 h-48 justify-around">
@@ -62,6 +61,7 @@
   </div>
 </template>
 <script>
+import store from "../store";
 export default {
   data() {
     return {
@@ -85,7 +85,7 @@ export default {
     onDrag(id) {
       const vm = this;
       const elmnt = document.getElementById(id);
-      console.log("triggered");
+      /* console.log("triggered"); */
       var pos1 = 0,
         pos2 = 0,
         pos3 = 0,
@@ -119,21 +119,22 @@ export default {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
-        vm.moveAway(id);
+        /* vm.moveAway(id); */
+        vm.checkOverlayed(id);
       }
     },
     moveAway(id) {
-      const elmnt = document.getElementById(id);
+      /* const elmnt = document.getElementById(id);
       const dim = {
-        top: parseInt(elmnt.style.top),
-        left: parseInt(elmnt.style.left),
+        top: parseInt(elmnt.offsetTop),
+        left: parseInt(elmnt.offsetLeft),
       };
       for (var i = 0; i < this.items.length; i++) {
         if (this.items[i].id != id) {
           var elmnt2 = document.getElementById(this.items[i].id);
           const dim2 = {
-            top: parseInt(elmnt2.style.top),
-            left: parseInt(elmnt2.style.left),
+            top: parseInt(elmnt2.offsetTop),
+            left: parseInt(elmnt2.offsetLeft),
           };
           if (dim.top - dim2.top >= -100) {
             console.log(dim.top - dim2.top);
@@ -144,65 +145,26 @@ export default {
             }
           }
         }
-      }
+      } */
     },
-    buildLine() {
-      console.log("line built");
-      var div1 = document.getElementById("0");
-      var div2 = document.getElementById("1");
-      connect(div1, div2, "#2d2d2d", 3);
-
-      function connect(div1, div2, color, thickness) {
-        var off1 = getOffset(div1);
-        var off2 = getOffset(div2);
-        // bottom right
-        var x1 = off1.left + off1.width;
-        var y1 = off1.top + off1.height;
-        // top right
-        var x2 = off2.left;
-        var y2 = off2.top;
-        // distance
-        var length = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-        // center
-        var cx = (x1 + x2) / 2 - length / 2;
-        var cy = (y1 + y2) / 2 - thickness / 2;
-        // angle
-        var angle = Math.atan2(y1 - y2, x1 - x2) * (180 / Math.PI);
-        // make hr
-        var htmlLine =
-          "<div style='padding:0px; margin:0px; height:" +
-          thickness +
-          "px; background-color:" +
-          color +
-          "; line-height:1px; position:absolute; left:" +
-          cx +
-          "px; top:" +
-          cy +
-          "px; width:" +
-          length +
-          "px; -moz-transform:rotate(" +
-          angle +
-          "deg); -webkit-transform:rotate(" +
-          angle +
-          "deg); -o-transform:rotate(" +
-          angle +
-          "deg); -ms-transform:rotate(" +
-          angle +
-          "deg); transform:rotate(" +
-          angle +
-          "deg);' />";
-        //
-        document.body.innerHTML += htmlLine;
-      }
-
-      function getOffset(el) {
-        var rect = el.getBoundingClientRect();
-        return {
-          left: rect.left + window.pageXOffset,
-          top: rect.top + window.pageYOffset,
-          width: rect.width || el.offsetWidth,
-          height: rect.height || el.offsetHeight,
+    checkOverlayed(id) {
+      const elmnt = document.getElementById(id);
+      const otherElmnts = document.getElementsByClassName("item");
+      for (var i = 0; i < otherElmnts.length; i++) {
+        var otherElmntCenter = {
+          x: otherElmnts[i].offsetTop + otherElmnts[i].offsetHeight / 2,
+          y: otherElmnts[i].offsetLeft + otherElmnts[i].offsetWidth / 2,
         };
+        if (id != otherElmnts[i].id) {
+          if (
+            otherElmntCenter.x > elmnt.offsetTop &&
+            otherElmntCenter.x < elmnt.offsetTop + elmnt.offsetHeight &&
+            otherElmntCenter.y > elmnt.offsetLeft &&
+            otherElmntCenter.y < elmnt.offsetLeft + elmnt.offsetWidth
+          ) {
+            store.commit("addConnection", [elmnt.id, otherElmnts[i].id]);
+          }
+        }
       }
     },
     getColor(id) {
@@ -227,6 +189,9 @@ export default {
       }
       return null;
     },
+  },
+  mounted() {
+    //this.buildLine("free0", "list1")
   },
 };
 </script>
