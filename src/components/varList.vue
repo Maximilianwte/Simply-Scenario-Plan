@@ -66,6 +66,7 @@
   </div>
 </template>
 <script>
+import svgDraw from "../data/svgDraw";
 export default {
   data() {
     return {
@@ -106,6 +107,7 @@ export default {
         title: "New item",
         prob: 0,
       });
+      svgDraw.updateAndConnectAll();
     },
     onDrop(evt, dropID) {
       const itemID = evt.dataTransfer.getData("itemID");
@@ -115,6 +117,7 @@ export default {
       for (var i = 0; i < this.items.length; i++) {
         this.items[i].id = i;
       }
+      svgDraw.updateAndConnectAll();
     },
     onDropToList(evt, list) {
       // this is a variation of the onDrop function that changes the list of the item.

@@ -62,6 +62,7 @@
 </template>
 <script>
 import store from "../store";
+import svgDraw from "../data/svgDraw";
 export default {
   data() {
     return {
@@ -121,6 +122,7 @@ export default {
         document.onmousemove = null;
         /* vm.moveAway(id); */
         vm.checkOverlayed(id);
+        svgDraw.updateAndConnectAll();
       }
     },
     moveAway(id) {

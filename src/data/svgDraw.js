@@ -1,4 +1,6 @@
 import $ from "jquery";
+import store from "../store";
+// adapted from: https://gist.github.com/alojzije/11127839
 //helper functions, it turned out chrome doesn't support Math.sgn()
 let svgDraw = {
   signum(x) {
@@ -65,8 +67,8 @@ let svgDraw = {
         endY
     );
   },
-  connectElementsMe(svg, path, startId, endId) {
-    var svgContainer = document.getElementById("svgContainer");
+  connectElements(svg, path, startId, endId) {
+    var svgContainer = document.getElementById("front");
     var svg = $("#"+svg);
     var path = $("#"+path);
     var startElem = document.getElementById(startId);
@@ -99,9 +101,8 @@ let svgDraw = {
     // call function for drawing the path
     this.drawPath(svg, path, startX, startY, endX, endY);
   },
-  connectElements(svg, path, startElem, endElem) {
-    var svgContainer = $("#svgContainer");
-    console.log(document.getElementById("free0"));
+  /* connectElementsAlt(svg, path, startElem, endElem) {
+    var svgContainer = $("#front");
     // if first element is lower than the second, swap!
     if (startElem.offset().top > endElem.offset().top) {
       var temp = startElem;
@@ -128,31 +129,17 @@ let svgDraw = {
 
     // call function for drawing the path
     drawPath(svg, path, startX, startY, endX, endY);
-  },
-  /* connectAll() {
-    // connect all the paths you want!
-    connectElements($("#svg1"), $("#path1"), $("#teal"), $("#orange"));
-    connectElements($("#svg1"), $("#path2"), $("#red"), $("#orange"));
-    connectElements($("#svg1"), $("#path3"), $("#teal"), $("#aqua"));
-    connectElements($("#svg1"), $("#path4"), $("#red"), $("#aqua"));
-    connectElements($("#svg1"), $("#path5"), $("#purple"), $("#teal"));
-    connectElements($("#svg1"), $("#path6"), $("#orange"), $("#green"));
   }, */
+  updateAndConnectAll() {
+    const connections = store.state.connectedShapes;
+    for (var i = 1; i < connections.length; i++) {
+      $("#svg" + i).attr("height", "0");
+      $("#svg" + i).attr("width", "0");
+    }
+    for (var i = 0; i < connections.length; i++) {
+      this.connectElements("svg"+(i+1), "path"+(i+1), connections[i][0], connections[i][1]);
+    }
+  },
 };
 
 export default svgDraw;
-
-/* $(document).ready(function() {
-  // reset svg each time
-  $("#svg1").attr("height", "0");
-  $("#svg1").attr("width", "0");
-  connectAll();
-});
-
-$(window).resize(function() {
-  // reset svg each time
-  $("#svg1").attr("height", "0");
-  $("#svg1").attr("width", "0");
-  connectAll();
-});
- */
