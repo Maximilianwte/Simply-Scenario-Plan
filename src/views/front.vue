@@ -9,7 +9,7 @@
       />
     </svg>
     <varDraggableCanvas />
-    <varList class="ml-80" />
+    <varList class="ml-128" />
   </div>
 </template>
 
