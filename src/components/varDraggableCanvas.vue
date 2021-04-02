@@ -37,7 +37,7 @@
         style="left: 4rem"
         :id="'free' + item.id"
       >
-        <div class="inner mt-3 flex">
+        <div class="inner flex">
           <div id="left" class="flex-col w-1/2 h-48 justify-around">
             <div id="title" class="">
               <form>
@@ -192,9 +192,6 @@ export default {
       }
       return null;
     },
-  },
-  mounted() {
-    //this.buildLine("free0", "list1")
-  },
+  }
 };
 </script>

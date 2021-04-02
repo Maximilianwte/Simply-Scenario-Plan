@@ -2,13 +2,16 @@
   <div class="draggableList text-2xl">
     <div
       class="drop-zone flex-col bg-gray-100 h-screen w-80"
-      @drop="onDrop($event, items.length)"
       @dragover.prevent
       @dragenter.prevent
     >
+    <div
+          class="dropZoneTop w-64 py-16 cursor-pointer"
+          @drop="onDrop($event, 0)"
+        />
       <div
         v-for="item in items"
-        :key="item.id"
+        :key="item.displayId"
         @dragstart="startDrag($event, item)"
         draggable
         @dragover.prevent
@@ -17,13 +20,13 @@
       >
         <div
           class="dropZoneTop w-64 py-10 -mt-6 absolute cursor-pointer"
-          @drop="onDrop($event, item.id)"
-        ></div>
+          @drop="onDrop($event, item.displayId)"
+          @click.right="setOpen(item.id)"
+        />
         <div
           v-if="item.id != openID"
           @click.right="setOpen(item.id)"
           @click.right.prevent
-          :item="'list' + item.id"
           :id="'list' + item.id"
           class="item w-64 text-center cursor-pointer front rounded-lg bg-gray-300"
           :class="getHeight"
@@ -34,7 +37,6 @@
           v-else
           @click.right="setOpen(item.id)"
           @click.right.prevent
-          :item="'list' + item.id"
           :id="'list' + item.id"
           class="open item w-64 h-48 bg-gray-300 rounded-lg cursor-pointer"
         >
@@ -56,6 +58,10 @@
           </div>
         </div>
       </div>
+      <div
+          class="dropZoneBottom w-64 py-16 cursor-pointer"
+          @drop="onDrop($event, items.length)"
+        />
       <button
         @click="addItem"
         class="absolute bottom-0 mb-8 px-6 py-3 rounded-full bg-main text-bg hover:bg-focus"
@@ -74,16 +80,19 @@ export default {
       items: [
         {
           id: 0,
+          displayId: 0,
           title: "Item A",
           prob: 30,
         },
         {
           id: 1,
+          displayId: 1,
           title: "Item B",
           prob: 11.2,
         },
         {
           id: 2,
+          displayId: 2,
           title: "Item C",
           prob: 23,
         },
@@ -112,12 +121,12 @@ export default {
     onDrop(evt, dropID) {
       const itemID = evt.dataTransfer.getData("itemID");
       const item = this.items.find((item) => item.id == itemID);
-      item.id = dropID - 0.49;
-      this.items.sort((a, b) => a.id - b.id);
+      item.displayId = dropID - 0.49;
+      console.log(item.displayId)
+      this.items.sort((a, b) => a.displayId - b.displayId);
       for (var i = 0; i < this.items.length; i++) {
-        this.items[i].id = i;
+        this.items[i].displayId = i;
       }
-      console.log(this.items)
       svgDraw.updateAndConnectAll();
     },
     onDropToList(evt, list) {
