@@ -9,6 +9,7 @@
         @dragover.prevent
         @dragenter.prevent
         @drag="onDrag('free' + item.id)"
+        @mouseenter="onDrag('free' + item.id)"
         class="rect absolute text-2xl text-bg w-64 py-12 rounded-lg cursor-pointer flex justify-center"
         :style="{
           backgroundColor: getColor(item.id),
@@ -28,6 +29,7 @@
         @dragover.prevent
         @dragenter.prevent
         @drag="onDrag('free' + item.id)"
+        @mouseenter="onDrag('free' + item.id)"
         :style="{
           backgroundColor: getColor(item.id),
           top: item.top + 'px',
@@ -86,7 +88,6 @@ export default {
     onDrag(id) {
       const vm = this;
       const elmnt = document.getElementById(id);
-      /* console.log("triggered"); */
       var pos1 = 0,
         pos2 = 0,
         pos3 = 0,

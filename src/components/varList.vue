@@ -117,6 +117,7 @@ export default {
       for (var i = 0; i < this.items.length; i++) {
         this.items[i].id = i;
       }
+      console.log(this.items)
       svgDraw.updateAndConnectAll();
     },
     onDropToList(evt, list) {

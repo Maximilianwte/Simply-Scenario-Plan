@@ -25,6 +25,9 @@ export default {
     nConnections() {
       return store.state.connectedShapes.length;
     }
+  },
+  mounted() {
+    console.log(store.state.connectedShapes)
   }
 };
 
