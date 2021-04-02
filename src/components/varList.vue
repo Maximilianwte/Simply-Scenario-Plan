@@ -1,7 +1,7 @@
 <template>
-  <div class="draggableList text-2xl">
+  <div class="draggableList text-2xl h-screen w-80 pt-12 border-l-4 border-r-4">
     <div
-      class="drop-zone flex-col bg-gray-100 h-screen w-80"
+      class="drop-zone flex-col"
       @dragover.prevent
       @dragenter.prevent
     >

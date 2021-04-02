@@ -13,9 +13,9 @@
         class="rect absolute text-2xl text-bg w-64 py-12 rounded-lg cursor-pointer flex justify-center"
         :style="{
           backgroundColor: getColor(item.id),
-          top: item.top + 'px',
+          top: item.top + 'rem',
+          left: item.left + 'rem',
         }"
-        style="left: 4rem"
         :id="'free' + item.id"
       >
         {{ item.title }}
@@ -32,9 +32,9 @@
         @mouseenter="onDrag('free' + item.id)"
         :style="{
           backgroundColor: getColor(item.id),
-          top: item.top + 'px',
+          top: item.top + 'rem',
+          left: item.left + 'rem',
         }"
-        style="left: 4rem"
         :id="'free' + item.id"
       >
         <div class="inner flex">
@@ -74,12 +74,22 @@ export default {
         {
           id: 0,
           title: "Item A",
-          top: 100,
+          left: 4,
+          top: 6,
+          cachePos: {
+            top: null,
+            left: null
+          }
         },
         {
           id: 1,
           title: "Item B",
-          top: 250,
+          left: 4,
+          top: 16,
+          cachePos: {
+            top: null,
+            left: null
+          }
         },
       ],
     };
@@ -92,7 +102,11 @@ export default {
         pos2 = 0,
         pos3 = 0,
         pos4 = 0;
-
+      this.items[id.slice(4)].cachePos = {
+        top: elmnt.style.top,
+        left: elmnt.style.left
+      }
+      console.log(this.items)
       document.getElementById(elmnt.id).onmousedown = dragMouseDown;
 
       function dragMouseDown(e) {
@@ -166,6 +180,8 @@ export default {
             otherElmntCenter.y < elmnt.offsetLeft + elmnt.offsetWidth
           ) {
             store.commit("addConnection", [elmnt.id, otherElmnts[i].id]);
+            elmnt.style.left = this.items[id.slice(4)].cachePos.left;
+            elmnt.style.top = this.items[id.slice(4)].cachePos.top;
           }
         }
       }
@@ -181,7 +197,12 @@ export default {
         id: this.items.length,
         title: "New item",
         prob: 0,
-        top: 100 + 150 * this.items.length,
+        top: 6 + 10 * this.items.length,
+        left: 4,
+        cachePos: {
+            top: null,
+            left: null
+          }
       });
     },
     setOpen(id) {
