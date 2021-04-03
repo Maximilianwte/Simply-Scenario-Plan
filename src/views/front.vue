@@ -1,5 +1,5 @@
 <template>
-  <div id="front" class="w-full flex justify-around">
+  <div id="front" class="w-full flex">
     <svg v-for="id in nConnections" :key="id" :id="'svg' + id" class="absolute top-0 left-0 clickThrough" width="0" height="0">
       <path
         :id="'path' + id"
@@ -8,9 +8,10 @@
         style="stroke: #555; fill: none"
       />
     </svg>
-    <varDraggableCanvas />
-    <varList v-for="i in nVarLists" :key="i" />
+    <varDraggableCanvas id="outcomeVariables" />
+    <varList :id="'scenarioVariables_' + i" v-for="i in nVarLists" :key="i" />
     <button
+        id="button_addScenarioVariableList"
         @click="addList"
         class="absolute bottom-0 mb-8 px-6 py-3 rounded-full bg-main text-bg hover:bg-focus text-2xl"
       >+</button>

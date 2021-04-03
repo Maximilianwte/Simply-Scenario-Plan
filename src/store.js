@@ -1,19 +1,92 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 import svgDraw from "./data/svgDraw";
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    connectedShapes: [
-      ["free0", "list2"]
-    ]
+    // ---- UI ----
+
+    // ---- Variables ----
+
+    outcomeVariables: [
+      {
+        id: 0,
+        title: "Item A",
+        left: 4,
+        top: 6,
+        cachePos: {
+          top: null,
+          left: null,
+        },
+      },
+      {
+        id: 1,
+        title: "Item B",
+        left: 4,
+        top: 16,
+        cachePos: {
+          top: null,
+          left: null,
+        },
+      },
+    ],
+    scenarioVariables_1: [
+      {
+        id: 0,
+        displayId: 0,
+        title: "Item A",
+        prob: 30,
+      },
+      {
+        id: 1,
+        displayId: 1,
+        title: "Item B",
+        prob: 11.2,
+      },
+      {
+        id: 2,
+        displayId: 2,
+        title: "Item C",
+        prob: 23,
+      },
+    ],
+    // ---- Connected Shapes ----
+
+    connectedShapes: [["outcomeVariables0", "scenarioVariables_1#1"]],
+    // ---- Return Cache ----
+
+    returnCache: {
+      returnIndex: 0,
+      values: [],
+    },
   },
   mutations: {
+    // ---- Add Data ----
+
     addConnection(state, payload) {
       state.connectedShapes.push(payload);
       console.log(state.connectedShapes);
       svgDraw.updateAndConnectAll();
+    },
+    addOutcomeVariable(state, payload) {
+      state.outcomeVariables.push(payload);
+    },
+    addScenarioVariable(state, payload) {
+      state.scenarioVariables.push(payload);
+    },
+    // ---- Handle Return Cache ----
+    
+    addReturnValue(state, payload) {
+      state.returnCache.values.length >= 20 ? state.returnCache.values.shift() : null;
+      state.returnCache.values.push({
+        id: payload.id,
+        value: payload.value
+      });
+      console.log(state.returnCache.values)
+    },
+    goStepBack(state, payload) {
+      console.log(state.returnCache.values[state.returnCache.values.length - state.returnCache.returnIndex]);
     }
-  }
-})
+  },
+});

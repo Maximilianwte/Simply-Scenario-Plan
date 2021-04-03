@@ -1,5 +1,5 @@
 <template>
-  <div class="draggableList text-2xl h-screen w-80 pt-12 border-l-4 border-r-4">
+  <div :id="componentId" class="draggableList text-2xl h-screen w-80 pt-12 border-l-4 border-r-4">
     <div
       class="drop-zone flex-col"
       @dragover.prevent
@@ -27,7 +27,7 @@
           v-if="item.id != openID"
           @click.right="setOpen(item.id)"
           @click.right.prevent
-          :id="'list' + item.id"
+          :id="componentId + '#' + item.id"
           class="item w-64 text-center cursor-pointer front rounded-lg bg-gray-300"
           :class="getHeight"
         >
@@ -37,13 +37,13 @@
           v-else
           @click.right="setOpen(item.id)"
           @click.right.prevent
-          :id="'list' + item.id"
+          :id="componentId + '#' + item.id"
           class="open item w-64 h-48 bg-gray-300 rounded-lg cursor-pointer"
         >
           <div class="inner mt-3 flex">
             <div id="left" class="flex-col w-1/2 h-48 justify-around">
               <div id="title" class=""><form>
-                <input type="text" v-model="item.title"
+                <input type="text" v-model="item.title" @change="sendToStore"
                     class="w-full cursor-pointer bg-gray-300 text-main text-center" />
                 </form></div>
             </div>
@@ -51,7 +51,7 @@
               <div id="probTitle">Prob.</div>
               <div id="probability">
                 <form>
-                <input type="number" v-model="item.prob" min="0" max="100" step="any"
+                <input type="number" v-model="item.prob" @change="sendToStore" min="0" max="100" step="any"
                     class="w-full cursor-pointer bg-gray-300 text-main text-center" />
                 </form></div>
               </div>
@@ -72,31 +72,15 @@
   </div>
 </template>
 <script>
+import store from "../store";
 import svgDraw from "../data/svgDraw";
 export default {
+  props: ['id'],
   data() {
     return {
+      componentId: this.id,
       openID: null,
-      items: [
-        {
-          id: 0,
-          displayId: 0,
-          title: "Item A",
-          prob: 30,
-        },
-        {
-          id: 1,
-          displayId: 1,
-          title: "Item B",
-          prob: 11.2,
-        },
-        {
-          id: 2,
-          displayId: 2,
-          title: "Item C",
-          prob: 23,
-        },
-      ],
+      items: store.state.scenarioVariables_1,
     };
   },
   computed: {
@@ -105,17 +89,23 @@ export default {
     },
   },
   methods: {
+    sendToStore() {
+      store.commit("addReturnValue", {
+        id: this.componentId,
+        value: this.items
+      })
+    },
     startDrag: (evt, item) => {
       evt.dataTransfer.dropEffect = "move";
       evt.dataTransfer.effectAllowed = "move";
       evt.dataTransfer.setData("itemID", item.id);
     },
     addItem() {
-      this.items.push({
+      store.commit("addScenarioVariable", {
         id: this.items.length + 1,
         title: "New item",
         prob: 0,
-      });
+      })
       svgDraw.updateAndConnectAll();
     },
     onDrop(evt, dropID) {

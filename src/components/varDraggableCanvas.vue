@@ -1,5 +1,5 @@
 <template>
-  <div class="draggableCards w-80 flex-col text-2xl">
+  <div :id="componentId" class="w-80 flex-col text-2xl">
     <div v-for="item in items" :key="item.id">
       <div
         v-if="item.id != openID"
@@ -8,15 +8,15 @@
         @click.right.prevent
         @dragover.prevent
         @dragenter.prevent
-        @drag="onDrag('free' + item.id)"
-        @mouseenter="onDrag('free' + item.id)"
+        @drag="onDrag(componentId + item.id)"
+        @mouseenter="onDrag(componentId + item.id)"
         class="rect absolute text-2xl text-bg w-64 py-12 rounded-lg cursor-pointer flex justify-center"
         :style="{
           backgroundColor: getColor(item.id),
           top: item.top + 'rem',
           left: item.left + 'rem',
         }"
-        :id="'free' + item.id"
+        :id="componentId + item.id"
       >
         {{ item.title }}
       </div>
@@ -28,14 +28,14 @@
         @click.right.prevent
         @dragover.prevent
         @dragenter.prevent
-        @drag="onDrag('free' + item.id)"
-        @mouseenter="onDrag('free' + item.id)"
+        @drag="onDrag(componentId + item.id)"
+        @mouseenter="onDrag(componentId + item.id)"
         :style="{
           backgroundColor: getColor(item.id),
           top: item.top + 'rem',
           left: item.left + 'rem',
         }"
-        :id="'free' + item.id"
+        :id="componentId + item.id"
       >
         <div class="inner flex">
           <div id="left" class="flex-col w-1/2 h-48 justify-around">
@@ -44,6 +44,7 @@
                 <input
                   type="text"
                   v-model="item.title"
+                  @change="sendToStore"
                   class="w-full cursor-pointer text-main text-center"
                 />
               </form>
@@ -66,32 +67,13 @@
 import store from "../store";
 import svgDraw from "../data/svgDraw";
 export default {
+  props: ['id'],
   data() {
     return {
+      componentId: this.id,
       openID: null,
       colors: ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"],
-      items: [
-        {
-          id: 0,
-          title: "Item A",
-          left: 4,
-          top: 6,
-          cachePos: {
-            top: null,
-            left: null
-          }
-        },
-        {
-          id: 1,
-          title: "Item B",
-          left: 4,
-          top: 16,
-          cachePos: {
-            top: null,
-            left: null
-          }
-        },
-      ],
+      items: store.state.outcomeVariables,
     };
   },
   methods: {
@@ -102,11 +84,10 @@ export default {
         pos2 = 0,
         pos3 = 0,
         pos4 = 0;
-      this.items[id.slice(4)].cachePos = {
+      this.items[id.slice(this.componentId.length)].cachePos = {
         top: elmnt.style.top,
         left: elmnt.style.left
       }
-      console.log(this.items)
       document.getElementById(elmnt.id).onmousedown = dragMouseDown;
 
       function dragMouseDown(e) {
@@ -135,12 +116,15 @@ export default {
         // stop moving when mouse button is released:
         document.onmouseup = null;
         document.onmousemove = null;
-        /* vm.moveAway(id); */
+        /* vm.moveElementsAroundAway(id); */
+        vm.items[id.slice(vm.componentId.length)].top = elmnt.style.top;
+        vm.items[id.slice(vm.componentId.length)].left = elmnt.style.left;
+        vm.sendToStore();
         vm.checkOverlayed(id);
         svgDraw.updateAndConnectAll();
       }
     },
-    moveAway(id) {
+    moveElementsAroundAway(id) {
       /* const elmnt = document.getElementById(id);
       const dim = {
         top: parseInt(elmnt.offsetTop),
@@ -180,8 +164,8 @@ export default {
             otherElmntCenter.y < elmnt.offsetLeft + elmnt.offsetWidth
           ) {
             store.commit("addConnection", [elmnt.id, otherElmnts[i].id]);
-            elmnt.style.left = this.items[id.slice(4)].cachePos.left;
-            elmnt.style.top = this.items[id.slice(4)].cachePos.top;
+            elmnt.style.left = this.items[id.slice(this.componentId.length)].cachePos.left;
+            elmnt.style.top = this.items[id.slice(this.componentId.length)].cachePos.top;
           }
         }
       }
@@ -193,7 +177,11 @@ export default {
       return this.colors[colValue];
     },
     addItem() {
-      this.items.push({
+      store.commit("addReturnValue", {
+        id: this.componentId,
+        value: this.items
+      })
+      store.commit("addOutcomeVariable", {
         id: this.items.length,
         title: "New item",
         prob: 0,
@@ -203,7 +191,13 @@ export default {
             top: null,
             left: null
           }
-      });
+      })
+    },
+    sendToStore() {
+      store.commit("addReturnValue", {
+        id: this.componentId,
+        value: this.items
+      })
     },
     setOpen(id) {
       if (this.openID == id) {
