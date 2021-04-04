@@ -6,6 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     // ---- UI ----
+    colorful: true,
+    // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
+    uiStep: 0,
 
     // ---- Variables ----
 
@@ -52,8 +55,8 @@ export default new Vuex.Store({
       },
     ],
     // ---- Connected Shapes ----
-
-    connectedShapes: [["outcomeVariables0", "scenarioVariables_1#1"]],
+    // ["outcomeVariables0", "scenarioVariables_1#1"]
+    connectedShapes: [],
     // ---- Return Cache ----
 
     returnCache: {
@@ -83,10 +86,19 @@ export default new Vuex.Store({
         id: payload.id,
         value: payload.value
       });
+      state.returnCache.returnIndex = 0;
       console.log(state.returnCache.values)
     },
-    goStepBack(state, payload) {
-      console.log(state.returnCache.values[state.returnCache.values.length - state.returnCache.returnIndex]);
+    goStepBack(state) {
+      const thisStep = state.returnCache.values[state.returnCache.values.length - state.returnCache.returnIndex - 1];
+      switch (thisStep.id) {
+        case "outcomeVariables": {
+            state.outcomeVariables = thisStep.value;
+            console.log(state.outcomeVariables)
+            break;
+        }
+      }
+      state.returnCache.returnIndex--;
     }
   },
 });

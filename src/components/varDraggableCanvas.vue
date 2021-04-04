@@ -67,7 +67,7 @@
 import store from "../store";
 import svgDraw from "../data/svgDraw";
 export default {
-  props: ['id'],
+  props: ["id"],
   data() {
     return {
       componentId: this.id,
@@ -77,6 +77,8 @@ export default {
     };
   },
   methods: {
+    // ---- Drag methods ----
+
     onDrag(id) {
       const vm = this;
       const elmnt = document.getElementById(id);
@@ -86,8 +88,8 @@ export default {
         pos4 = 0;
       this.items[id.slice(this.componentId.length)].cachePos = {
         top: elmnt.style.top,
-        left: elmnt.style.left
-      }
+        left: elmnt.style.left,
+      };
       document.getElementById(elmnt.id).onmousedown = dragMouseDown;
 
       function dragMouseDown(e) {
@@ -124,6 +126,8 @@ export default {
         svgDraw.updateAndConnectAll();
       }
     },
+    // ---- Further drag methods ----
+
     moveElementsAroundAway(id) {
       /* const elmnt = document.getElementById(id);
       const dim = {
@@ -164,12 +168,18 @@ export default {
             otherElmntCenter.y < elmnt.offsetLeft + elmnt.offsetWidth
           ) {
             store.commit("addConnection", [elmnt.id, otherElmnts[i].id]);
-            elmnt.style.left = this.items[id.slice(this.componentId.length)].cachePos.left;
-            elmnt.style.top = this.items[id.slice(this.componentId.length)].cachePos.top;
+            elmnt.style.left = this.items[
+              id.slice(this.componentId.length)
+            ].cachePos.left;
+            elmnt.style.top = this.items[
+              id.slice(this.componentId.length)
+            ].cachePos.top;
           }
         }
       }
     },
+    // ---- Variable Operations ----
+
     getColor(id) {
       const nCol = this.colors.length;
       const colValue =
@@ -179,8 +189,8 @@ export default {
     addItem() {
       store.commit("addReturnValue", {
         id: this.componentId,
-        value: this.items
-      })
+        value: this.items,
+      });
       store.commit("addOutcomeVariable", {
         id: this.items.length,
         title: "New item",
@@ -188,16 +198,16 @@ export default {
         top: 6 + 10 * this.items.length,
         left: 4,
         cachePos: {
-            top: null,
-            left: null
-          }
-      })
+          top: null,
+          left: null,
+        },
+      });
     },
     sendToStore() {
       store.commit("addReturnValue", {
         id: this.componentId,
-        value: this.items
-      })
+        value: this.items,
+      });
     },
     setOpen(id) {
       if (this.openID == id) {
@@ -207,6 +217,6 @@ export default {
       }
       return null;
     },
-  }
+  },
 };
 </script>
