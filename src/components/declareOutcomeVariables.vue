@@ -29,6 +29,8 @@
           :id="componentId + '#' + item.id"
           class="item w-80 text-center cursor-pointer front rounded-lg bg-gray-300 py-8 mt-3"
           :style="{backgroundColor: getColor(item.id)}"
+          tooltip-content="content"
+          tooltip-position="up"
         >
           {{ item.title }}
         </div>

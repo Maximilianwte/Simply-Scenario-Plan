@@ -159,3 +159,45 @@ li {
 .backgroundHidden {
   background-color: none;
 }
+
+/* Tooltip */
+
+[tooltip-position][tooltip-content] { 
+  position: relative;
+}
+[tooltip-position][tooltip-content]::before {
+  content: attr(tooltip-content);
+  position: absolute;
+  opacity: 0;
+  visibility: none;
+  background-color: #303030;
+  border-radius: .5rem;
+  color: white;
+  padding: .5rem;
+  font-size: 1.5rem;
+}
+[tooltip-position^="up"][tooltip-content]::before {
+  bottom: calc(0.5rem + 100%);
+  right: 50%;
+  transform: translateX(50%);
+}
+[tooltip-position^="down"][tooltip-content]::before {
+  top: calc(0.5rem + 100%);
+  right: 50%;
+  transform: translateX(50%);
+}
+[tooltip-position^="left"][tooltip-content]::before {
+  right: calc(1rem + 100%);
+  bottom: 50%;
+  transform: translateY(50%);
+}
+[tooltip-position^="right"][tooltip-content]::before {
+  left: calc(1rem + 100%);
+  bottom: 50%;
+  transform: translateY(50%);
+}
+[tooltip-position][tooltip-content]:hover::before {
+  visibility: visible;
+  opacity: 1;
+}
+
