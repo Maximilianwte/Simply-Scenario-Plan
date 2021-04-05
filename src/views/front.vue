@@ -9,6 +9,7 @@
       />
     </svg>
     <declareOutcomeVariables v-if="getUIStep == 0"/>
+    <declareScenarioVariables v-if="getUIStep == 1"/>
     <!-- <varDraggableCanvas id="outcomeVariables" /> -->
     <!-- <varList :id="'scenarioVariables_' + i" v-for="i in nVarLists" :key="i" /> -->
     <!-- <button
@@ -24,11 +25,12 @@
 import varList from "../components/varList";
 import varDraggableCanvas from "../components/varDraggableCanvas";
 import declareOutcomeVariables from "../components/declareOutcomeVariables";
+import declareScenarioVariables from "../components/declareScenarioVariables";
 import store from "../store";
 import svgDraw from "../data/svgDraw";
 import $ from "jquery";
 export default {
-  components: { varList, varDraggableCanvas, declareOutcomeVariables },
+  components: { varList, varDraggableCanvas, declareOutcomeVariables, declareScenarioVariables },
   data() {
     return {
       nVarLists : 1,

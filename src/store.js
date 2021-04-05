@@ -15,19 +15,10 @@ export default new Vuex.Store({
     outcomeVariables: [
       {
         id: 0,
-        title: "Item A",
-        left: 4,
+        displayId: 0,
+        title: "New Variable",
         top: 6,
-        cachePos: {
-          top: null,
-          left: null,
-        },
-      },
-      {
-        id: 1,
-        title: "Item B",
         left: 4,
-        top: 16,
         cachePos: {
           top: null,
           left: null,
@@ -65,6 +56,15 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    // ---- Handle UI ----
+    moveUI(state, payload) {
+      if (payload == "inc") {
+        state.uiStep++;
+      }
+      else if (payload == "dec") {
+        state.uiStep--;
+      }
+    },
     // ---- Add Data ----
 
     addConnection(state, payload) {
