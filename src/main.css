@@ -6,7 +6,6 @@
 
 body {
   font-family: 'Quicksand', sans-serif;
-  overflow-x: hidden;
 }
 
 a {
@@ -167,6 +166,9 @@ li {
 }
 [tooltip-position$="-abs"][tooltip-content] { 
   position: absolute;
+}
+[tooltip-position$="-fxd"][tooltip-content] { 
+  position: fixed;
 }
 [tooltip-position][tooltip-content]::before {
   content: attr(tooltip-content);

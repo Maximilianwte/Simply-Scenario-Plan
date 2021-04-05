@@ -1,15 +1,18 @@
 <template>
   <div
     :id="componentId"
-    class="draggableList text-2xl h-screen w-80 pt-12 border-l-4 border-r-4"
+    class="draggableList text-2xl h-screen w-80 pt-6 border-l-4 border-r-4 border-dashed"
   >
     <div class="drop-zone flex-col" @dragover.prevent @dragenter.prevent>
+      <h3 class="text-lg text-gray-500">
+        Scenario Layer {{ this.idList + 1 }}
+      </h3>
       <div
         class="dropZoneTop w-64 py-16 cursor-pointer"
         @drop="onDrop($event, 0)"
       />
       <div
-        v-for="item in items"
+        v-for="item in getItems"
         :key="item.displayId"
         @dragstart="startDrag($event, item)"
         draggable
@@ -48,6 +51,7 @@
                     v-model="item.title"
                     @change="sendToStore"
                     class="w-full cursor-pointer bg-gray-300 text-main text-center"
+                    ondblclick="this.setSelectionRange(0, this.value.length)"
                   />
                 </form>
               </div>
@@ -64,6 +68,7 @@
                     max="100"
                     step="any"
                     class="w-full cursor-pointer bg-gray-300 text-main text-center"
+                    ondblclick="this.setSelectionRange(0, this.value.length)"
                   />
                 </form>
               </div>
@@ -73,7 +78,7 @@
       </div>
       <div
         class="dropZoneBottom w-64 py-16 cursor-pointer"
-        @drop="onDrop($event, items.length)"
+        @drop="onDrop($event, getItems.length)"
       />
       <button
         @click="addItem"
@@ -88,19 +93,22 @@
 import store from "../store";
 import svgDraw from "../data/svgDraw";
 export default {
-  props: ["id"],
+  props: ["id", "idList"],
   data() {
     return {
       componentId: this.id,
       openID: null,
-      items: store.state.scenarioVariables_1,
     };
   },
   computed: {
     getHeight() {
-      return this.items.length > 4 ? "py-4 mt-1" : "py-8 mt-3";
+      return this.getItems.length > 4 ? "py-4 mt-1" : "py-8 mt-3";
+    },
+    getItems() {
+      return store.state.scenarioVariables[this.idList];
     },
   },
+  mounted() {},
   methods: {
     // ---- Drag methods ----
 
@@ -111,19 +119,19 @@ export default {
     },
     onDrop(evt, dropID) {
       const itemID = evt.dataTransfer.getData("itemID");
-      const item = this.items.find((item) => item.id == itemID);
+      const item = this.getItems.find((item) => item.id == itemID);
       item.displayId = dropID - 0.49;
       console.log(item.displayId);
-      this.items.sort((a, b) => a.displayId - b.displayId);
-      for (var i = 0; i < this.items.length; i++) {
-        this.items[i].displayId = i;
+      this.getItems.sort((a, b) => a.displayId - b.displayId);
+      for (var i = 0; i < this.getItems.length; i++) {
+        this.getItems[i].displayId = i;
       }
       svgDraw.updateAndConnectAll();
     },
     onDropToList(evt, list) {
       // this is a variation of the onDrop function that changes the list of the item.
       const itemID = evt.dataTransfer.getData("itemID");
-      const item = this.items.find((item) => item.id == itemID);
+      const item = this.getItems.find((item) => item.id == itemID);
       item.list = list;
     },
     // ---- Variable Operations ----
@@ -136,9 +144,12 @@ export default {
     },
     addItem() {
       store.commit("addScenarioVariable", {
-        id: this.items.length + 1,
-        title: "New item",
-        prob: 0,
+        listID: this.idList,
+        value: {
+          id: this.getItems.length + 1,
+          title: "New Scenario",
+          prob: 0,
+        },
       });
       svgDraw.updateAndConnectAll();
     },
