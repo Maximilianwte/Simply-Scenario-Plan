@@ -78,7 +78,7 @@ export default {
       store.commit("switchColorfulMode");
     },
     handleClearAll() {
-      return null;
+      store.commit("clearAllEdits")
     }
   },
   mounted() {

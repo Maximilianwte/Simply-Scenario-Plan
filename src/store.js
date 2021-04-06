@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     // ---- UI ----
-    ui : {
+    ui: {
       colorful: true,
       dark: false,
       // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
@@ -62,34 +62,23 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    // ---- Set complete data block ----
-
-    setData(state, payload) {
-      if (payload.id == "data") {
-        state = payload.value;
-        console.log(state)
-      }
-      else {
-        state[payload.id] = payload.value;
-      }
-    },
     // ---- Handle UI ----
 
     moveUI(state, payload) {
-      if (payload == "inc") {
+      if (payload == "inc" && state.ui.uiStep < 1) {
         state.ui.uiStep++;
-      } else if (payload == "dec") {
+      } else if (payload == "dec" && state.ui.uiStep > 0) {
         state.ui.uiStep--;
       }
+      this.commit("setDataToCookie");
     },
     switchDarkMode(state, payload) {
       state.ui.dark = !state.ui.dark;
-      console.log(state.ui);
-      cookie_functions.setCookie("data", state, 90);
+      this.commit("setDataToCookie");
     },
     switchColorfulMode(state, payload) {
       state.ui.colorful = !state.ui.colorful;
-      cookie_functions.setCookie("data", state, 90);
+      this.commit("setDataToCookie");
     },
     // ---- Add Data ----
 
@@ -100,7 +89,7 @@ export default new Vuex.Store({
     },
     addOutcomeVariable(state, payload) {
       state.outcomeVariables.push(payload);
-      cookie_functions.setCookie("data", state, 90);
+      this.commit("setDataToCookie");
     },
     addScenarioList(state, payload) {
       state.scenarioVariables.push([
@@ -111,11 +100,11 @@ export default new Vuex.Store({
           prob: 0,
         },
       ]);
-      cookie_functions.setCookie("data", state, 90);
+      this.commit("setDataToCookie");
     },
     addScenarioVariable(state, payload) {
       state.scenarioVariables[payload.listID].push(payload.value);
-      cookie_functions.setCookie("data", state, 90);
+      this.commit("setDataToCookie");
     },
     // ---- Handle Return Cache ----
 
@@ -129,7 +118,7 @@ export default new Vuex.Store({
       });
       state.returnCache.returnIndex = 0;
       console.log(state.returnCache.values);
-      cookie_functions.setCookie("data", state, 90);
+      this.commit("setDataToCookie");
     },
     goStepBack(state) {
       const thisStep =
@@ -144,6 +133,65 @@ export default new Vuex.Store({
         }
       }
       state.returnCache.returnIndex--;
+    },
+    // ---- Handle Cookie Cache ----
+
+    setDataFromCookie(state, payload) {
+      for (var id in state) {
+        var data = cookie_functions.getCookie("data_" + id);
+        if (data != "") {
+          state[id] = JSON.parse(data);
+        }
+      }
+    },
+    setDataToCookie(state, payload) {
+      for (var id in state) {
+        cookie_functions.setCookie("data_" + id, state[id], 90);
+      }
+    },
+    clearAllEdits(state, payload) {
+      for (var id in state) {
+        cookie_functions.deleteCookie("data_" + id);
+      }
+      state = {
+        // ---- UI ----
+        ui: state.ui,
+
+        // ---- Variables ----
+
+        outcomeVariables: [
+          {
+            id: 0,
+            displayId: 0,
+            title: "New Variable",
+            top: 6,
+            left: 4,
+            cachePos: {
+              top: null,
+              left: null,
+            },
+          },
+        ],
+        scenarioVariables: [
+          [
+            {
+              id: 0,
+              displayId: 0,
+              title: "Scenario A",
+              prob: 0,
+            },
+          ],
+        ],
+        // ---- Connected Shapes ----
+        // ["outcomeVariables0", "scenarioVariables_1#1"]
+        connectedShapes: [],
+        // ---- Return Cache ----
+
+        returnCache: {
+          returnIndex: 0,
+          values: [],
+        },
+      };
     },
   },
 });

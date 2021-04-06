@@ -41,7 +41,8 @@
           @click.right="setOpen(item.id)"
           @click.right.prevent
           :id="componentId + '#' + item.id"
-          class="open item w-64 h-48 bg-gray-300 rounded-lg cursor-pointer"
+          class="open item w-64 h-48 rounded-lg cursor-pointer"
+          :style="{ backgroundColor: getColor(item.id) }"
         >
           <div class="inner mt-3 flex">
             <div id="left" class="flex-col w-1/2 h-48 justify-around">
@@ -51,7 +52,7 @@
                     type="text"
                     v-model="item.title"
                     @change="sendToStore"
-                    class="w-full cursor-pointer bg-gray-300 text-main text-center"
+                    class="w-full cursor-pointer text-main text-center"
                     ondblclick="this.setSelectionRange(0, this.value.length)"
                   />
                 </form>
@@ -68,7 +69,7 @@
                     min="0"
                     max="100"
                     step="any"
-                    class="w-full cursor-pointer bg-gray-300 text-main text-center"
+                    class="w-full cursor-pointer text-main text-center"
                     ondblclick="this.setSelectionRange(0, this.value.length)"
                   />
                 </form>

@@ -22,9 +22,12 @@
       }
     },
     mounted() {
-      let data = JSON.parse(cookie_functions.getCookie("data"));
-      console.log(data);
-      store.commit("setData", {id: "data", value: data})
+      store.commit("setDataFromCookie");
+      //let data = JSON.parse(cookie_functions.getCookie("scenarioVariables"));
+      /* Console here and in store looks good, why doesnt it come to component */
+ /*      console.log('from cookie read: ') */
+ /*      console.log(data); */
+ /*      store.commit("setData", {id: "scenarioVariables", value: data}) */
     }
   }
 </script>
