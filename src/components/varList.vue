@@ -163,7 +163,7 @@ export default {
       return null;
     },
     getColor(id) {
-      if (store.state.colorful) {
+      if (store.state.ui.colorful) {
         const nCol = this.colors.length;
         const colValue =
           id > nCol - 1 ? Math.round(Math.random() * (nCol - 1)) : id;
