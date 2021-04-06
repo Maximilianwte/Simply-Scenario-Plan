@@ -30,8 +30,9 @@
           @click.right="setOpen(item.id)"
           @click.right.prevent
           :id="componentId + '#' + item.id"
-          class="item w-64 text-center cursor-pointer front rounded-lg bg-gray-300"
+          class="item w-64 text-center cursor-pointer front rounded-lg"
           :class="getHeight"
+          :style="{ backgroundColor: getColor(item.id) }"
         >
           {{ item.title }}
         </div>
@@ -98,6 +99,7 @@ export default {
     return {
       componentId: this.id,
       openID: null,
+      colors: ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"],
     };
   },
   computed: {
@@ -108,7 +110,6 @@ export default {
       return store.state.scenarioVariables[this.idList];
     },
   },
-  mounted() {},
   methods: {
     // ---- Drag methods ----
 
@@ -160,6 +161,16 @@ export default {
         this.openID = id;
       }
       return null;
+    },
+    getColor(id) {
+      if (store.state.colorful) {
+        const nCol = this.colors.length;
+        const colValue =
+          id > nCol - 1 ? Math.round(Math.random() * (nCol - 1)) : id;
+        return this.colors[colValue];
+      } else {
+        return "#e2e8f0";
+      }
     },
   },
 };

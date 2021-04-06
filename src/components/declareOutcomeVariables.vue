@@ -98,10 +98,14 @@ export default {
     // ---- Variable Operations ----
 
     getColor(id) {
-      const nCol = this.colors.length;
-      const colValue =
-        id > nCol - 1 ? Math.round(Math.random() * (nCol - 1)) : id;
-      return this.colors[colValue];
+      if (store.state.colorful) {
+        const nCol = this.colors.length;
+        const colValue =
+          id > nCol - 1 ? Math.round(Math.random() * (nCol - 1)) : id;
+        return this.colors[colValue];
+      } else {
+        return "#e2e8f0";
+      }
     },
     // ---- Drag methods ----
 
@@ -122,7 +126,7 @@ export default {
     // ---- Store & Return cache methods ----
 
     moveUI(val) {
-      store.commit("moveUI", val)
+      store.commit("moveUI", val);
     },
     sendToStore() {
       store.commit("addReturnValue", {

@@ -1,11 +1,12 @@
 <template>
-  <div class="min-h-screen w-screen relative theme_light text-main bg-bg">
+  <div class="min-h-screen w-screen relative text-main bg-bg" :class="getTheme">
     <router-view />
   </div>
 </template>
 
 <script>
   import texts from "./data/text.json";
+  import store from "./store.js";
 
   export default {
     data() {
@@ -14,8 +15,11 @@
         text: texts
       }
     },
-    mounted() {
-    },
+    computed: {
+      getTheme() {
+        return store.state.dark ? "theme_dark" : "theme_light"
+      }
+    }
   }
 </script>
 

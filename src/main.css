@@ -39,8 +39,8 @@ input {
 
 .theme_dark {
   --main: #fff;
-  --alternative: #7488a0;
-  --bg: #344c6b;
+  --alternative: #cacaca;
+  --bg: #252525;
   --focus: #e84855;
 }
 
@@ -157,6 +157,12 @@ li {
 
 .backgroundHidden {
   background-color: none;
+}
+
+.dropdown {
+  position: absolute;
+  right: 100%;
+  top: 0px;
 }
 
 /* Tooltip */

@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     // ---- UI ----
     colorful: true,
+    dark: false,
     // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
     uiStep: 1,
 
@@ -65,6 +66,12 @@ export default new Vuex.Store({
       } else if (payload == "dec") {
         state.uiStep--;
       }
+    },
+    switchDarkMode(state, payload) {
+      state.dark = !state.dark;
+    },
+    switchColorfulMode(state, payload) {
+      state.colorful = !state.colorful;
     },
     // ---- Add Data ----
 
