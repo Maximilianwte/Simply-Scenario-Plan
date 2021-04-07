@@ -53,7 +53,7 @@ export default new Vuex.Store({
     ],
     // ---- Connected Shapes ----
     // ["outcomeVariables0", "scenarioVariables_1#1"]
-    connectedShapes: [],
+    connectedShapes: [["scenarioVariables_1#2", "scenarioVariables_2#0"]],
     // ---- Return Cache ----
 
     returnCache: {

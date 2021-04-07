@@ -7,7 +7,6 @@
 <script>
   import texts from "./data/text.json";
   import store from "./store.js";
-  import cookie_functions from "./data/cookie_functions";
 
   export default {
     data() {
@@ -22,7 +21,7 @@
       }
     },
     mounted() {
-      //store.commit("setDataFromCookie");
+      store.commit("setDataFromCookie");
     }
   }
 </script>

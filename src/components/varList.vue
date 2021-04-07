@@ -14,11 +14,7 @@
       <div
         v-for="item in getItems"
         :key="item.displayId"
-        @dragstart="startDrag($event, item)"
-        draggable
-        @dragover.prevent
-        @dragenter.prevent
-        @click.right.prevent
+        :id="componentId + '#' + item.id"
       >
         <div
           class="dropZoneTop w-64 py-10 -mt-6 absolute cursor-pointer"
@@ -29,7 +25,10 @@
           v-if="item.id != openID"
           @click.right="setOpen(item.id)"
           @click.right.prevent
-          :id="componentId + '#' + item.id"
+          @dragstart="startDrag($event, item, componentId + '#' + item.id)"
+          draggable
+          @dragover.prevent
+          @dragenter.prevent
           class="item w-64 text-center cursor-pointer front rounded-lg"
           :class="getHeight"
           :style="{ backgroundColor: getColor(item.id) }"
@@ -40,7 +39,6 @@
           v-else
           @click.right="setOpen(item.id)"
           @click.right.prevent
-          :id="componentId + '#' + item.id"
           class="open item w-64 h-48 rounded-lg cursor-pointer"
           :style="{ backgroundColor: getColor(item.id) }"
         >
@@ -110,23 +108,55 @@ export default {
     getItems() {
       return store.state.scenarioVariables[this.idList];
     },
+    getAllLists() {
+      return store.state.scenarioVariables;
+    },
   },
   methods: {
     // ---- Drag methods ----
 
-    startDrag: (evt, item) => {
+    startDrag: (evt, item, id) => {
       evt.dataTransfer.dropEffect = "move";
       evt.dataTransfer.effectAllowed = "move";
-      evt.dataTransfer.setData("itemID", item.id);
+      evt.dataTransfer.setData("listID", item.id);
     },
     onDrop(evt, dropID) {
-      const itemID = evt.dataTransfer.getData("itemID");
-      const item = this.getItems.find((item) => item.id == itemID);
+      const listID = evt.dataTransfer.getData("listID");
+      const item = this.getItems.find((item) => item.id == listID);
+      // --- Sort own list if dragged ---
+
       item.displayId = dropID - 0.49;
-      console.log(item.displayId);
       this.getItems.sort((a, b) => a.displayId - b.displayId);
       for (var i = 0; i < this.getItems.length; i++) {
         this.getItems[i].displayId = i;
+      }
+      // --- If dropped on another list check if you need connection ---
+
+      if (this.getAllLists.length > 1) {
+        var e = e || window.event;
+        e.preventDefault();
+        var pos1 = e.clientX,
+          pos2 = e.clientY;
+        //console.log(pos2);
+        for (var iterLists in this.getAllLists) {
+          if (iterLists != this.idList) {
+            for (var iterItems in this.getAllLists[iterLists]) {
+              var elmnt = document.getElementById(
+                "scenarioVariables_" + iterLists + "#" + iterItems
+              );
+              console.log("pos1 " + pos1)
+              console.log("offsetleft " + elmnt.offsetLeft)
+              if (
+                pos1 > elmnt.offsetLeft &&
+                pos1 < elmnt.offsetLeft + elmnt.offsetWidth &&
+                pos2 > elmnt.offsetTop &&
+                pos2 < elmnt.offsetTop + elmnt.offsetHeight
+              ) {
+                console.log(elmnt.offsetTop);
+              }
+            }
+          }
+        }
       }
       svgDraw.updateAndConnectAll();
     },

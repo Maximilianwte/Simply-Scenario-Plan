@@ -67,6 +67,22 @@ let svgDraw = {
         endY
     );
   },
+  drawPathRightLeft(svg, path, startX, startY, endX, endY, startWidth, endWidth) {
+    // get the path's stroke width (if one wanted to be  really precize, one could use half the stroke size)
+    var stroke = parseFloat(path.attr("stroke-width"));
+    // check if the svg is big enough to draw the path, if not, set heigh/width
+    if (svg.attr("height") < endY) svg.attr("height", endY + 20);
+    if (svg.attr("width") < startX + stroke) svg.attr("width", startX + stroke);
+    if (svg.attr("width") < endX + stroke) svg.attr("width", endX + stroke);
+    if ((endY - startY) >= 0 && (endY - startY) < 30) {
+      path.attr("d",
+      "M" + (startX+startWidth) + " "+ startY + "L" + (endX-endWidth) +" " + endY)
+    }
+    else {
+      path.attr("d",
+    "M" + endX + " "+ endY + "q" + (startX-endX)/2 +" 0 "+ (startX-endX)/2 +" "+ (startY-endY)/2 +" 0 "+ (startY-endY)/0.75 +" " + startX +" " + startY)
+    }
+  },
   connectElements(svg, path, startId, endId) {
     var svgContainer = document.getElementById("front");
     var svg = $("#"+svg);
@@ -100,6 +116,40 @@ let svgDraw = {
 
     // call function for drawing the path
     this.drawPath(svg, path, startX, startY, endX, endY);
+  },
+  connectElementsRightLeft(svg, path, startId, endId) {
+    var svgContainer = document.getElementById("front");
+    var svg = $("#"+svg);
+    var path = $("#"+path);
+    var startElem = document.getElementById(startId);
+    var endElem = document.getElementById(endId);
+
+    // if first element is lower than the second, swap!
+    if (startElem.offsetTop > endElem.offsetTop) {
+      var temp = startElem;
+      startElem = endElem;
+      endElem = temp;
+    }
+
+    // get (top, left) corner coordinates of the svg container
+    var svgTop = svgContainer.offsetTop;
+    var svgLeft = svgContainer.offsetLeft;
+
+    // get (top, left) coordinates for the two elements
+    var startCoord = { top: startElem.offsetTop, left: startElem.offsetLeft };
+    var endCoord = { top: endElem.offsetTop, left: endElem.offsetLeft };
+
+    // calculate path's start (x,y)  coords
+    // we want the x coordinate to visually result in the element's mid point
+    var startX = startCoord.left - svgLeft; // x = left offset + 0.5*width - svg's left offset
+    var startY = startCoord.top + 0.5 *  startElem.offsetHeight - svgTop; // y = top offset + height - svg's top offset
+
+    // calculate path's end (x,y) coords
+    var endX = endCoord.left + endElem.offsetWidth - svgLeft;
+    var endY = endCoord.top + 0.5 * endElem.offsetHeight  - svgTop;
+
+    // call function for drawing the path
+    this.drawPathRightLeft(svg, path, startX, startY, endX, endY, startElem.offsetWidth, endElem.offsetWidth);
   },
   /* connectElementsAlt(svg, path, startElem, endElem) {
     var svgContainer = $("#front");
@@ -137,7 +187,7 @@ let svgDraw = {
       $("#svg" + i).attr("width", "0");
     }
     for (var i = 0; i < connections.length; i++) {
-      this.connectElements("svg"+(i+1), "path"+(i+1), connections[i][0], connections[i][1]);
+      this.connectElementsRightLeft("svg"+(i+1), "path"+(i+1), connections[i][0], connections[i][1]);
     }
   },
 };
