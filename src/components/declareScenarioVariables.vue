@@ -1,5 +1,13 @@
 <template>
   <div id="declareScenarioVariables" class="flex text-3xl">
+    <svg v-for="id in nConnections" :key="'svg' + id" :id="'svg' + id" class="absolute top-0 left-0 clickThrough" width="0" height="0">
+      <path
+        :id="'path' + id"
+        d="M0 0"
+        stroke-width="0.21rem"
+        style="stroke: #cbd5e0; fill: none"
+      />
+    </svg>
     <div id="header" class="top-0 left-0 mt-24 ml-12 w-80">
       <h2 tooltip-content="Scenarios can be all possible events that could occure. You can add & edit the scenarios and change the probability of occuring." tooltip-position="down">
         What scenarios could happen to your business?
@@ -67,9 +75,14 @@
 <script>
 import store from "../store";
 import varList from "../components/varList";
+import $ from "jquery";
+import svgDraw from "../data/svgDraw";
 export default {
   components: { varList },
   computed: {
+    nConnections() {
+      return store.state.connectedShapes.length;
+    },
     getNVarLists() {
       return store.state.scenarioVariables.length;
     },
@@ -82,5 +95,12 @@ export default {
       store.commit("moveUI", val);
     },
   },
+   mounted() {
+    svgDraw.updateAndConnectAll();
+  }
 };
+$(window).resize(function() {
+  svgDraw.updateAndConnectAll();
+});
 </script>
+

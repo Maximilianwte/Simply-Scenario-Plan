@@ -9,12 +9,12 @@
       </h2>
     </div>
     <div
-      class="drop-zone flex-col w-80 h-screen"
+      class="drop-zone flex-col w-72 h-screen text-2xl"
       @dragover.prevent
       @dragenter.prevent
     >
       <div
-        class="dropZoneTop w-64 py-16 cursor-pointer"
+        class="dropZoneTop w-72 py-16 cursor-pointer"
         @drop="onDrop($event, 0)"
       />
       <div
@@ -27,13 +27,13 @@
         @click.right.prevent
       >
         <div
-          class="dropZoneTop w-80 py-10 -mt-6 absolute cursor-pointer"
+          class="dropZoneTop w-72 py-10 -mt-6 absolute cursor-pointer"
           @drop="onDrop($event, item.displayId)"
         />
         <div
           @click.right.prevent
           :id="componentId + '#' + item.id"
-          class="item w-80 text-center cursor-pointer front rounded-lg bg-gray-300 py-8 mt-3"
+          class="item w-72 text-center cursor-pointer front rounded-lg bg-gray-300 py-8 mt-3"
           :style="{ backgroundColor: getColor(item.id) }"
           tooltip-content="Rename your outcome variable. What variable do you want to track?"
           tooltip-position="right"

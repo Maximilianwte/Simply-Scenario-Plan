@@ -11,7 +11,7 @@ export default new Vuex.Store({
       colorful: true,
       dark: false,
       // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
-      uiStep: 1,
+      uiStep: 0,
     },
 
     // ---- Variables ----
@@ -53,7 +53,7 @@ export default new Vuex.Store({
     ],
     // ---- Connected Shapes ----
     // ["outcomeVariables0", "scenarioVariables_1#1"]
-    connectedShapes: [["scenarioVariables_1#2", "scenarioVariables_2#0"]],
+    connectedShapes: [["scenarioVariables_1#2", "scenarioVariables_2#0"], ["scenarioVariables_1#0", "scenarioVariables_2#0"]],
     // ---- Return Cache ----
 
     returnCache: {
