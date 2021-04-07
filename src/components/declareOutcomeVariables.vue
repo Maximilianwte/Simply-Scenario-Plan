@@ -18,7 +18,7 @@
         @drop="onDrop($event, 0)"
       />
       <div
-        v-for="item in items"
+        v-for="item in getItems"
         :key="item.displayId"
         @dragstart="startDrag($event, item)"
         draggable
@@ -42,7 +42,7 @@
             <form>
               <input
                 type="text"
-                @change="sendToStore"
+                @change="sendCacheToStore"
                 v-model="item.title"
                 class="w-full cursor-pointer backgroundHidden text-main text-center"
                 ondblclick="this.setSelectionRange(0, this.value.length)"
@@ -53,7 +53,7 @@
       </div>
       <div
         class="dropZoneBottom w-64 py-16 cursor-pointer"
-        @drop="onDrop($event, items.length)"
+        @drop="onDrop($event, getItems.length)"
       />
       <button
         @click="addItem"
@@ -91,8 +91,12 @@ export default {
     return {
       componentId: "declareOutcomeVariables",
       colors: ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"],
-      items: store.state.outcomeVariables,
     };
+  },
+  computed: {
+    getItems() {
+      return store.state.outcomeVariables;
+    },
   },
   methods: {
     // ---- Variable Operations ----
@@ -116,11 +120,11 @@ export default {
     },
     onDrop(evt, dropID) {
       const itemID = evt.dataTransfer.getData("itemID");
-      const item = this.items.find((item) => item.id == itemID);
+      const item = this.getItems.find((item) => item.id == itemID);
       item.displayId = dropID - 0.49;
-      this.items.sort((a, b) => a.displayId - b.displayId);
-      for (var i = 0; i < this.items.length; i++) {
-        this.items[i].displayId = i;
+      this.getItems.sort((a, b) => a.displayId - b.displayId);
+      for (var i = 0; i < this.getItems.length; i++) {
+        this.getItems[i].displayId = i;
       }
     },
     // ---- Store & Return cache methods ----
@@ -128,20 +132,21 @@ export default {
     moveUI(val) {
       store.commit("moveUI", val);
     },
-    sendToStore() {
+    sendCacheToStore() {
+      const items = Object.assign({}, this.getItems);
       store.commit("addReturnValue", {
         id: this.componentId,
-        value: this.items,
+        value: items,
       });
     },
     addItem() {
       if (store.state.outcomeVariables.length < 5) {
-        this.sendToStore();
+        this.sendCacheToStore();
         store.commit("addOutcomeVariable", {
-          id: this.items.length,
-          displayId: this.items.length,
+          id: this.getItems.length,
+          displayId: this.getItems.length,
           title: "New Variable",
-          top: 6 + 10 * this.items.length,
+          top: 6 + 10 * this.getItems.length,
           left: 4,
           cachePos: {
             top: null,

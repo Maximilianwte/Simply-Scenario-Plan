@@ -51,7 +51,7 @@
                   <input
                     type="text"
                     v-model="item.title"
-                    @change="sendToStore"
+                    @change="sendCacheToStore"
                     class="w-full cursor-pointer text-main text-center"
                     ondblclick="this.setSelectionRange(0, this.value.length)"
                   />
@@ -65,7 +65,7 @@
                   <input
                     type="number"
                     v-model="item.prob"
-                    @change="sendToStore"
+                    @change="sendCacheToStore"
                     min="0"
                     max="100"
                     step="any"
@@ -138,13 +138,16 @@ export default {
     },
     // ---- Variable Operations ----
 
-    sendToStore() {
+    sendCacheToStore() {
+      const items = Object.assign({}, this.getItems);
       store.commit("addReturnValue", {
-        id: this.componentId,
-        value: this.items,
+        id: "scenarioVariables",
+        idList: this.idList,
+        value: items,
       });
     },
     addItem() {
+      this.sendCacheToStore();
       store.commit("addScenarioVariable", {
         listID: this.idList,
         value: {

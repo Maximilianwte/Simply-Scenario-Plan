@@ -69,7 +69,7 @@ export default {
       this.nVarLists++;
     },
     goBackOneStep() {
-      this.nStepsToGoBack > 0 ? store.commit("goStepBack") : null;
+      this.nStepsToGoBack > 0 ? store.commit("undoEdit") : null;
     },
     switchDarkMode() {
       store.commit("switchDarkMode");

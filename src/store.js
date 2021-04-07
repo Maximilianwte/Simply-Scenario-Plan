@@ -70,15 +70,15 @@ export default new Vuex.Store({
       } else if (payload == "dec" && state.ui.uiStep > 0) {
         state.ui.uiStep--;
       }
-      this.commit("setDataToCookie");
+      this.commit("setDataToCookie", "ui");
     },
-    switchDarkMode(state, payload) {
+    switchDarkMode(state) {
       state.ui.dark = !state.ui.dark;
-      this.commit("setDataToCookie");
+      this.commit("setDataToCookie", "ui");
     },
-    switchColorfulMode(state, payload) {
+    switchColorfulMode(state) {
       state.ui.colorful = !state.ui.colorful;
-      this.commit("setDataToCookie");
+      this.commit("setDataToCookie", "ui");
     },
     // ---- Add Data ----
 
@@ -86,10 +86,11 @@ export default new Vuex.Store({
       state.connectedShapes.push(payload);
       console.log(state.connectedShapes);
       svgDraw.updateAndConnectAll();
+      this.commit("setDataToCookie", "connectedShapes");
     },
     addOutcomeVariable(state, payload) {
       state.outcomeVariables.push(payload);
-      this.commit("setDataToCookie");
+      this.commit("setDataToCookie", "outcomeVariables");
     },
     addScenarioList(state, payload) {
       state.scenarioVariables.push([
@@ -100,11 +101,11 @@ export default new Vuex.Store({
           prob: 0,
         },
       ]);
-      this.commit("setDataToCookie");
+      this.commit("setDataToCookie", "scenarioVariables");
     },
     addScenarioVariable(state, payload) {
       state.scenarioVariables[payload.listID].push(payload.value);
-      this.commit("setDataToCookie");
+      this.commit("setDataToCookie", "scenarioVariables");
     },
     // ---- Handle Return Cache ----
 
@@ -114,29 +115,41 @@ export default new Vuex.Store({
         : null;
       state.returnCache.values.push({
         id: payload.id,
+        idList: payload.idList,
         value: payload.value,
       });
       state.returnCache.returnIndex = 0;
       console.log(state.returnCache.values);
-      this.commit("setDataToCookie");
+      this.commit("setDataToCookie", "returnCache");
     },
-    goStepBack(state) {
-      const thisStep =
-        state.returnCache.values[
-          state.returnCache.values.length - state.returnCache.returnIndex - 1
-        ];
-      switch (thisStep.id) {
-        case "outcomeVariables": {
-          state.outcomeVariables = thisStep.value;
-          console.log(state.outcomeVariables);
-          break;
+    undoEdit(state) {
+      if (
+        state.returnCache.values.length != 0 &&
+        state.returnCache.returnIndex <= (state.returnCache.values.length -1)
+      ) {
+        const thisStep =
+          state.returnCache.values[
+            state.returnCache.values.length - 1 - state.returnCache.returnIndex
+          ];
+        switch (thisStep.id) {
+          case "declareOutcomeVariables": {
+            Vue.set(state, "outcomeVariables", thisStep.value);
+            break;
+          }
+          case "scenarioVariables": {
+            // --- test here: when adding the copied object in varList the methods like .push() get destryoed
+            console.log(state.scenarioVariables)
+            //Vue.set(state.scenarioVariables, thisStep.idList, thisStep.value);
+            console.log(state.scenarioVariables)
+            break;
+          }
         }
+        state.returnCache.returnIndex++;
       }
-      state.returnCache.returnIndex--;
     },
     // ---- Handle Cookie Cache ----
 
-    setDataFromCookie(state, payload) {
+    setDataFromCookie(state) {
       for (var id in state) {
         var data = cookie_functions.getCookie("data_" + id);
         if (data != "") {
@@ -145,15 +158,19 @@ export default new Vuex.Store({
       }
     },
     setDataToCookie(state, payload) {
-      for (var id in state) {
-        cookie_functions.setCookie("data_" + id, state[id], 90);
+      if (payload == null) {
+        for (var id in state) {
+          cookie_functions.setCookie("data_" + id, state[id], 90);
+        }
+      } else {
+        cookie_functions.setCookie("data_" + payload, state[payload], 90);
       }
     },
-    clearAllEdits(state, payload) {
+    clearAllEdits(state) {
       for (var id in state) {
         cookie_functions.deleteCookie("data_" + id);
       }
-      state = {
+      const startValues = {
         // ---- UI ----
         ui: state.ui,
 
@@ -192,6 +209,7 @@ export default new Vuex.Store({
           values: [],
         },
       };
+      Object.assign(state, startValues);
     },
   },
 });
