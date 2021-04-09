@@ -43,6 +43,7 @@
               <input
                 type="text"
                 @change="sendCacheToStore"
+                @focus="cacheValue(item.id, item.title)"
                 v-model="item.title"
                 class="w-full cursor-pointer backgroundHidden text-main text-center"
                 ondblclick="this.setSelectionRange(0, this.value.length)"
@@ -91,6 +92,8 @@ export default {
     return {
       componentId: "declareOutcomeVariables",
       colors: ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"],
+      cachedId: null,
+      cachedTitle: null,
     };
   },
   computed: {
@@ -110,6 +113,10 @@ export default {
       } else {
         return "#e2e8f0";
       }
+    },
+    cacheValue(id, title) {
+      this.cachedId = id;
+      this.cachedTitle = title;
     },
     // ---- Drag methods ----
 
@@ -133,7 +140,12 @@ export default {
       store.commit("moveUI", val);
     },
     sendCacheToStore() {
-      const items = Object.assign({}, this.getItems);
+      var items = JSON.parse(JSON.stringify(this.getItems));
+      if (this.cachedId != null) {
+        items[this.cachedId].title = this.cachedTitle;
+        this.cachedId = null;
+        this.cachedTitle = null;
+      }
       store.commit("addReturnValue", {
         id: this.componentId,
         value: items,

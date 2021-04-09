@@ -74,7 +74,7 @@
 </template>
 <script>
 import store from "../store";
-import varList from "../components/varList";
+import varList from "../components/varList2";
 import $ from "jquery";
 import svgDraw from "../data/svgDraw";
 export default {

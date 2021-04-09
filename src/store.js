@@ -53,7 +53,7 @@ export default new Vuex.Store({
     ],
     // ---- Connected Shapes ----
     // ["outcomeVariables0", "scenarioVariables_1#1"]
-    connectedShapes: [["scenarioVariables_1#2", "scenarioVariables_2#0"], ["scenarioVariables_1#0", "scenarioVariables_2#0"]],
+    connectedShapes: [],
     // ---- Return Cache ----
 
     returnCache: {
@@ -84,7 +84,7 @@ export default new Vuex.Store({
 
     addConnection(state, payload) {
       state.connectedShapes.push(payload);
-      console.log(state.connectedShapes);
+      //Vue.set(state, "connectedShapes", state.connectedShapes.push(payload));
       svgDraw.updateAndConnectAll();
       this.commit("setDataToCookie", "connectedShapes");
     },
@@ -119,7 +119,6 @@ export default new Vuex.Store({
         value: payload.value,
       });
       state.returnCache.returnIndex = 0;
-      console.log(state.returnCache.values);
       this.commit("setDataToCookie", "returnCache");
     },
     undoEdit(state) {
@@ -137,11 +136,11 @@ export default new Vuex.Store({
             break;
           }
           case "scenarioVariables": {
-            // --- test here: when adding the copied object in varList the methods like .push() get destryoed
-            console.log(state.scenarioVariables)
-            //Vue.set(state.scenarioVariables, thisStep.idList, thisStep.value);
-            console.log(state.scenarioVariables)
+            Vue.set(state.scenarioVariables, thisStep.idList , thisStep.value);
             break;
+          }
+          case "allData": {
+            Object.assign(state, thisStep.value);
           }
         }
         state.returnCache.returnIndex++;
@@ -167,6 +166,12 @@ export default new Vuex.Store({
       }
     },
     clearAllEdits(state) {
+      /* const cachedState = {};
+      Object.assign(cachedState, state)
+      this.commit("addReturnValue", {
+        id: "allData",
+        value: cachedState,
+      }); */
       for (var id in state) {
         cookie_functions.deleteCookie("data_" + id);
       }
