@@ -28,28 +28,32 @@
         </div>
         <div
           v-else
-          class="open item w-64 h-48 rounded-lg cursor-pointer"
+          class="open item w-64 h-48 relative rounded-lg cursor-pointer text-xl"
           :style="{ backgroundColor: getColor(item.id) }"
         >
-          <div class="inner mt-3 flex">
-            <div id="left" class="flex-col w-1/2 h-48 justify-around">
+        <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
+          <button id="deleteVar" @click="deleteItem(item.id)" class="px-3 py-1 rounded-full bg-main text-bg hover:bg-focus">x</button>
+        </div>
+          <div class="inner mt-3">
+            <div id="top" class="flex-col w-full py-1 px-2 justify-around">
               <div id="title" class="">
                 <form>
+                  <label class="text-sm">Variable Name:</label>
                   <input
                     type="text"
                     v-model="item.title"
                     @change="sendCacheToStore"
                     @focus="cacheValues(item)"
-                    class="w-full cursor-pointer text-main text-center"
+                    class="w-full cursor-pointer text-main pb-1 border-b-2 border-alternative"
                     ondblclick="this.setSelectionRange(0, this.value.length)"
                   />
                 </form>
               </div>
             </div>
-            <div id="right" class="h-48 ml-4 w-1/2 flex-col">
-              <div id="probTitle">Prob.</div>
-              <div id="probability">
+            <div id="below" class="flex-col w-full py-1 px-2 justify-around">
+              <div class="w-full" id="probability">
                 <form>
+                  <label class="mr-2">Probability:</label>
                   <input
                     type="number"
                     v-model="item.prob"
@@ -58,9 +62,10 @@
                     min="0"
                     max="100"
                     step="any"
-                    class="w-full cursor-pointer text-main text-center"
+                    class="cursor-pointer text-main w-16"
                     ondblclick="this.setSelectionRange(0, this.value.length)"
                   />
+                  <label class="ml-1">%</label>
                 </form>
               </div>
             </div>
@@ -180,10 +185,18 @@ export default {
       store.commit("addScenarioVariable", {
         listID: this.idList,
         value: {
-          id: this.getItems.length,
+          id: this.getItems[this.getItems.length-1].id + 1,
           title: "New Scenario",
           prob: 0,
         },
+      });
+      svgDraw.updateAndConnectAll();
+    },
+    deleteItem(id) {
+      this.sendCacheToStore();
+      store.commit("deleteScenarioVariable", {
+        listID: this.idList,
+        id: id,
       });
       svgDraw.updateAndConnectAll();
     },

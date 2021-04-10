@@ -107,6 +107,22 @@ export default new Vuex.Store({
       state.scenarioVariables[payload.listID].push(payload.value);
       this.commit("setDataToCookie", "scenarioVariables");
     },
+    deleteScenarioVariable(state, payload) {
+      var displayID = "scenarioVariables_" + (payload.listID+1) + "#" + payload.id;
+      state.connectedShapes.forEach(list => testAllElements(list));
+      state.connectedShapes = state.connectedShapes.filter(list => list.length != 0)
+      state.scenarioVariables[payload.listID].splice(payload.id-1, 1);
+      this.commit("setDataToCookie", "scenarioVariables");
+
+      function testAllElements(list) {
+        for (var i = 0; i < list.length; i++) {
+          if (list[i] == displayID) {
+            list.splice(i);
+            break;
+          } 
+        }
+      }
+    },
     // ---- Handle Return Cache ----
 
     addReturnValue(state, payload) {

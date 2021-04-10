@@ -155,8 +155,8 @@ export default {
       if (store.state.outcomeVariables.length < 5) {
         this.sendCacheToStore();
         store.commit("addOutcomeVariable", {
-          id: this.getItems.length,
-          displayId: this.getItems.length,
+          id: this.getItems[this.getItems.length-1].id + 1,
+          displayId: this.getItems[this.getItems.length-1].displayId + 1,
           title: "New Variable",
           top: 6 + 10 * this.getItems.length,
           left: 4,

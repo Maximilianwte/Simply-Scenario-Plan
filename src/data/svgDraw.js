@@ -70,7 +70,6 @@ let svgDraw = {
   drawPathRightLeft(svg, path, startX, startY, endX, endY, startWidth, endWidth) {
     // get the path's stroke width (if one wanted to be  really precize, one could use half the stroke size)
     var stroke = parseFloat(path.attr("stroke-width"));
-    // check if the svg is big enough to draw the path, if not, set heigh/width
     if (svg.attr("height") < endY) svg.attr("height", endY + 20);
     if (svg.attr("width") < startX + stroke) svg.attr("width", startX + stroke);
     if (svg.attr("width") < endX + stroke) svg.attr("width", endX + stroke);
@@ -78,9 +77,16 @@ let svgDraw = {
       path.attr("d",
       "M" + (startX+startWidth) + " "+ startY + "L" + (endX-endWidth) +" " + endY)
     }
-    else {
+    else if (startX < endX) {
       path.attr("d",
-    "M" + endX + " "+ endY + "q" + (startX-endX)/2 +" 0 "+ (startX-endX)/2 +" "+ (startY-endY)/2 +" 0 "+ (startY-endY)/0.75 +" " + startX +" " + startY)
+      "M" + (startX+startWidth) + " "+ startY + "T" + ((startX+startWidth) + ((endX-endWidth)-(startX+startWidth))/15) + " " + startY + " " + ((startX+startWidth) + ((endX-endWidth)-(startX+startWidth))/2) + " " + (startY + (endY-startY)/2) + " " + (endX-endWidth) +" " + endY)
+    }
+    else {
+      // the commented one is the standard beautiful one
+      /* path.attr("d",
+    "M" + endX + " "+ endY + "q" + (startX-endX)/2 +" 0 "+ (startX-endX)/2 +" "+ (startY-endY)/2 +" 0 "+ (startY-endY)/0.75 +" " + startX +" " + startY) */
+    path.attr("d",
+    "M" + endX + " "+ endY + "T" + (endX + 20) + " " + (endY) + " " + (endX + (startX-endX)/2) + " " + (endY + (startY-endY)/2) +" " + startX +" " + startY)
     }
   },
   connectElements(svg, path, startId, endId) {
