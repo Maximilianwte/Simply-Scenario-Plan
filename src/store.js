@@ -20,7 +20,7 @@ export default new Vuex.Store({
       {
         id: 0,
         displayId: 0,
-        title: "New Variable",
+        title: "Happiness",
         top: 6,
         left: 4,
         cachePos: {
@@ -36,19 +36,15 @@ export default new Vuex.Store({
           displayId: 0,
           title: "Scenario A",
           prob: 0,
+          impact: [20]
         },
         {
           id: 1,
           displayId: 1,
           title: "Scenario B",
           prob: 11.2,
-        },
-        {
-          id: 2,
-          displayId: 2,
-          title: "Scenario C",
-          prob: 23,
-        },
+          impact: [-5.2]
+        }
       ],
     ],
     // ---- Connected Shapes ----

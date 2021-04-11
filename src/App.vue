@@ -21,7 +21,7 @@
       }
     },
     mounted() {
-      store.commit("setDataFromCookie");
+      //store.commit("setDataFromCookie");
     }
   }
 </script>

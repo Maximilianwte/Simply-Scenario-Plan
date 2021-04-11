@@ -217,3 +217,9 @@ li {
   visibility: visible;
   opacity: 1;
 }
+
+#changeVarFloating {
+  left: calc(1rem + 100%);
+  bottom: 50%;
+  transform: translateY(50%);
+}

@@ -31,9 +31,22 @@
           class="open item w-64 h-48 relative rounded-lg cursor-pointer text-xl"
           :style="{ backgroundColor: getColor(item.id) }"
         >
-        <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
-          <button id="deleteVar" @click="deleteItem(item.id)" class="px-3 py-1 rounded-full bg-main text-bg hover:bg-focus">x</button>
-        </div>
+          <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
+            <button
+              id="setImpact"
+              @click="openSetImpactMenu(item.id)"
+              class="w-6 h-6 mx-1 rounded-full bg-main text-bg hover:bg-focus"
+            >
+              r
+            </button>
+            <button
+              id="deleteVar"
+              @click="deleteItem(item.id)"
+              class="w-6 h-6 mx-1 rounded-full bg-main text-bg hover:bg-focus"
+            >
+              X
+            </button>
+          </div>
           <div class="inner mt-3">
             <div id="top" class="flex-col w-full py-1 px-2 justify-around">
               <div id="title" class="">
@@ -70,6 +83,24 @@
               </div>
             </div>
           </div>
+          <div v-if="item.impact[0] == 0 || IDsetImpact == item.id" id="changeVarFloating" class="floatingMenu absolute flex">
+            <div id="arrow" class="flex-col">
+              <svg class="w-10" style="transform: rotateZ(270deg)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 404.308 404.309"><path d="M0 101.08h404.308L202.151 303.229 0 101.08z"/></svg>
+            </div>
+            <div id="outcomeVarMenu" class="bg-gray-100 px-2 py-4 rounded-lg text-base">
+              <div v-for="outcomevar in getOutcomeVars" :key="outcomevar.displayId" :title="outcomevar.title" class="variableItem py-1 px-3 rounded-full mt-1 flex">
+                <div class="w-10 h-10 rounded-full flex-col" :style="{ backgroundColor: getColor(outcomevar.displayId) }"><h6>{{outcomevar.title[0]}}</h6></div>
+                <input
+                    type="number"
+                    v-model="item.impact[outcomevar.id]"
+                    @change="sendCacheToStore"
+                    step="any"
+                    class="cursor-pointer text-main w-16 ml-2 border-2 border-gray-200 text-right"
+                    ondblclick="this.setSelectionRange(0, this.value.length)"
+                  />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <button
@@ -90,8 +121,9 @@ export default {
     return {
       componentId: this.id,
       openID: null,
+      IDsetImpact: null,
       colors: ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"],
-      cachedValue : {},
+      cachedValue: {},
     };
   },
   computed: {
@@ -104,6 +136,9 @@ export default {
     getAllLists() {
       return store.state.scenarioVariables;
     },
+    getOutcomeVars() {
+      return store.state.outcomeVariables;
+    }
   },
   methods: {
     // ---- Drag methods ----
@@ -123,28 +158,31 @@ export default {
 
         // --- If dropped on another list check if you need connection ---
 
-      if (vm.getAllLists.length > 1) {
-        for (var iterLists in vm.getAllLists) {
-          if (iterLists != vm.idList) {
-            for (var iterItems in vm.getAllLists[iterLists]) {
-              var elmnt = document.getElementById(
-                "scenarioVariables_" + (parseInt(iterLists)+1) + "#" + iterItems
-              );
-              /* console.log("scenarioVariables_" + (parseInt(iterLists)+1) + "#" + iterItems)
+        if (vm.getAllLists.length > 1) {
+          for (var iterLists in vm.getAllLists) {
+            if (iterLists != vm.idList) {
+              for (var iterItems in vm.getAllLists[iterLists]) {
+                var elmnt = document.getElementById(
+                  "scenarioVariables_" +
+                    (parseInt(iterLists) + 1) +
+                    "#" +
+                    iterItems
+                );
+                /* console.log("scenarioVariables_" + (parseInt(iterLists)+1) + "#" + iterItems)
               console.log("elX: " + elmnt.offsetLeft)
               console.log("elY: " + elmnt.offsetTop) */
-              if (
-                posX > elmnt.offsetLeft &&
-                posX < elmnt.offsetLeft + elmnt.offsetWidth &&
-                posY > elmnt.offsetTop &&
-                posY < elmnt.offsetTop + elmnt.offsetHeight
-              ) {
-                store.commit("addConnection", [id, elmnt.id]);
+                if (
+                  posX > elmnt.offsetLeft &&
+                  posX < elmnt.offsetLeft + elmnt.offsetWidth &&
+                  posY > elmnt.offsetTop &&
+                  posY < elmnt.offsetTop + elmnt.offsetHeight
+                ) {
+                  store.commit("addConnection", [id, elmnt.id]);
+                }
               }
             }
           }
         }
-      }
       }
     },
     onDrop(evt, dropID) {
@@ -185,7 +223,7 @@ export default {
       store.commit("addScenarioVariable", {
         listID: this.idList,
         value: {
-          id: this.getItems[this.getItems.length-1].id + 1,
+          id: this.getItems[this.getItems.length - 1].id + 1,
           title: "New Scenario",
           prob: 0,
         },
@@ -208,6 +246,14 @@ export default {
       }
       return null;
     },
+    openSetImpactMenu(id) {
+      if (this.IDsetImpact == id) {
+        this.IDsetImpact = null;
+      } else {
+        this.IDsetImpact = id;
+      }
+      return null;
+    },
     getColor(id) {
       if (store.state.ui.colorful) {
         const nCol = this.colors.length;
@@ -220,7 +266,7 @@ export default {
     },
     cacheValues(item) {
       Object.assign(this.cachedValue, item);
-    }
+    },
   },
 };
 </script>

@@ -100,6 +100,9 @@ export default {
     getItems() {
       return store.state.outcomeVariables;
     },
+    getAllScenarioVariables() {
+      return store.state.scenarioVariables;
+    }
   },
   methods: {
     // ---- Variable Operations ----
@@ -165,6 +168,12 @@ export default {
             left: null,
           },
         });
+
+        this.getAllScenarioVariables.forEach(list => {
+          list.forEach(variable => {
+            variable.impacts.push(0);
+          })
+        })
       }
     },
   },
