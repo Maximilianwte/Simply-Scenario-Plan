@@ -38,6 +38,15 @@
           tooltip-content="Rename your outcome variable. What variable do you want to track?"
           tooltip-position="right"
         >
+        <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
+            <button
+              id="deleteVar"
+              @click="deleteItem(item.id)"
+              class="w-6 h-6 mx-1 rounded-full bg-main text-bg hover:bg-focus"
+            >
+              X
+            </button>
+          </div>
           <div class="item_title">
             <form>
               <input
@@ -59,7 +68,8 @@
       <button
         @click="addItem"
         id="addVariable"
-        class="px-6 py-3 absolute bottom-0 mb-8 rounded-full bg-main text-bg hover:bg-focus text-2xl"
+        class="px-6 py-3 absolute bottom-0 mb-8 rounded-full text-bg hover:bg-focus text-2xl"
+        :class="getBgAddOutcomeVar"
         tooltip-content="Add another outcome variable?"
         tooltip-position="up-abs"
       >
@@ -102,6 +112,9 @@ export default {
     },
     getAllScenarioVariables() {
       return store.state.scenarioVariables;
+    },
+    getBgAddOutcomeVar() {
+      return this.getItems.length < 5 ? "bg-main" : "bg-gray-300";
     }
   },
   methods: {
@@ -171,10 +184,16 @@ export default {
 
         this.getAllScenarioVariables.forEach(list => {
           list.forEach(variable => {
-            variable.impacts.push(0);
+            variable.impact.push(0);
           })
         })
       }
+    },
+    deleteItem(id) {
+      this.sendCacheToStore();
+      store.commit("deleteOutcomeVariable", {
+        id: id,
+      });
     },
   },
 };

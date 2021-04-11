@@ -119,6 +119,15 @@ export default new Vuex.Store({
         }
       }
     },
+    deleteOutcomeVariable(state, payload) {
+      state.outcomeVariables.splice(payload.id, 1);
+      state.scenarioVariables.forEach(list => {
+        list.forEach(variable => {
+          variable.splice(payload.id, 1);
+        })
+      })
+      this.commit("setDataToCookie", "scenarioVariables");
+    },
     // ---- Handle Return Cache ----
 
     addReturnValue(state, payload) {
