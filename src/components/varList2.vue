@@ -15,12 +15,13 @@
         @click.right="setOpen(item.id)"
         @dragover.prevent
         @dragenter.prevent
+        class="text-dark"
       >
         <div
           v-if="item.id != openID"
-          class="item w-64 text-center cursor-pointer front rounded-lg"
+          class="item w-64 text-center cursor-pointer front rounded"
           :class="getHeight"
-          :style="{ backgroundColor: getColor(item.id) }"
+          :style="{ backgroundColor: getColorMode(item.color) }"
           @drag="startDrag(componentId + '#' + item.id)"
           draggable
         >
@@ -28,8 +29,8 @@
         </div>
         <div
           v-else
-          class="open item w-64 h-48 relative rounded-lg cursor-pointer text-xl"
-          :style="{ backgroundColor: getColor(item.id) }"
+          class="open item w-64 h-48 relative rounded cursor-pointer text-xl"
+          :style="{ backgroundColor: getColorMode(item.color) }"
         >
           <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
             <button
@@ -57,7 +58,7 @@
                     v-model="item.title"
                     @change="sendCacheToStore"
                     @focus="cacheValues(item)"
-                    class="w-full cursor-pointer text-main pb-1 border-b-2 border-alternative"
+                    class="w-full cursor-pointer text-dark pb-1 border-b-2 border-alternative"
                     ondblclick="this.setSelectionRange(0, this.value.length)"
                   />
                 </form>
@@ -75,7 +76,7 @@
                     min="0"
                     max="100"
                     step="any"
-                    class="cursor-pointer text-main w-16"
+                    class="cursor-pointer text-dark w-16"
                     ondblclick="this.setSelectionRange(0, this.value.length)"
                   />
                   <label class="ml-1">%</label>
@@ -83,21 +84,45 @@
               </div>
             </div>
           </div>
-          <div v-if="item.impact[0] == 0 || IDsetImpact == item.id" id="changeVarFloating" class="floatingMenu absolute flex">
+          <div
+            v-if="item.impact[0] == 0 || IDsetImpact == item.id"
+            id="changeVarFloating"
+            class="absolute flex"
+          >
             <div id="arrow" class="flex-col">
-              <svg class="w-10" style="transform: rotateZ(270deg)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 404.308 404.309"><path d="M0 101.08h404.308L202.151 303.229 0 101.08z"/></svg>
+              <svg
+                class="w-10"
+                style="transform: rotateZ(270deg)"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 404.308 404.309"
+              >
+                <path d="M0 101.08h404.308L202.151 303.229 0 101.08z" />
+              </svg>
             </div>
-            <div id="outcomeVarMenu" class="bg-gray-100 px-2 py-4 rounded-lg text-base">
-              <div v-for="outcomevar in getOutcomeVars" :key="outcomevar.displayId" :title="outcomevar.title" class="variableItem py-1 px-3 rounded-full mt-1 flex">
-                <div class="w-10 h-10 rounded-full flex-col" :style="{ backgroundColor: getColor(outcomevar.displayId) }"><h6>{{outcomevar.title[0]}}</h6></div>
+            <div
+              id="outcomeVarMenu"
+              class="bg-gray-100 px-2 py-4 rounded text-base"
+            >
+              <div
+                v-for="outcomevar in getOutcomeVars"
+                :key="outcomevar.displayId"
+                :title="outcomevar.title"
+                class="variableItem py-1 px-3 rounded-full mt-1 flex"
+              >
+                <div
+                  class="w-10 h-10 rounded-full flex-col"
+                  :style="{ backgroundColor: getColorMode(outcomevar.color) }"
+                >
+                  <h6>{{ outcomevar.title[0] }}</h6>
+                </div>
                 <input
-                    type="number"
-                    v-model="item.impact[outcomevar.id]"
-                    @change="sendCacheToStore"
-                    step="any"
-                    class="cursor-pointer text-main w-16 ml-2 border-2 border-gray-200 text-right"
-                    ondblclick="this.setSelectionRange(0, this.value.length)"
-                  />
+                  type="number"
+                  v-model="item.impact[outcomevar.id]"
+                  @change="sendCacheToStore"
+                  step="any"
+                  class="cursor-pointer text-dark w-16 ml-2 border-2 border-gray-200 text-right"
+                  ondblclick="this.setSelectionRange(0, this.value.length)"
+                />
               </div>
             </div>
           </div>
@@ -122,7 +147,6 @@ export default {
       componentId: this.id,
       openID: null,
       IDsetImpact: null,
-      colors: ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"],
       cachedValue: {},
     };
   },
@@ -138,7 +162,7 @@ export default {
     },
     getOutcomeVars() {
       return store.state.outcomeVariables;
-    }
+    },
   },
   methods: {
     // ---- Drag methods ----
@@ -226,6 +250,7 @@ export default {
           id: this.getItems[this.getItems.length - 1].id + 1,
           title: "New Scenario",
           prob: 0,
+          color: this.getColor(),
         },
       });
       svgDraw.updateAndConnectAll();
@@ -254,18 +279,17 @@ export default {
       }
       return null;
     },
-    getColor(id) {
-      if (store.state.ui.colorful) {
-        const nCol = this.colors.length;
-        const colValue =
-          id > nCol - 1 ? Math.round(Math.random() * (nCol - 1)) : id;
-        return this.colors[colValue];
-      } else {
-        return "#e2e8f0";
-      }
-    },
     cacheValues(item) {
       Object.assign(this.cachedValue, item);
+    },
+    getColor() {
+      const colors = ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"];
+      const nCol = colors.length;
+      const colValue = Math.round(Math.random() * (nCol - 1));
+      return colors[colValue];
+    },
+    getColorMode(color) {
+      return store.state.ui.colorful ? color : "#e2e8f0";
     },
   },
 };

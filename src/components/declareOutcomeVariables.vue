@@ -33,12 +33,12 @@
         <div
           @click.right.prevent
           :id="componentId + '#' + item.id"
-          class="item w-72 text-center cursor-pointer front rounded-lg bg-gray-300 py-8 mt-3"
-          :style="{ backgroundColor: getColor(item.id) }"
+          class="item w-72 text-center cursor-pointer front rounded py-8 mt-3"
+          :style="{ backgroundColor: getColorMode(item.color)}"
           tooltip-content="Rename your outcome variable. What variable do you want to track?"
           tooltip-position="right"
         >
-        <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
+          <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
             <button
               id="deleteVar"
               @click="deleteItem(item.id)"
@@ -54,7 +54,7 @@
                 @change="sendCacheToStore"
                 @focus="cacheValue(item.id, item.title)"
                 v-model="item.title"
-                class="w-full cursor-pointer backgroundHidden text-main text-center"
+                class="w-full cursor-pointer backgroundHidden text-dark text-center"
                 ondblclick="this.setSelectionRange(0, this.value.length)"
               />
             </form>
@@ -101,7 +101,6 @@ export default {
   data() {
     return {
       componentId: "declareOutcomeVariables",
-      colors: ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"],
       cachedId: null,
       cachedTitle: null,
     };
@@ -120,15 +119,14 @@ export default {
   methods: {
     // ---- Variable Operations ----
 
-    getColor(id) {
-      if (store.state.ui.colorful) {
-        const nCol = this.colors.length;
-        const colValue =
-          id > nCol - 1 ? Math.round(Math.random() * (nCol - 1)) : id;
-        return this.colors[colValue];
-      } else {
-        return "#e2e8f0";
-      }
+    getColor() {
+      const colors = ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"];
+      const nCol = colors.length;
+      const colValue = Math.round(Math.random() * (nCol - 1));
+      return colors[colValue];
+    },
+    getColorMode(color) {
+      return store.state.ui.colorful ? color : '#e2e8f0';
     },
     cacheValue(id, title) {
       this.cachedId = id;
@@ -171,9 +169,10 @@ export default {
       if (store.state.outcomeVariables.length < 5) {
         this.sendCacheToStore();
         store.commit("addOutcomeVariable", {
-          id: this.getItems[this.getItems.length-1].id + 1,
-          displayId: this.getItems[this.getItems.length-1].displayId + 1,
+          id: this.getItems[this.getItems.length - 1].id + 1,
+          displayId: this.getItems[this.getItems.length - 1].displayId + 1,
           title: "New Variable",
+          color: this.getColor(),
           top: 6 + 10 * this.getItems.length,
           left: 4,
           cachePos: {
@@ -182,11 +181,11 @@ export default {
           },
         });
 
-        this.getAllScenarioVariables.forEach(list => {
-          list.forEach(variable => {
+        this.getAllScenarioVariables.forEach((list) => {
+          list.forEach((variable) => {
             variable.impact.push(0);
-          })
-        })
+          });
+        });
       }
     },
     deleteItem(id) {

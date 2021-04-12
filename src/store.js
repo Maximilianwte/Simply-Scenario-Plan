@@ -21,6 +21,7 @@ export default new Vuex.Store({
         id: 0,
         displayId: 0,
         title: "Happiness",
+        color: "#F2E5AA",
         top: 6,
         left: 4,
         cachePos: {
@@ -36,14 +37,16 @@ export default new Vuex.Store({
           displayId: 0,
           title: "Scenario A",
           prob: 0,
-          impact: [20]
+          impact: [20],
+          color: "#85E0FF"
         },
         {
           id: 1,
           displayId: 1,
           title: "Scenario B",
           prob: 11.2,
-          impact: [-5.2]
+          impact: [-5.2],
+          color: "#91DBBC"
         }
       ],
     ],
@@ -88,13 +91,17 @@ export default new Vuex.Store({
       state.outcomeVariables.push(payload);
       this.commit("setDataToCookie", "outcomeVariables");
     },
-    addScenarioList(state, payload) {
+    addScenarioList(state) {
+      const colors = ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"];
+      const nCol = colors.length;
+      const colValue = Math.round(Math.random() * (nCol - 1));
       state.scenarioVariables.push([
         {
           id: 0,
           displayId: 0,
           title: "New Scenario",
           prob: 0,
+          color: colors[colValue]
         },
       ]);
       this.commit("setDataToCookie", "scenarioVariables");

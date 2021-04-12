@@ -29,7 +29,7 @@
           draggable
           @dragover.prevent
           @dragenter.prevent
-          class="item w-64 text-center cursor-pointer front rounded-lg"
+          class="item w-64 text-center cursor-pointer front rounded"
           :class="getHeight"
           :style="{ backgroundColor: getColor(item.id) }"
         >
@@ -39,7 +39,7 @@
           v-else
           @click.right="setOpen(item.id)"
           @click.right.prevent
-          class="open item w-64 h-48 rounded-lg cursor-pointer"
+          class="open item w-64 h-48 rounded cursor-pointer"
           :style="{ backgroundColor: getColor(item.id) }"
         >
           <div class="inner mt-3 flex">

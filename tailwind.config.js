@@ -15,6 +15,8 @@ module.exports = {
       main: "var(--main)",
       alternative: "var(--alternative)",
       focus: "var(--focus)",
+      dark: "var(--dark)",
+      light: "var(--light)",
       black: '#000',
       white: '#fff',
 
