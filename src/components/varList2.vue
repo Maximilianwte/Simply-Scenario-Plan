@@ -118,7 +118,8 @@
                 <input
                   type="number"
                   v-model="item.impact[outcomevar.id]"
-                  @change="changeVar(item.id, 'impact')"
+                  @focus="cacheValues(item.id, 'impact', outcomevar.id)"
+                  @change="changeVar(item.id, 'impact', outcomevar.id)"
                   step="any"
                   class="cursor-pointer text-dark w-16 ml-2 border-2 border-gray-200 text-right"
                   ondblclick="this.setSelectionRange(0, this.value.length)"
@@ -157,10 +158,18 @@ export default {
       componentId: this.id,
       openID: null,
       IDsetImpact: null,
-      cachedValue: {},
+      cachedValue: null,
     };
   },
+    watch: {
+    getConnections: function () {
+      svgDraw.updateAndConnectAll();
+    },
+  },
   computed: {
+    getConnections() {
+      return store.state.connectedShapes;
+    },
     getHeight() {
       return this.getItems.length > 4 ? "py-4 mt-1" : "py-8 mt-3";
     },
@@ -273,12 +282,13 @@ export default {
     },
     // ---- Variable Operations ----
 
-    addItem() {
+    addItem() {  
       var item = {
           id: this.getItems[this.getItems.length - 1].id + 1,
           title: "New Scenario",
           prob: 0,
           color: this.getColor(),
+          impact: []
         }
       store.commit("addScenarioVariable", {
         listID: this.idList,
@@ -289,7 +299,6 @@ export default {
         path: this.idList,
         valAfter: item
       });
-      svgDraw.updateAndConnectAll();
     },
     deleteItem(id) {
       store.commit("addReturnValue2", {
@@ -301,14 +310,19 @@ export default {
         listID: this.idList,
         id: id,
       });
-      svgDraw.updateAndConnectAll();
     },
-    changeVar(id, type) {
+    changeVar(id, type, outcomevarId) {
+      if (type == "impact") {
+        var valAfter = parseFloat(this.getItems[id][type][outcomevarId]);
+      }
+      else {
+        var valAfter = this.getItems[id][type]
+      }
       store.commit("addReturnValue2", {
         type: "changeScenarioVariable",
-        path: [this.idList, id, type],
+        path: [this.idList, id, type, outcomevarId],
         valBefore: this.cachedValue,
-        valAfter: this.getItems[id][type]
+        valAfter: valAfter
       });
       this.cachedValue = null;
     },
@@ -328,8 +342,14 @@ export default {
       }
       return null;
     },
-    cacheValues(id, type) {
-      this.cachedValue = this.getItems[id][type];
+    cacheValues(id, type, outcomevarId) {
+      if (type == "impact") {
+        this.cachedValue = this.getItems[id][type][outcomevarId];
+        console.log(this.cachedValue)
+      }
+      else {
+        this.cachedValue = this.getItems[id][type];
+      }
     },
     getColor() {
       const colors = ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"];

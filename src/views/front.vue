@@ -20,14 +20,16 @@
       >
         <ul>
           <li
-            @click="goForeOneStep" :class="getGoForeActive"
+            @click="goForeOneStep"
+            :class="getGoForeActive"
             class="border-b-2 py-2 cursor-pointer hover:bg-gray-100"
           >
             Reverse last undo
           </li>
           <li
             @click="goBackOneStep"
-            class="border-b-2 py-2 cursor-pointer hover:bg-gray-100" :class="getGoBackActive"
+            class="border-b-2 py-2 cursor-pointer hover:bg-gray-100"
+            :class="getGoBackActive"
           >
             Undo last edit
           </li>
@@ -85,10 +87,12 @@ export default {
       );
     },
     getGoBackActive() {
-      return this.nStepsToGoBack > 0 ? "bg-bg" : "bg-gray-200 text-gray-400"; 
+      return this.nStepsToGoBack > 0 ? "bg-bg" : "bg-gray-200 text-gray-400";
     },
     getGoForeActive() {
-      return store.state.returnCache.returnIndex > 0 ? "bg-bg" : "bg-gray-200 text-gray-400"; 
+      return store.state.returnCache.returnIndex > 0
+        ? "bg-bg"
+        : "bg-gray-200 text-gray-400";
     },
   },
   methods: {
@@ -96,10 +100,10 @@ export default {
       this.nVarLists++;
     },
     goBackOneStep() {
-      store.commit("reverseEdit2")
+      store.commit("reverseEdit2");
     },
     goForeOneStep() {
-      store.commit("undoReverse")
+      store.commit("undoReverse");
     },
     switchDarkMode() {
       store.commit("switchDarkMode");
@@ -111,7 +115,6 @@ export default {
       store.commit("clearAllEdits");
     },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>

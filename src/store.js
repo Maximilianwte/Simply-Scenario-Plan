@@ -1,6 +1,5 @@
 import Vue from "vue";
-import Vuex, { Store } from "vuex";
-import svgDraw from "./data/svgDraw";
+import Vuex from "vuex";
 import cookie_functions from "./data/cookie_functions";
 Vue.use(Vuex);
 
@@ -24,10 +23,6 @@ export default new Vuex.Store({
         color: "#F2E5AA",
         top: 6,
         left: 4,
-        cachePos: {
-          top: null,
-          left: null,
-        },
       },
     ],
     scenarioVariables: [
@@ -83,8 +78,6 @@ export default new Vuex.Store({
 
     addConnection(state, payload) {
       state.connectedShapes.push(payload);
-      //Vue.set(state, "connectedShapes", state.connectedShapes.push(payload));
-      svgDraw.updateAndConnectAll();
       this.commit("setDataToCookie", "connectedShapes");
     },
     addOutcomeVariable(state, payload) {
@@ -148,12 +141,6 @@ export default new Vuex.Store({
         valAfter: payload.valAfter,
       });
       state.returnCache.returnIndex = 0;
-      console.log({
-        type: payload.type,
-        path: payload.path,
-        valBefore: payload.valBefore,
-        valAfter: payload.valAfter,
-      })
       this.commit("setDataToCookie", "returnCache");
     },
     reverseEdit2(state) {
@@ -193,7 +180,12 @@ export default new Vuex.Store({
             break;
           }
           case "changeScenarioVariable": {
-            state.scenarioVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]] = thisStep.valBefore;
+            if (thisStep.path[2] == "impact") {
+              Vue.set(state.scenarioVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]], thisStep.path[3], thisStep.valBefore);
+            }
+            else {
+              state.scenarioVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]] = thisStep.valBefore;
+            }
             break;
           }
         }
@@ -242,7 +234,12 @@ export default new Vuex.Store({
             break;
           }
           case "changeScenarioVariable": {
-            state.scenarioVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]] = thisStep.valAfter;
+            if (thisStep.path[2] == "impact") {
+              Vue.set(state.scenarioVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]], thisStep.path[3], thisStep.valAfter)
+            }
+            else {
+              state.scenarioVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]] = thisStep.valAfter;
+            }
             break;
           }
         }
@@ -268,12 +265,6 @@ export default new Vuex.Store({
       }
     },
     clearAllEdits(state) {
-      /* const cachedState = {};
-      Object.assign(cachedState, state)
-      this.commit("addReturnValue", {
-        id: "allData",
-        value: cachedState,
-      }); */
       for (var id in state) {
         cookie_functions.deleteCookie("data_" + id);
       }

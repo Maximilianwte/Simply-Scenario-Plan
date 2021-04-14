@@ -162,10 +162,6 @@ export default {
           color: this.getColor(),
           top: 6 + 10 * this.getItems.length,
           left: 4,
-          cachePos: {
-            top: null,
-            left: null,
-          },
         }
         store.commit("addOutcomeVariable", item);
         store.commit("addReturnValue2", {

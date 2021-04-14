@@ -195,6 +195,7 @@ let svgDraw = {
     for (var i = 0; i < connections.length; i++) {
       this.connectElementsRightLeft("svg"+(i+1), "path"+(i+1), connections[i][0], connections[i][1]);
     }
+    //this.$forceUpdate();
   },
 };
 
