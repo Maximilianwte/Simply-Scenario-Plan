@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import Vuex, { Store } from "vuex";
 import svgDraw from "./data/svgDraw";
 import cookie_functions from "./data/cookie_functions";
 Vue.use(Vuex);
@@ -137,19 +137,26 @@ export default new Vuex.Store({
     },
     // ---- Handle Return Cache ----
 
-    addReturnValue(state, payload) {
+    addReturnValue2(state, payload) {
       state.returnCache.values.length >= 20
         ? state.returnCache.values.shift()
         : null;
       state.returnCache.values.push({
-        id: payload.id,
-        idList: payload.idList,
-        value: payload.value,
+        type: payload.type,
+        path: payload.path,
+        valBefore: payload.valBefore,
+        valAfter: payload.valAfter,
       });
       state.returnCache.returnIndex = 0;
+      console.log({
+        type: payload.type,
+        path: payload.path,
+        valBefore: payload.valBefore,
+        valAfter: payload.valAfter,
+      })
       this.commit("setDataToCookie", "returnCache");
     },
-    undoEdit(state) {
+    reverseEdit2(state) {
       if (
         state.returnCache.values.length != 0 &&
         state.returnCache.returnIndex <= (state.returnCache.values.length -1)
@@ -158,20 +165,87 @@ export default new Vuex.Store({
           state.returnCache.values[
             state.returnCache.values.length - 1 - state.returnCache.returnIndex
           ];
-        switch (thisStep.id) {
-          case "declareOutcomeVariables": {
-            Vue.set(state, "outcomeVariables", thisStep.value);
+        switch (thisStep.type) {
+          case "deleteOutcomeVariable": {
+            this.commit("addOutcomeVariable", thisStep.valBefore);
             break;
           }
-          case "scenarioVariables": {
-            Vue.set(state.scenarioVariables, thisStep.idList , thisStep.value);
+          case "addOutcomeVariable": {
+            state.outcomeVariables.pop();
             break;
           }
-          case "allData": {
-            Object.assign(state, thisStep.value);
+          case "changeOutcomeVariable": {
+            state.outcomeVariables[thisStep.path].title = thisStep.valBefore;
+            break;
+          }
+          case "addScenarioVariable": {
+            this.commit("deleteScenarioVariable", {
+              listID: thisStep.path,
+              id: thisStep.valAfter.id,
+            });;
+            break;
+          }
+          case "deleteScenarioVariable": {
+            this.commit("addScenarioVariable", {
+              listID: thisStep.path,
+              value: thisStep.valBefore,
+            });
+            break;
+          }
+          case "changeScenarioVariable": {
+            state.scenarioVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]] = thisStep.valBefore;
+            break;
           }
         }
         state.returnCache.returnIndex++;
+      }
+    },
+    undoReverse(state) {
+      if (
+        state.returnCache.values.length != 0 &&
+        state.returnCache.returnIndex > 0
+      ) {
+        state.returnCache.returnIndex--;
+        const thisStep =
+          state.returnCache.values[
+            state.returnCache.values.length - 1 - state.returnCache.returnIndex
+          ];
+        switch (thisStep.type) {
+          case "addOutcomeVariable": {
+            this.commit("addOutcomeVariable", thisStep.valAfter);
+            break;
+          }
+          case "changeOutcomeVariable": {
+            state.outcomeVariables[thisStep.path].title = thisStep.valAfter;
+            break;
+          }
+          case "deleteOutcomeVariable": {
+            state.outcomeVariables.pop();
+            break;
+          }
+          case "scenarioVariable": {
+            state.outcomeVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]] = thisStep.valBefore;
+            break;
+          }
+          case "addScenarioVariable": {
+            this.commit("addScenarioVariable", {
+              listID: thisStep.path,
+              value: thisStep.valAfter,
+            });
+            break;
+          }
+          case "deleteScenarioVariable": {
+            this.commit("deleteScenarioVariable", {
+              listID: thisStep.path,
+              id: thisStep.valBefore.id,
+            });;
+            break;
+          }
+          case "changeScenarioVariable": {
+            state.scenarioVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]] = thisStep.valAfter;
+            break;
+          }
+        }
       }
     },
     // ---- Handle Cookie Cache ----

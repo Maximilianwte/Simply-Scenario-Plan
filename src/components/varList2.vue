@@ -22,7 +22,7 @@
           class="item w-64 text-center cursor-pointer front rounded"
           :class="getHeight"
           :style="{ backgroundColor: getColorMode(item.color) }"
-          @drag="startDrag(componentId + '#' + item.id)"
+          @dragend="startDrag(componentId + '#' + item.id, item.id)"
           draggable
         >
           {{ item.title }}
@@ -56,8 +56,8 @@
                   <input
                     type="text"
                     v-model="item.title"
-                    @change="sendCacheToStore"
-                    @focus="cacheValues(item)"
+                    @change="changeVar(item.id, 'title')"
+                    @focus="cacheValues(item.id, 'title')"
                     class="w-full cursor-pointer text-dark pb-1 border-b-2 border-alternative"
                     ondblclick="this.setSelectionRange(0, this.value.length)"
                   />
@@ -71,8 +71,8 @@
                   <input
                     type="number"
                     v-model="item.prob"
-                    @change="sendCacheToStore"
-                    @focus="cacheValues(item)"
+                    @change="changeVar(item.id, 'prob')"
+                    @focus="cacheValues(item.id, 'prob')"
                     min="0"
                     max="100"
                     step="any"
@@ -118,11 +118,21 @@
                 <input
                   type="number"
                   v-model="item.impact[outcomevar.id]"
-                  @change="sendCacheToStore"
+                  @change="changeVar(item.id, 'impact')"
                   step="any"
                   class="cursor-pointer text-dark w-16 ml-2 border-2 border-gray-200 text-right"
                   ondblclick="this.setSelectionRange(0, this.value.length)"
                 />
+                <input
+                  class="cursor-pointer text-dark w-8 ml-2 border-2 border-gray-200 text-right"
+                  list="inputSize"
+                />
+
+                <datalist id="inputSize">
+                  <option value="k" />
+                  <option value="m" />
+                  <option value="b" />
+                </datalist>
               </div>
             </div>
           </div>
@@ -166,19 +176,57 @@ export default {
   },
   methods: {
     // ---- Drag methods ----
-    startDrag(id) {
+
+    /* getMousePos(event) {
+      const doc = document.querySelector("body");
+      var rect = doc.getBoundingClientRect();
+      var x = event.screenX - rect.left;
+      var y = event.screenY - rect.top;
+      return {x: x, y: y}
+    }, */
+    startDrag(divId, id) {
       const vm = this;
-      const elmnt = document.getElementById(id);
       document.onmousemove = elementDrag;
       function elementDrag(e) {
         e = e || window.event;
         e.preventDefault();
         var posX = e.pageX;
         var posY = e.pageY;
-        /* console.log("mouseX: " + posX)
-        console.log("mouseY: " + posY) */
         document.onmouseup = null;
         document.onmousemove = null;
+
+        // --- Check if dragged around in own list ---
+        /* console.log("Var is:", divId)
+        for (var iterItems in vm.getAllLists[vm.idList]) {
+                var elmnt = document.getElementById(
+                  "scenarioVariables_" +
+                    (vm.idList + 1) +
+                    "#" +
+                    iterItems
+                );
+                var elmntID = elmnt.id.substring(elmnt.id.indexOf("#") + 1);
+                console.log("mouse:", posY)
+                console.log("el oT", elmnt.offsetTop)
+                console.log("el oH", (elmnt.offsetHeight*0.25))
+                console.log("el cm", (elmnt.offsetTop - (elmnt.offsetHeight*0.25)))
+                if (
+                  posY > (elmnt.offsetTop + (elmnt.offsetHeight/2)) && posY < (elmnt.offsetTop + (elmnt.offsetHeight*1.25))
+                ) {
+                  vm.getItems[id].displayId = vm.getItems[elmntID].displayId + .49;
+                  console.log("below " + vm.getItems[elmntID].title)
+                  break;
+                }
+                else if (posY < (elmnt.offsetTop + (elmnt.offsetHeight/2)) && posY > (elmnt.offsetTop - (elmnt.offsetHeight*0.25))) {
+                  vm.getItems[id].displayId = vm.getItems[elmntID].displayId - .49;
+                  console.log("above " + vm.getItems[elmntID].title)
+                  break;
+                }
+              }
+
+        vm.getItems.sort((a, b) => a.displayId - b.displayId);
+        for (var i = 0; i < vm.getItems.length; i++) {
+          vm.getItems[i].displayId = i;
+        } */
 
         // --- If dropped on another list check if you need connection ---
 
@@ -192,16 +240,13 @@ export default {
                     "#" +
                     iterItems
                 );
-                /* console.log("scenarioVariables_" + (parseInt(iterLists)+1) + "#" + iterItems)
-              console.log("elX: " + elmnt.offsetLeft)
-              console.log("elY: " + elmnt.offsetTop) */
                 if (
                   posX > elmnt.offsetLeft &&
                   posX < elmnt.offsetLeft + elmnt.offsetWidth &&
                   posY > elmnt.offsetTop &&
                   posY < elmnt.offsetTop + elmnt.offsetHeight
                 ) {
-                  store.commit("addConnection", [id, elmnt.id]);
+                  store.commit("addConnection", [divId, elmnt.id]);
                 }
               }
             }
@@ -228,40 +273,44 @@ export default {
     },
     // ---- Variable Operations ----
 
-    sendCacheToStore() {
-      var items = [...this.getItems];
-      if (this.cachedValue != {}) {
-        console.log(this.cachedValue);
-        items[this.cachedValue.id] = this.cachedValue;
-        this.cachedValue = {};
-        console.log(items);
-      }
-      store.commit("addReturnValue", {
-        id: "scenarioVariables",
-        idList: this.idList,
-        value: items,
-      });
-    },
     addItem() {
-      this.sendCacheToStore();
-      store.commit("addScenarioVariable", {
-        listID: this.idList,
-        value: {
+      var item = {
           id: this.getItems[this.getItems.length - 1].id + 1,
           title: "New Scenario",
           prob: 0,
           color: this.getColor(),
-        },
+        }
+      store.commit("addScenarioVariable", {
+        listID: this.idList,
+        value: item,
+      });
+      store.commit("addReturnValue2", {
+        type: "addScenarioVariable",
+        path: this.idList,
+        valAfter: item
       });
       svgDraw.updateAndConnectAll();
     },
     deleteItem(id) {
-      this.sendCacheToStore();
+      store.commit("addReturnValue2", {
+        type: "deleteScenarioVariable",
+        path: this.idList,
+        valBefore: this.getItems[id]
+      });
       store.commit("deleteScenarioVariable", {
         listID: this.idList,
         id: id,
       });
       svgDraw.updateAndConnectAll();
+    },
+    changeVar(id, type) {
+      store.commit("addReturnValue2", {
+        type: "changeScenarioVariable",
+        path: [this.idList, id, type],
+        valBefore: this.cachedValue,
+        valAfter: this.getItems[id][type]
+      });
+      this.cachedValue = null;
     },
     setOpen(id) {
       if (this.openID == id) {
@@ -279,8 +328,8 @@ export default {
       }
       return null;
     },
-    cacheValues(item) {
-      Object.assign(this.cachedValue, item);
+    cacheValues(id, type) {
+      this.cachedValue = this.getItems[id][type];
     },
     getColor() {
       const colors = ["#FFBCB5", "#85E0FF", "#91DBBC", "#F2E5AA", "#F59D7D"];

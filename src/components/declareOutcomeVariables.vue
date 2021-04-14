@@ -51,7 +51,7 @@
             <form>
               <input
                 type="text"
-                @change="sendCacheToStore"
+                @change="changeValue(item.id)"
                 @focus="cacheValue(item.id, item.title)"
                 v-model="item.title"
                 class="w-full cursor-pointer backgroundHidden text-dark text-center"
@@ -153,22 +153,9 @@ export default {
     moveUI(val) {
       store.commit("moveUI", val);
     },
-    sendCacheToStore() {
-      var items = JSON.parse(JSON.stringify(this.getItems));
-      if (this.cachedId != null) {
-        items[this.cachedId].title = this.cachedTitle;
-        this.cachedId = null;
-        this.cachedTitle = null;
-      }
-      store.commit("addReturnValue", {
-        id: this.componentId,
-        value: items,
-      });
-    },
     addItem() {
       if (store.state.outcomeVariables.length < 5) {
-        this.sendCacheToStore();
-        store.commit("addOutcomeVariable", {
+        var item = {
           id: this.getItems[this.getItems.length - 1].id + 1,
           displayId: this.getItems[this.getItems.length - 1].displayId + 1,
           title: "New Variable",
@@ -179,7 +166,12 @@ export default {
             top: null,
             left: null,
           },
-        });
+        }
+        store.commit("addOutcomeVariable", item);
+        store.commit("addReturnValue2", {
+        type: "addOutcomeVariable",
+        valAfter: item
+      });
 
         this.getAllScenarioVariables.forEach((list) => {
           list.forEach((variable) => {
@@ -189,11 +181,24 @@ export default {
       }
     },
     deleteItem(id) {
-      this.sendCacheToStore();
+      store.commit("addReturnValue2", {
+        type: "deleteOutcomeVariable",
+        path: id,
+        valBefore: this.getItems[id]
+      });
       store.commit("deleteOutcomeVariable", {
         id: id,
       });
     },
+    changeValue(id) {
+      store.commit("addReturnValue2", {
+        type: "changeOutcomeVariable",
+        path: id,
+        valBefore: this.cachedTitle,
+        valAfter: this.getItems[id].title
+      });
+      this.cachedTitle = null;
+    }
   },
 };
 </script>
