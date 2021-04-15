@@ -172,6 +172,7 @@ export default {
         this.getAllScenarioVariables.forEach((list) => {
           list.forEach((variable) => {
             variable.impact.push(0);
+            variable.unit.push("");
           });
         });
       }

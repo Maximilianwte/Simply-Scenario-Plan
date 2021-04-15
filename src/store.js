@@ -33,6 +33,7 @@ export default new Vuex.Store({
           title: "Scenario A",
           prob: 0,
           impact: [20],
+          unit: ["b"],
           color: "#85E0FF"
         },
         {
@@ -41,6 +42,7 @@ export default new Vuex.Store({
           title: "Scenario B",
           prob: 11.2,
           impact: [-5.2],
+          unit: ["k"],
           color: "#91DBBC"
         }
       ],
@@ -78,6 +80,10 @@ export default new Vuex.Store({
 
     addConnection(state, payload) {
       state.connectedShapes.push(payload);
+      this.commit("setDataToCookie", "connectedShapes");
+    },
+    deleteConnection(state, payload) {
+      state.connectedShapes.splice(payload, 1);
       this.commit("setDataToCookie", "connectedShapes");
     },
     addOutcomeVariable(state, payload) {
@@ -141,7 +147,7 @@ export default new Vuex.Store({
         valAfter: payload.valAfter,
       });
       state.returnCache.returnIndex = 0;
-      this.commit("setDataToCookie", "returnCache");
+      //this.commit("setDataToCookie", "returnCache");
     },
     reverseEdit2(state) {
       if (
@@ -153,6 +159,9 @@ export default new Vuex.Store({
             state.returnCache.values.length - 1 - state.returnCache.returnIndex
           ];
         switch (thisStep.type) {
+          case "clearAll": {
+            Object.assign(state, thisStep.valBefore);
+          }
           case "deleteOutcomeVariable": {
             this.commit("addOutcomeVariable", thisStep.valBefore);
             break;
@@ -180,7 +189,7 @@ export default new Vuex.Store({
             break;
           }
           case "changeScenarioVariable": {
-            if (thisStep.path[2] == "impact") {
+            if (thisStep.path[2] == "impact" || thisStep.path[2] == "unit") {
               Vue.set(state.scenarioVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]], thisStep.path[3], thisStep.valBefore);
             }
             else {
@@ -203,6 +212,9 @@ export default new Vuex.Store({
             state.returnCache.values.length - 1 - state.returnCache.returnIndex
           ];
         switch (thisStep.type) {
+          case "clearAll": {
+            Object.assign(state, thisStep.valAfter);
+          }
           case "addOutcomeVariable": {
             this.commit("addOutcomeVariable", thisStep.valAfter);
             break;
@@ -234,7 +246,7 @@ export default new Vuex.Store({
             break;
           }
           case "changeScenarioVariable": {
-            if (thisStep.path[2] == "impact") {
+            if (thisStep.path[2] == "impact" || thisStep.path[2] == "unit") {
               Vue.set(state.scenarioVariables[thisStep.path[0]][thisStep.path[1]][thisStep.path[2]], thisStep.path[3], thisStep.valAfter)
             }
             else {
@@ -265,12 +277,16 @@ export default new Vuex.Store({
       }
     },
     clearAllEdits(state) {
-      for (var id in state) {
-        cookie_functions.deleteCookie("data_" + id);
-      }
+      var currentState = {}
+      Object.assign(currentState, state);
       const startValues = {
         // ---- UI ----
-        ui: state.ui,
+        ui: {
+          colorful: state.ui.colorful,
+          dark: state.ui.dark,
+          // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
+          uiStep: 0,
+        },
 
         // ---- Variables ----
 
@@ -281,10 +297,6 @@ export default new Vuex.Store({
             title: "New Variable",
             top: 6,
             left: 4,
-            cachePos: {
-              top: null,
-              left: null,
-            },
           },
         ],
         scenarioVariables: [
@@ -294,6 +306,7 @@ export default new Vuex.Store({
               displayId: 0,
               title: "Scenario A",
               prob: 0,
+              impact: [0]
             },
           ],
         ],
@@ -307,7 +320,15 @@ export default new Vuex.Store({
           values: [],
         },
       };
+      for (var id in state) {
+        cookie_functions.deleteCookie("data_" + id);
+      }
       Object.assign(state, startValues);
+      this.commit("addReturnValue2", {
+        type: "clearAll",
+        valBefore: currentState,
+        valAfter: startValues
+      })
     },
   },
 });

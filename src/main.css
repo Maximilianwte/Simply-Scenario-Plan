@@ -35,11 +35,10 @@ a:hover {
   z-index: 20;
 }
 
-input {
+input, select {
   background: none;
   color: #424b6950;
 }
-
 .theme_dark {
   --main: #fff;
   --alternative: #cacaca;

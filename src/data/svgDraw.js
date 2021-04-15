@@ -74,8 +74,14 @@ let svgDraw = {
     if (svg.attr("width") < startX + stroke) svg.attr("width", startX + stroke);
     if (svg.attr("width") < endX + stroke) svg.attr("width", endX + stroke);
     if ((endY - startY) >= 0 && (endY - startY) < 30) {
-      path.attr("d",
-      "M" + (startX+startWidth) + " "+ startY + "L" + (endX-endWidth) +" " + endY)
+      if (startX > endX) {
+        path.attr("d",
+        "M" + startX + " "+ startY + "L" + endX +" " + endY)
+      }
+      else { 
+        path.attr("d",
+        "M" + (startX+startWidth) + " "+ startY + "L" + (endX-endWidth) +" " + endY)
+      }
     }
     else if (startX < endX) {
       path.attr("d",

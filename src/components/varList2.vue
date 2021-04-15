@@ -103,6 +103,10 @@
               id="outcomeVarMenu"
               class="bg-gray-100 px-2 py-4 rounded text-base"
             >
+              <div id="headerRow" class="flex ml-10 text-sm">
+                <p class="text-dark w-16 ml-4 text-right">Amount</p>
+                <p class="text-dark w-10 ml-2 text-right">Unit</p>
+              </div>
               <div
                 v-for="outcomevar in getOutcomeVars"
                 :key="outcomevar.displayId"
@@ -124,16 +128,20 @@
                   class="cursor-pointer text-dark w-16 ml-2 border-2 border-gray-200 text-right"
                   ondblclick="this.setSelectionRange(0, this.value.length)"
                 />
-                <input
-                  class="cursor-pointer text-dark w-8 ml-2 border-2 border-gray-200 text-right"
-                  list="inputSize"
-                />
-
-                <datalist id="inputSize">
-                  <option value="k" />
-                  <option value="m" />
-                  <option value="b" />
-                </datalist>
+                <form>
+                  <select
+                    v-model="item.unit[outcomevar.id]"
+                    name="unit"
+                    class="cursor-pointer text-dark w-12 h-10 ml-2 border-2 border-gray-200 text-right"
+                    @focus="cacheValues(item.id, 'unit', outcomevar.id)"
+                    @change="changeVar(item.id, 'unit', outcomevar.id)"
+                  >
+                    <option value=""></option>
+                    <option value="k">k</option>
+                    <option value="m">m</option>
+                    <option value="b∏">b</option>
+                  </select>
+                </form>
               </div>
             </div>
           </div>
@@ -161,7 +169,7 @@ export default {
       cachedValue: null,
     };
   },
-    watch: {
+  watch: {
     getConnections: function () {
       svgDraw.updateAndConnectAll();
     },
@@ -255,7 +263,16 @@ export default {
                   posY > elmnt.offsetTop &&
                   posY < elmnt.offsetTop + elmnt.offsetHeight
                 ) {
-                  store.commit("addConnection", [divId, elmnt.id]);
+                  var found = false;
+                  // If connections already exists, delete the connection
+                  store.state.connectedShapes.forEach((connectionList, index) => {
+                    if (connectionList.includes(divId) && connectionList.includes(elmnt.id)) {
+                      store.commit("deleteConnection", index)
+                      found = true;
+                    }
+                  })
+                  // If the connection couldn't be found, add it
+                  found == false ? store.commit("addConnection", [divId, elmnt.id]) : null;
                 }
               }
             }
@@ -282,14 +299,14 @@ export default {
     },
     // ---- Variable Operations ----
 
-    addItem() {  
+    addItem() {
       var item = {
-          id: this.getItems[this.getItems.length - 1].id + 1,
-          title: "New Scenario",
-          prob: 0,
-          color: this.getColor(),
-          impact: []
-        }
+        id: this.getItems[this.getItems.length - 1].id + 1,
+        title: "New Scenario",
+        prob: 0,
+        color: this.getColor(),
+        impact: [],
+      };
       store.commit("addScenarioVariable", {
         listID: this.idList,
         value: item,
@@ -297,14 +314,14 @@ export default {
       store.commit("addReturnValue2", {
         type: "addScenarioVariable",
         path: this.idList,
-        valAfter: item
+        valAfter: item,
       });
     },
     deleteItem(id) {
       store.commit("addReturnValue2", {
         type: "deleteScenarioVariable",
         path: this.idList,
-        valBefore: this.getItems[id]
+        valBefore: this.getItems[id],
       });
       store.commit("deleteScenarioVariable", {
         listID: this.idList,
@@ -312,17 +329,16 @@ export default {
       });
     },
     changeVar(id, type, outcomevarId) {
-      if (type == "impact") {
-        var valAfter = parseFloat(this.getItems[id][type][outcomevarId]);
-      }
-      else {
-        var valAfter = this.getItems[id][type]
+      if (type == "impact" || type == "unit") {
+        var valAfter = this.getItems[id][type][outcomevarId];
+      } else {
+        var valAfter = this.getItems[id][type];
       }
       store.commit("addReturnValue2", {
         type: "changeScenarioVariable",
         path: [this.idList, id, type, outcomevarId],
         valBefore: this.cachedValue,
-        valAfter: valAfter
+        valAfter: valAfter,
       });
       this.cachedValue = null;
     },
@@ -343,11 +359,9 @@ export default {
       return null;
     },
     cacheValues(id, type, outcomevarId) {
-      if (type == "impact") {
+      if (type == "impact" || type == "unit") {
         this.cachedValue = this.getItems[id][type][outcomevarId];
-        console.log(this.cachedValue)
-      }
-      else {
+      } else {
         this.cachedValue = this.getItems[id][type];
       }
     },
