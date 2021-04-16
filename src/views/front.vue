@@ -1,7 +1,23 @@
 <template>
   <div id="front" class="w-full flex">
+    <!-- ---- Components ---- -->
+    
     <declareOutcomeVariables v-if="getUIStep == 0" />
     <declareScenarioVariables v-if="getUIStep == 1" />
+    <outputs v-if="getUIStep == 2" />
+
+    <!-- ---- Overlay for clearAll Menu ---- -->
+    
+    <div id="clearAllAskOverlay" v-if="askClearAll" class="absolute z-20 centered flex-col w-80 h-48 shadow text-2xl bg-bg rounded border-4">
+      <h6 class="w-full text-center">Are you sure you want to clear all edits?</h6>
+      <div class="rowButtons mt-4">
+        <button @click="handleClearAll" class="px-6 py-2 bg-focus text-white mx-2 rounded cursor-pointer hover:bg-main">Yes</button>
+      <button @click="askClearAll = false" class="px-6 py-2 bg-focus mx-2 text-white rounded cursor-pointer hover:bg-main">No</button>
+      </div>
+    </div>
+
+    <!-- ---- Overlay Dropdown Menu ---- -->
+
     <div class="fixed right-0 mt-4 mr-4" id="menu">
       <button @click="menuActive = !menuActive">
         <svg
@@ -34,7 +50,7 @@
             Undo last edit
           </li>
           <li
-            @click="handleClearAll"
+            @click="askClearAll = true"
             class="border-b-2 py-2 cursor-pointer hover:bg-gray-100"
           >
             Clear All
@@ -58,22 +74,21 @@
 </template>
 
 <script>
-import varList from "../components/varList";
-import varDraggableCanvas from "../components/varDraggableCanvas";
 import declareOutcomeVariables from "../components/declareOutcomeVariables";
 import declareScenarioVariables from "../components/declareScenarioVariables";
+import outputs from "../components/outputs";
 import store from "../store";
 export default {
   components: {
-    varList,
-    varDraggableCanvas,
     declareOutcomeVariables,
     declareScenarioVariables,
+    outputs
   },
   data() {
     return {
       nVarLists: 1,
       menuActive: false,
+      askClearAll: false
     };
   },
   computed: {
@@ -113,6 +128,7 @@ export default {
     },
     handleClearAll() {
       store.commit("clearAllEdits");
+      this.askClearAll = false;
     },
   },
   mounted() {},

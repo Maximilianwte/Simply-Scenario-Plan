@@ -61,11 +61,12 @@ export default new Vuex.Store({
     // ---- Handle UI ----
 
     moveUI(state, payload) {
-      if (payload == "inc" && state.ui.uiStep < 1) {
+      if (payload == "inc" && state.ui.uiStep < 2) {
         state.ui.uiStep++;
       } else if (payload == "dec" && state.ui.uiStep > 0) {
         state.ui.uiStep--;
       }
+      console.log(state.ui.uiStep)
       this.commit("setDataToCookie", "ui");
     },
     switchDarkMode(state) {

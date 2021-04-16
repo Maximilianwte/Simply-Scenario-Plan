@@ -37,7 +37,7 @@
 
     <button
       id="backUIStep"
-      class="absolute left-0 mt-64 px-3 py-3 rounded-full text-2xl"
+      class="absolute left-0 centerY px-3 py-3 rounded-full text-2xl"
       style="transform: rotateY(180deg)"
       tooltip-content="Go back to editing outcome variables."
       tooltip-position="left-abs"
@@ -55,7 +55,7 @@
     </button>
     <button
       id="nextUIStep"
-      class="absolute right-0 mt-64 px-3 py-3 rounded-full text-2xl"
+      class="absolute right-0 centerY px-3 py-3 rounded-full text-2xl"
       tooltip-content="Finished adding scenarios? Look at your scenario dashboard."
       tooltip-position="left-fxd"
       @click="moveUI('inc')"

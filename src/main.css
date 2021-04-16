@@ -99,6 +99,17 @@ li {
   transform: translateY(50%);
 }
 
+.centered {
+  left: calc(50%);
+  top: 50%;
+  transform: translateX(-50%)translateY(-50%);
+}
+
+.centerY {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .floatingMenu {
   display: none;
 }
