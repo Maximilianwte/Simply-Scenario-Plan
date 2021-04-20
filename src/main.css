@@ -118,6 +118,15 @@ li {
   display: block;
 }
 
+/* Output table */
+
+th, td {
+  min-width: 6rem;
+  border-right: .15rem solid;
+  padding: 0.2rem .5rem;
+  border-color: var(--alternative);
+}
+
 /* Tooltip */
 
 [tooltip-position][tooltip-content] { 

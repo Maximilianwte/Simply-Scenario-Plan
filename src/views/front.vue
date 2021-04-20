@@ -8,7 +8,7 @@
 
     <!-- ---- Overlay for clearAll Menu ---- -->
     
-    <div id="clearAllAskOverlay" v-if="askClearAll" class="absolute z-20 centered flex-col w-80 h-48 shadow text-2xl bg-bg rounded border-4">
+    <div id="clearAllAskOverlay" v-if="askClearAll" class="fixed z-20 centered flex-col w-80 h-48 shadow text-2xl bg-bg rounded border-4">
       <h6 class="w-full text-center">Are you sure you want to clear all edits?</h6>
       <div class="rowButtons mt-4">
         <button @click="handleClearAll" class="px-6 py-2 bg-focus text-white mx-2 rounded cursor-pointer hover:bg-main">Yes</button>

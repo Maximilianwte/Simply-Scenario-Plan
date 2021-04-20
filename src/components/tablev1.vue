@@ -1,0 +1,28 @@
+<template>
+  <div class="table">
+    <h5 class="ml-2 w-full py-2 px-2" :style="{ backgroundColor: getColorMode(color) }">{{ title }}</h5>
+    <table :id="'tableEl_' + title" class="tableEl w-full">
+      <tr>
+        <th class="text-left">Scenario</th>
+        <th class="text-right">Probability</th>
+        <th class="text-right">Impact</th>
+      </tr>
+      <tr v-for="scenario in data" :key="scenario.id">
+        <td class="text-left">{{scenario.title}}</td>
+        <td class="text-right">{{scenario.probability}}</td>
+        <td class="text-right">{{scenario.impact + scenario.unit}}</td>
+      </tr>
+    </table>
+  </div>
+</template>
+<script>
+import store from "../store";
+export default {
+  props: ["title", "data", "color"],
+  methods: {
+    getColorMode(color) {
+      return store.state.ui.colorful ? color : "#e2e8f0";
+    },
+  }
+};
+</script>

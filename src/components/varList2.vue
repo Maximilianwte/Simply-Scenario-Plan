@@ -139,7 +139,8 @@
                     <option value=""></option>
                     <option value="k">k</option>
                     <option value="m">m</option>
-                    <option value="b∏">b</option>
+                    <option value="b">b</option>
+                    <option value="%">%</option>
                   </select>
                 </form>
               </div>

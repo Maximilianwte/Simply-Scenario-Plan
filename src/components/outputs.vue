@@ -1,5 +1,49 @@
 <template>
   <div id="outputs">
+    <!-- Output table -->
+    <tablev1
+      class="table mx-8 mt-12"
+      v-for="item in getOutcomeVariables"
+      :key="item.id"
+      :title="item.title"
+      :data="testData[item.title]"
+      :color="item.color"
+      :id="'table_' + item.title"
+    />
+
+    <div class="downloadMenu ml-6 mt-6">
+      <button @click="showDownloadTablesMenu = !showDownloadTablesMenu" class="px-4 py-2 text-xl rounded bg-focus text-white">
+        Download all tables
+      </button>
+      <div v-if="showDownloadTablesMenu" class="dropDown border-2 mt-1 py-2 w-56 px-2 bg-bg rounded">
+        <li>
+          <ul>
+            <button
+              class="border-b-2 py-2 w-48 cursor-pointer hover:bg-gray-100"
+              @click="exportTables('xlsx')"
+            >
+              Download Excel (.xlsx)
+            </button>
+          </ul>
+          <ul>
+            <button
+              class="border-b-2 py-2 w-48 cursor-pointer hover:bg-gray-100"
+              @click="exportTables('csv')"
+            >
+              Download CSV (.csv)
+            </button>
+          </ul>
+          <ul>
+            <button
+              class="py-2 cursor-pointer w-48 hover:bg-gray-100"
+              @click="exportTables('json')"
+            >
+              Download JSON (.json)
+            </button>
+          </ul>
+        </li>
+      </div>
+    </div>
     <!-- UI Handling Buttons -->
 
     <button
@@ -24,10 +68,127 @@
 </template>
 <script>
 import store from "../store";
+import output_functions from "../data/generate_output";
+import tablev1 from "./tablev1";
+import $ from "jquery";
 export default {
+  components: { tablev1 },
+  data() {
+    return {
+      showDownloadTablesMenu: false,
+      testData: {
+        Happiness: [
+          {
+            id: 0,
+            title: "Recession",
+            probability: 0.3,
+            impact: -20,
+            unit: "m",
+          },
+          {
+            id: 1,
+            title: "Boom",
+            probability: 0.52,
+            impact: 22.2,
+            unit: "k",
+          },
+        ],
+      },
+    };
+  },
+  computed: {
+    getOutcomeVariables() {
+      return store.state.outcomeVariables;
+    },
+  },
   methods: {
     moveUI(val) {
       store.commit("moveUI", val);
+    },
+    exportTables(type) {
+      this.showDownloadTablesMenu = false;
+      const tables = document.getElementsByClassName("table");
+
+      switch (type) {
+        case "xlsx": {
+          var dataType = "application/vnd.ms-excel";
+          var fileType = ".xlsx";
+
+          var tableData = $("#tableEl_Happiness").html();
+          console.log(tableData);
+          break;
+        }
+        case "json": {
+          var dataType = "text/json;charset=utf-8";
+          var fileType = ".json";
+          tableData = {};
+          for (var i = 0; i < tables.length; i++) {
+            var header = tables[i].getElementsByTagName("h5")[0].textContent;
+            var currentTable = tables[i].getElementsByTagName("table")[0];
+            tableData[header] = tableToJson(currentTable, header);
+          }
+          tableData = JSON.stringify(tableData);
+          break;
+          function tableToJson(table) {
+            var data = [];
+
+            // first row needs to be headers
+            var headers = [];
+            for (var i = 0; i < table.rows[0].cells.length; i++) {
+              headers[i] = table.rows[0].cells[i].innerHTML
+                .toLowerCase()
+                .replace(/ /gi, "");
+            }
+            // go through cells
+            for (var i = 1; i < table.rows.length; i++) {
+              var tableRow = table.rows[i];
+              var rowData = {};
+
+              for (var j = 0; j < tableRow.cells.length; j++) {
+                rowData[headers[j]] = tableRow.cells[j].innerHTML;
+              }
+
+              data.push(rowData);
+            }
+
+            return data;
+          }
+        }
+        default: {
+          dataType = "text/csv;charset=utf-8";
+          fileType = ".csv";
+
+          for (var i = 0; i < tables.length; i++) {
+            var header = tables[i].getElementsByTagName("h5")[0];
+            var rows = tables[i].querySelectorAll("tr");
+            tableData = tableData + header.textContent + "\n";
+            var currentTableData = [].slice
+              .call(rows)
+              .map(function (row) {
+                // Query all cells
+                const cells = row.querySelectorAll("th,td");
+                return [].slice
+                  .call(cells)
+                  .map(function (cell) {
+                    return cell.textContent;
+                  })
+                  .join(",");
+              })
+              .join("\n");
+            tableData = tableData + currentTableData + "\n";
+          }
+        }
+      }
+      const link = document.createElement("a");
+      link.setAttribute(
+        "href",
+        `data:${dataType},${encodeURIComponent(tableData)}`
+      );
+      link.setAttribute("download", "table" + fileType);
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     },
   },
 };
