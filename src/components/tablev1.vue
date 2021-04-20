@@ -9,7 +9,7 @@
       </tr>
       <tr v-for="scenario in data" :key="scenario.id">
         <td class="text-left">{{scenario.title}}</td>
-        <td class="text-right">{{scenario.probability}}</td>
+        <td class="text-right">{{scenario.prob}}%</td>
         <td class="text-right">{{scenario.impact + scenario.unit}}</td>
       </tr>
     </table>

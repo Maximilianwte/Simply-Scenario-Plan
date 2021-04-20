@@ -1,6 +1,6 @@
 <template>
   <div class="riskMatrix">
-    <h5 class="ml-2 w-full py-2 px-2" :style="{ backgroundColor: getColorMode(color) }">{{ title }}</h5>
+    <h5 class="ml-2 w-full py-2 px-2">{{ title }}</h5>
     <table :id="'tableEl_' + title" class="w-full">
       <tr>
         <th class="text-left topLeft"></th>
@@ -30,13 +30,7 @@
   </div>
 </template>
 <script>
-import store from "../store";
 export default {
   props: ["title", "data"],
-  methods: {
-    getColorMode(color) {
-      return store.state.ui.colorful ? color : "#e2e8f0";
-    },
-  }
 };
 </script>

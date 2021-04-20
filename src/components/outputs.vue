@@ -9,7 +9,7 @@
         v-for="item in getOutcomeVariables"
         :key="item.id"
         :title="item.title"
-        :data="testData[item.title]"
+        :data="getTableData[item.title]"
         :color="item.color"
         :id="'table_' + item.title"
       />
@@ -94,24 +94,6 @@ export default {
   data() {
     return {
       showDownloadTablesMenu: false,
-      testData: {
-        Happiness: [
-          {
-            id: 0,
-            title: "Recession",
-            probability: 0.3,
-            impact: -20,
-            unit: "m",
-          },
-          {
-            id: 1,
-            title: "Boom",
-            probability: 0.52,
-            impact: 22.2,
-            unit: "k",
-          },
-        ],
-      },
       testDataMatrix: {
         Happiness: {
           lowLLowC: [
@@ -156,6 +138,9 @@ export default {
     getOutcomeVariables() {
       return store.state.outcomeVariables;
     },
+    getTableData() {
+      return output_functions.aggregateImpacts()
+    }
   },
   methods: {
     moveUI(val) {
@@ -247,5 +232,7 @@ export default {
       document.body.removeChild(link);
     },
   },
+  mounted() {
+  }
 };
 </script>
