@@ -1,21 +1,29 @@
 <template>
-  <div id="outputs">
+  <div id="outputs" class="px-10 py-12 w-full">
     <!-- Output table -->
-    <tablev1
-      class="table mx-8 mt-12"
-      v-for="item in getOutcomeVariables"
-      :key="item.id"
-      :title="item.title"
-      :data="testData[item.title]"
-      :color="item.color"
-      :id="'table_' + item.title"
-    />
 
-    <div class="downloadMenu ml-6 mt-6">
-      <button @click="showDownloadTablesMenu = !showDownloadTablesMenu" class="px-4 py-2 text-xl rounded bg-focus text-white">
+    <h4 class="ml-6 mb-6 text-xl">1. Output Tables</h4>
+    <div class="md-grid-container">
+      <tablev1
+        class="table px-4 py-2 grid-item-3"
+        v-for="item in getOutcomeVariables"
+        :key="item.id"
+        :title="item.title"
+        :data="testData[item.title]"
+        :color="item.color"
+        :id="'table_' + item.title"
+      />
+          <div class="downloadMenu relative mt-6 flex-col" style="grid-column: 1 / span 10;">
+      <button
+        @click="showDownloadTablesMenu = !showDownloadTablesMenu"
+        class="px-4 py-2 text-xl rounded bg-focus text-white"
+      >
         Download all tables
       </button>
-      <div v-if="showDownloadTablesMenu" class="dropDown border-2 mt-1 py-2 w-56 px-2 bg-bg rounded">
+      <div
+        v-if="showDownloadTablesMenu"
+        class="dropdownBelow border-2 mt-1  py-2 w-56 px-2 bg-bg rounded"
+      >
         <li>
           <ul>
             <button
@@ -44,9 +52,17 @@
         </li>
       </div>
     </div>
+    </div>
+
+    <!-- Risk Matrices -->
+
+    <h4 class="ml-6 mt-20 mb-6 text-xl">2. Risk Matrices</h4>
+    <riskMatrix class="mt-6" v-for="item in getOutcomeVariables" :key="item.id" :title="item.title" :data="testDataMatrix[item.title]" />
+
     <!-- UI Handling Buttons -->
 
-    <button
+    <div class="fixed left-0 top-0 h-screen">
+      <button
       id="backUIStep"
       class="absolute left-0 centerY px-3 py-3 rounded-full text-2xl"
       style="transform: rotateY(180deg)"
@@ -64,15 +80,17 @@
         />
       </svg>
     </button>
+    </div>
   </div>
 </template>
 <script>
 import store from "../store";
 import output_functions from "../data/generate_output";
 import tablev1 from "./tablev1";
+import riskMatrix from "./riskMatrix";
 import $ from "jquery";
 export default {
-  components: { tablev1 },
+  components: { tablev1, riskMatrix },
   data() {
     return {
       showDownloadTablesMenu: false,
@@ -93,6 +111,44 @@ export default {
             unit: "k",
           },
         ],
+      },
+      testDataMatrix: {
+        Happiness: {
+          lowLLowC: [
+            {
+              id: 0,
+              title: "Recession",
+              probability: 0.3,
+              impact: -20,
+              unit: "m",
+            },
+          ],
+          lowLMedC: [
+            {
+              id: 2,
+              title: "New product fails",
+              probability: 0.52,
+              impact: 22.2,
+              unit: "k",
+            },
+            {
+              id: 3,
+              title: "Competitor launches product",
+              probability: 0.52,
+              impact: 22.2,
+              unit: "k",
+            },
+          ],
+          highLMedC: [
+            {
+              id: 1,
+              title: "Boom",
+              probability: 0.52,
+              impact: 22.2,
+              unit: "k",
+            },
+          ],
+        },
       },
     };
   },

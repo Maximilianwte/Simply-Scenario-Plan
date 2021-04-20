@@ -35,6 +35,38 @@ a:hover {
   z-index: 20;
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(10, 10%);
+}
+
+@media only screen and (min-width: 768px) {
+  .md-grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, auto);
+  }
+  .grid-item-3 {
+    grid-column: span 5;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .lg-grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 10%);
+  }
+  .grid-item-3 {
+    grid-column: span 3;
+  }
+}
+
+@media only screen and (min-width: 1332px) {
+  .md-grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 10%);
+  }
+}
+
 input, select {
   background: none;
   color: #424b6950;
@@ -93,6 +125,11 @@ li {
   top: 0px;
 }
 
+.dropdownBelow {
+  position: absolute;
+  top: 100%;
+}
+
 #changeVarFloating {
   left: calc(1rem + 100%);
   bottom: 50%;
@@ -125,6 +162,18 @@ th, td {
   border-right: .15rem solid;
   padding: 0.2rem .5rem;
   border-color: var(--alternative);
+}
+
+.riskMatrix th, .riskMatrix td {
+  min-width: 6rem;
+  min-height: 4rem;
+  padding: 0.2rem .5rem;
+  border: .15rem solid;
+  border-color: var(--alternative);
+}
+
+.topLeft {
+  border: none !important;
 }
 
 /* Tooltip */
