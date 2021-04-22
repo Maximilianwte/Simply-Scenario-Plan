@@ -13,73 +13,104 @@
         :color="item.color"
         :id="'table_' + item.title"
       />
-          <div class="downloadMenu relative mt-6 flex-col" style="grid-column: 1 / span 10;">
-      <button
-        @click="showDownloadTablesMenu = !showDownloadTablesMenu"
-        class="px-4 py-2 text-xl rounded bg-focus text-white"
-      >
-        Download all tables
-      </button>
       <div
-        v-if="showDownloadTablesMenu"
-        class="dropdownBelow border-2 mt-1  py-2 w-56 px-2 bg-bg rounded"
+        class="downloadMenu relative mt-6 w-48"
+        style="grid-column: 9 / span 1"
       >
-        <li>
-          <ul>
-            <button
-              class="border-b-2 py-2 w-48 cursor-pointer hover:bg-gray-100"
-              @click="exportTables('xlsx')"
-            >
-              Download Excel (.xlsx)
-            </button>
-          </ul>
-          <ul>
-            <button
-              class="border-b-2 py-2 w-48 cursor-pointer hover:bg-gray-100"
-              @click="exportTables('csv')"
-            >
-              Download CSV (.csv)
-            </button>
-          </ul>
-          <ul>
-            <button
-              class="py-2 cursor-pointer w-48 hover:bg-gray-100"
-              @click="exportTables('json')"
-            >
-              Download JSON (.json)
-            </button>
-          </ul>
-        </li>
+        <button
+          @click="showDownloadTablesMenu = !showDownloadTablesMenu"
+          class="px-4 py-2 w-full rounded bg-gray-300"
+        >
+          Download all tables
+        </button>
+        <div
+          v-if="showDownloadTablesMenu"
+          class="dropdownBelow absolute border-2 mt-1 py-2 w-full px-2 bg-bg rounded"
+        >
+          <li>
+            <ul>
+              <button
+                class="border-b-2 py-2 cursor-pointer hover:bg-gray-100"
+                @click="exportTables('xlsx')"
+              >
+                Download Excel (.xlsx)
+              </button>
+            </ul>
+            <ul>
+              <button
+                class="border-b-2 py-2 cursor-pointer hover:bg-gray-100"
+                @click="exportTables('csv')"
+              >
+                Download CSV (.csv)
+              </button>
+            </ul>
+            <ul>
+              <button
+                class="py-2 cursor-pointer hover:bg-gray-100"
+                @click="exportTables('json')"
+              >
+                Download JSON (.json)
+              </button>
+            </ul>
+          </li>
+        </div>
       </div>
-    </div>
     </div>
 
     <!-- Risk Matrices -->
 
-    <h4 class="ml-6 mt-20 mb-6 text-xl">2. Risk Matrices</h4>
-    <riskMatrix class="mt-6" v-for="item in getOutcomeVariables" :key="item.id" :title="item.title" :data="testDataMatrix[item.title]" />
-
+    <div class="headerRow flex ml-6 mt-20 mb-6">
+      <h4 class="text-xl">2. Risk Matrices</h4>
+      <div class="downloadMenu ml-4 relative">
+        <button
+          @click="showMatrixMenu = !showMatrixMenu"
+          class="px-4 py-2 rounded bg-gray-300"
+        >
+          Select Variable
+        </button>
+        <div
+          v-if="showMatrixMenu"
+          class="dropdownBelow border-2 mt-1 py-2 w-48 px-2 bg-bg rounded"
+        >
+          <li>
+            <ul v-for="item in getOutcomeVariables" :key="item.id">
+              <button
+                class="py-2 cursor-pointer w-full hover:bg-gray-100"
+                @click="setMatrix(item.title)"
+              >
+                {{ item.title }}
+              </button>
+            </ul>
+          </li>
+        </div>
+      </div>
+    </div>
+    <riskMatrix
+      class="mt-12"
+      :title="getSelectedRiskMatrixValue"
+      :data="getRiskMatrixData[getSelectedRiskMatrixValue]"
+    />
     <!-- UI Handling Buttons -->
 
     <div class="fixed left-0 top-0 h-screen">
       <button
-      id="backUIStep"
-      class="absolute left-0 centerY px-3 py-3 rounded-full text-2xl"
-      style="transform: rotateY(180deg)"
-      tooltip-content="Go back to editing scenario variables."
-      tooltip-position="left-abs"
-      @click="moveUI('dec')"
-    >
-      <svg
-        class="w-10"
-        viewBox="-74 0 362 362.667"
-        xmlns="http://www.w3.org/2000/svg"
+        id="backUIStep"
+        class="absolute left-0 centerY px-3 py-3 rounded-full text-2xl"
+        style="transform: rotateY(180deg)"
+        tooltip-content="Go back to editing scenario variables."
+        tooltip-position="left-abs"
+        @click="moveUI('dec')"
       >
-        <path
-          d="M213.668 181.332c0 4.27-1.281 8.535-3.629 11.734l-106.664 160c-3.84 5.762-10.242 9.602-17.707 9.602h-64c-11.734 0-21.336-9.602-21.336-21.336 0-4.266 1.281-8.531 3.629-11.73l98.773-148.27L3.961 33.066C1.613 29.867.332 25.602.332 21.332.332 9.602 9.934 0 21.668 0h64c7.465 0 13.867 3.84 17.707 9.602l106.664 160c2.348 3.199 3.629 7.464 3.629 11.73zm0 0"
-        />
-      </svg>
-    </button>
+        <svg
+          class="w-10"
+          viewBox="-74 0 362 362.667"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M213.668 181.332c0 4.27-1.281 8.535-3.629 11.734l-106.664 160c-3.84 5.762-10.242 9.602-17.707 9.602h-64c-11.734 0-21.336-9.602-21.336-21.336 0-4.266 1.281-8.531 3.629-11.73l98.773-148.27L3.961 33.066C1.613 29.867.332 25.602.332 21.332.332 9.602 9.934 0 21.668 0h64c7.465 0 13.867 3.84 17.707 9.602l106.664 160c2.348 3.199 3.629 7.464 3.629 11.73zm0 0"
+          />
+        </svg>
+      </button>
     </div>
   </div>
 </template>
@@ -94,6 +125,8 @@ export default {
   data() {
     return {
       showDownloadTablesMenu: false,
+      showMatrixMenu: false,
+      selectedRiskMatrix: "Happiness",
       testDataMatrix: {
         Happiness: {
           lowLLowC: [
@@ -131,6 +164,7 @@ export default {
             },
           ],
         },
+        "New Variable": {},
       },
     };
   },
@@ -139,8 +173,14 @@ export default {
       return store.state.outcomeVariables;
     },
     getTableData() {
-      return output_functions.aggregateImpacts()
-    }
+      return output_functions.aggregateImpacts();
+    },
+    getRiskMatrixData() {
+      return output_functions.buildRiskMatrixData();
+    },
+    getSelectedRiskMatrixValue() {
+      return this.selectedRiskMatrix;
+    },
   },
   methods: {
     moveUI(val) {
@@ -231,8 +271,12 @@ export default {
       link.click();
       document.body.removeChild(link);
     },
+    setMatrix(id) {
+      this.selectedRiskMatrix = id;
+      this.showMatrixMenu = false;
+    },
   },
   mounted() {
-  }
+  },
 };
 </script>

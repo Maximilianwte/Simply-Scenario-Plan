@@ -101,7 +101,9 @@ export default new Vuex.Store({
           displayId: 0,
           title: "New Scenario",
           prob: 0,
-          color: colors[colValue]
+          color: colors[colValue],
+          impact: [0],
+          unit: [""]
         },
       ]);
       this.commit("setDataToCookie", "scenarioVariables");

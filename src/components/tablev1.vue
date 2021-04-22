@@ -3,13 +3,15 @@
     <h5 class="ml-2 w-full py-2 px-2" :style="{ backgroundColor: getColorMode(color) }">{{ title }}</h5>
     <table :id="'tableEl_' + title" class="tableEl w-full">
       <tr>
+        <th class="text-left">Layer</th>
         <th class="text-left">Scenario</th>
         <th class="text-right">Probability</th>
         <th class="text-right">Impact</th>
       </tr>
-      <tr v-for="scenario in data" :key="scenario.id">
+      <tr v-for="scenario in data" :key="scenario.title">
+        <td class="text-left">{{scenario.list}}</td>
         <td class="text-left">{{scenario.title}}</td>
-        <td class="text-right">{{scenario.prob}}%</td>
+        <td class="text-right">{{scenario.pathProb}}%</td>
         <td class="text-right">{{scenario.impact + scenario.unit}}</td>
       </tr>
     </table>

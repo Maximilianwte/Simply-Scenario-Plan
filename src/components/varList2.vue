@@ -202,7 +202,7 @@ export default {
       var y = event.screenY - rect.top;
       return {x: x, y: y}
     }, */
-    startDrag(divId, id) {
+    startDrag(divId) {
       const vm = this;
       document.onmousemove = elementDrag;
       function elementDrag(e) {
@@ -306,7 +306,8 @@ export default {
         title: "New Scenario",
         prob: 0,
         color: this.getColor(),
-        impact: [],
+        impact: [0],
+        unit: [""]
       };
       store.commit("addScenarioVariable", {
         listID: this.idList,
@@ -333,7 +334,7 @@ export default {
       if (type == "impact" || type == "unit") {
         var valAfter = this.getItems[id][type][outcomevarId];
       } else {
-        var valAfter = this.getItems[id][type];
+        valAfter = this.getItems[id][type];
       }
       store.commit("addReturnValue2", {
         type: "changeScenarioVariable",
