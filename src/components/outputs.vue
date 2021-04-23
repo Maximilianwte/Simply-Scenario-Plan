@@ -19,7 +19,7 @@
       >
         <button
           @click="showDownloadTablesMenu = !showDownloadTablesMenu"
-          class="px-4 py-2 w-full rounded bg-gray-300"
+          class="px-4 py-2 w-full rounded bg-gray-300 text-dark"
         >
           Download all tables
         </button>
@@ -64,13 +64,13 @@
       <div class="downloadMenu ml-4 relative">
         <button
           @click="showMatrixMenu = !showMatrixMenu"
-          class="px-4 py-2 rounded bg-gray-300"
+          class="px-4 py-2 rounded bg-gray-300 text-dark"
         >
           Select Variable
         </button>
         <div
           v-if="showMatrixMenu"
-          class="dropdownBelow border-2 mt-1 py-2 w-48 px-2 bg-bg rounded"
+          class="absolute border-2 mt-1 py-2 w-48 px-2 bg-bg rounded"
         >
           <li>
             <ul v-for="item in getOutcomeVariables" :key="item.id">
@@ -90,6 +90,42 @@
       :title="getSelectedRiskMatrixValue"
       :data="getRiskMatrixData[getSelectedRiskMatrixValue]"
     />
+    <!-- Charts -->
+
+    <div class="headerRow flex ml-6 mt-20 mb-6">
+      <h4 class="text-xl">3. Distributions</h4>
+      <div class="downloadMenu ml-4 relative">
+        <button
+          @click="showDistributionMenu = !showDistributionMenu"
+          class="px-4 py-2 rounded bg-gray-300 text-dark"
+        >
+          Select Variable
+        </button>
+        <div
+          v-if="showDistributionMenu"
+          class="absolute border-2 mt-1 py-2 w-48 px-2 bg-bg rounded"
+        >
+          <li>
+            <ul v-for="item in getOutcomeVariables" :key="item.id">
+              <button
+                class="py-2 cursor-pointer w-full hover:bg-gray-100"
+                @click="setDistribution(item.title)"
+              >
+                {{ item.title }}
+              </button>
+            </ul>
+          </li>
+        </div>
+      </div>
+    </div>
+    <chartist
+      class="mt-12"
+      type="Line"
+      :data="getDistribution[getSelectedRiskMatrixValue]"
+      :options="chartOptions"
+      ratio="ct-major-second"
+    />
+
     <!-- UI Handling Buttons -->
 
     <div class="fixed left-0 top-0 h-screen">
@@ -126,45 +162,18 @@ export default {
     return {
       showDownloadTablesMenu: false,
       showMatrixMenu: false,
+      showDistributionMenu: false,
       selectedRiskMatrix: "Happiness",
-      testDataMatrix: {
-        Happiness: {
-          lowLLowC: [
-            {
-              id: 0,
-              title: "Recession",
-              probability: 0.3,
-              impact: -20,
-              unit: "m",
-            },
-          ],
-          lowLMedC: [
-            {
-              id: 2,
-              title: "New product fails",
-              probability: 0.52,
-              impact: 22.2,
-              unit: "k",
-            },
-            {
-              id: 3,
-              title: "Competitor launches product",
-              probability: 0.52,
-              impact: 22.2,
-              unit: "k",
-            },
-          ],
-          highLMedC: [
-            {
-              id: 1,
-              title: "Boom",
-              probability: 0.52,
-              impact: 22.2,
-              unit: "k",
-            },
-          ],
+      chartOptions: {
+        height: "300px",
+        lineSmooth: true,
+        showArea: true,
+        fullWidth: true,
+        axisX: {
+          showGrid: false,
         },
-        "New Variable": {},
+        low: 0,
+        high: 1,
       },
     };
   },
@@ -180,6 +189,9 @@ export default {
     },
     getSelectedRiskMatrixValue() {
       return this.selectedRiskMatrix;
+    },
+    getDistribution() {
+      return output_functions.buildDistribution();
     },
   },
   methods: {
@@ -275,8 +287,11 @@ export default {
       this.selectedRiskMatrix = id;
       this.showMatrixMenu = false;
     },
+    setDistribution(id) {
+      this.selectedRiskMatrix = id;
+      this.showMatrixMenu = false;
+    },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>

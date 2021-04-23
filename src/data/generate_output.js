@@ -87,11 +87,13 @@ let output_functions = {
     var output = {};
     const outputVars = store.state.outcomeVariables;
     const inputData = this.aggregateImpacts();
-    var calculationData = {
-      likelihood: [],
-      consequence: [],
-    };
+
     for (var i = 0; i < outputVars.length; i++) {
+      var calculationData = {
+        likelihood: [],
+        consequence: [],
+      };
+
       for (var j = 0; j < inputData[outputVars[i].title].length; j++) {
         // calculate impact as number instead of "k", "m", "b" units
         switch (inputData[outputVars[i].title][j].unit) {
@@ -104,11 +106,11 @@ let output_functions = {
             break;
           }
           case "m": {
-            multiplier = 1*10**6;
+            multiplier = 1 * 10 ** 6;
             break;
           }
           case "b": {
-            multiplier = 1*10**9;
+            multiplier = 1 * 10 ** 9;
             break;
           }
           default: {
@@ -116,7 +118,9 @@ let output_functions = {
             break;
           }
         }
-        inputData[outputVars[i].title][j].impactAsAbsNumber = Math.abs(inputData[outputVars[i].title][j].impact * multiplier);
+        inputData[outputVars[i].title][j].impactAsAbsNumber = Math.abs(
+          inputData[outputVars[i].title][j].impact * multiplier
+        );
         // build array of all likelihoods and impacts first to check whats how high compared
         calculationData.likelihood.push(
           inputData[outputVars[i].title][j].pathProb
@@ -125,100 +129,141 @@ let output_functions = {
           inputData[outputVars[i].title][j].impactAsAbsNumber
         );
       }
-    }
-    calculationData.likelihood.sort((a, b) => a - b);
-    calculationData.consequence.sort((a, b) => a - b);
-    const medianL = calculationData.likelihood[(calculationData.likelihood.length / 2).toFixed(0)],
-    medianC = calculationData.consequence[(calculationData.likelihood.length / 2).toFixed(0)]
 
-    for (var i = 0; i < outputVars.length; i++) {
+      calculationData.likelihood.sort((a, b) => a - b);
+      calculationData.consequence.sort((a, b) => a - b);
+      const medianL =
+          calculationData.likelihood[
+            (calculationData.likelihood.length / 2).toFixed(0)
+          ],
+        medianC =
+          calculationData.consequence[
+            (calculationData.likelihood.length / 2).toFixed(0)
+          ];
+
       output[outputVars[i].title] = {
         lowLLowC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb <= (medianL * 0.66) &&
-            item.impactAsAbsNumber <= (medianC * 0.66)
+            item.pathProb <= medianL * 0.66 &&
+            item.impactAsAbsNumber <= medianC * 0.66
         ),
         medLLowC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > (medianL * 0.66) &&
-            item.pathProb <= (medianL * 1.75) &&
-            item.impactAsAbsNumber <= (medianC * 0.66)
+            item.pathProb > medianL * 0.66 &&
+            item.pathProb <= medianL * 1.75 &&
+            item.impactAsAbsNumber <= medianC * 0.66
         ),
         highLLowC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > (medianL * 1.75) &&
-            item.impactAsAbsNumber <= (medianC * 0.66)
+            item.pathProb > medianL * 1.75 &&
+            item.impactAsAbsNumber <= medianC * 0.66
         ),
         lowLMedC: inputData[outputVars[i].title].filter(
-            (item) =>
-              item.pathProb <= (medianL * 0.66) &&
-              item.impactAsNumber > (medianC * 0.66) &&
-              item.impactAsAbsNumber <= (medianC * 1.75)
-          ),
+          (item) =>
+            item.pathProb <= medianL * 0.66 &&
+            item.impactAsNumber > medianC * 0.66 &&
+            item.impactAsAbsNumber <= medianC * 1.75
+        ),
         medLMedC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > (medianL * 0.66) &&
-            item.pathProb <= (medianL * 1.75) &&
-            item.impactAsAbsNumber > (medianC * 0.66) &&
-            item.impactAsAbsNumber <= (medianC * 1.75)
+            item.pathProb > medianL * 0.66 &&
+            item.pathProb <= medianL * 1.75 &&
+            item.impactAsAbsNumber > medianC * 0.66 &&
+            item.impactAsAbsNumber <= medianC * 1.75
         ),
         highLMedC: inputData[outputVars[i].title].filter(
-            (item) =>
-              item.pathProb > (medianL * 1.75) &&
-              item.impactAsAbsNumber > (medianC * 0.66) &&
-              item.impactAsAbsNumber <= (medianC * 1.75)
-          ),
+          (item) =>
+            item.pathProb > medianL * 1.75 &&
+            item.impactAsAbsNumber > medianC * 0.66 &&
+            item.impactAsAbsNumber <= medianC * 1.75
+        ),
         lowLHighC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb <= (medianL * 0.66) &&
-            item.impactAsAbsNumber > (medianC * 1.75)
+            item.pathProb <= medianL * 0.66 &&
+            item.impactAsAbsNumber > medianC * 1.75
         ),
         medLHighC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > (medianL * 0.66) &&
-            item.pathProb <= (medianL * 1.75) &&
-            item.impactAsAbsNumber > (medianC * 1.75)
+            item.pathProb > medianL * 0.66 &&
+            item.pathProb <= medianL * 1.75 &&
+            item.impactAsAbsNumber > medianC * 1.75
         ),
         highLHighC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > (medianL * 1.75) &&
-            item.impactAsAbsNumber > (medianC * 1.75)
+            item.pathProb > medianL * 1.75 &&
+            item.impactAsAbsNumber > medianC * 1.75
         ),
       };
     }
+
     return output;
   },
   buildDistribution() {
-    const data = this.buildRiskMatrixData();
-    const outputVarNames = Object.keys(data);
     var output = {};
+    const outputVars = store.state.outcomeVariables;
+    const inputData = this.aggregateImpacts();
 
-    for (var i = 0; i < outputVarNames.length; i++) {
-      var curOutputVarName = outputVarNames[i];
-      for (var j = 0; j < data[curOutputVarName].length; j++) {
-        if (curOutputVarName in output) {
-          var currentImpact = output[curOutputVarName].find(
-            (item) => item.impact == data[curOutputVarName][j].impact
-          );
-          if (currentImpact == undefined) {
-            output[curOutputVarName].push({
-              impact: data[curOutputVarName][j].impact,
-              prob: data[curOutputVarName][j].prob,
-            });
-          } else {
-            // the point to test: does it work if I add to the reference?
-            currentImpact.prob =
-              currentImpact.prob + data[curOutputVarName][j].prob;
+    for (var i = 0; i < outputVars.length; i++) {
+      var calculationData = {
+        likelihood: [],
+        consequence: [],
+      };
+
+      for (var j = 0; j < inputData[outputVars[i].title].length; j++) {
+        // calculate impact as number instead of "k", "m", "b" units
+        switch (inputData[outputVars[i].title][j].unit) {
+          case " ": {
+            var multiplier = 1;
+            break;
           }
-        } else {
-          output[curOutputVarName] = [
-            {
-              impact: data[curOutputVarName][j].impact,
-              prob: data[curOutputVarName][j].prob,
-            },
-          ];
+          case "k": {
+            multiplier = 1000;
+            break;
+          }
+          case "m": {
+            multiplier = 1 * 10 ** 6;
+            break;
+          }
+          case "b": {
+            multiplier = 1 * 10 ** 9;
+            break;
+          }
+          default: {
+            multiplier = 1;
+            break;
+          }
         }
+        inputData[outputVars[i].title][j].impactAsNumber =
+          inputData[outputVars[i].title][j].impact * multiplier;
+        // build array of all likelihoods and impacts first to check whats how high compared
+        calculationData.consequence.push(
+          inputData[outputVars[i].title][j].impactAsNumber
+        );
       }
+
+      calculationData.consequence.sort((a, b) => a - b);
+
+      output[outputVars[i].title] = {
+        labels: [" "],
+        series: [[0]],
+      };
+
+      for (var j = 0; j < calculationData.consequence.length; j++) {
+        var filteredItems = inputData[outputVars[i].title].filter(
+          (item) => item.impactAsNumber == calculationData.consequence[j]
+        );
+        filteredItems.forEach(function(item) {
+          if (item.pathProb != 0) {
+            output[outputVars[i].title].labels.push(item.impact + item.unit);
+            output[outputVars[i].title].series[0].push(
+              (item.pathProb / 100).toFixed(3)
+            );
+          }
+        });
+      }
+
+      output[outputVars[i].title].labels.push("");
+      output[outputVars[i].title].series[0].push(0);
     }
     return output;
   },

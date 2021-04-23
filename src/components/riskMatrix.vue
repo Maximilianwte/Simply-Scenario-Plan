@@ -10,21 +10,21 @@
       </tr>
       <tr>
         <th class="text-left">High Likelihood</th>
-        <th style="backgroundColor: #FFE882;" class="text-left"><p v-for="(item, index) in getData('highLLowC')" :key="index">{{item.title}}</p></th>
-        <th style="backgroundColor: #FF7373;" class="text-right"><p v-for="(item, index) in getData('highLMedC')" :key="index">{{item.title}}</p></th>
-        <th style="backgroundColor: #FF5E5E" class="text-right"><p v-for="(item, index) in getData('highLHighC')" :key="index">{{item.title}}</p></th>
+        <th style="backgroundColor: #FFE882;" class="text-left text-dark"><p v-for="(item, index) in getData('highLLowC')" :key="index">{{item.title}}</p></th>
+        <th style="backgroundColor: #FF7373;" class="text-right text-dark"><p v-for="(item, index) in getData('highLMedC')" :key="index">{{item.title}}</p></th>
+        <th style="backgroundColor: #FF5E5E" class="text-right text-dark"><p v-for="(item, index) in getData('highLHighC')" :key="index">{{item.title}}</p></th>
       </tr>
       <tr>
         <th class="text-left">Medium Likelihood</th>
-        <th style="backgroundColor: #76E376" class="text-left"><p v-for="(item, index) in getData('medLLowC')" :key="index">{{item.title}}</p></th>
-        <th style="backgroundColor: #FFE882;" class="text-right"><p v-for="(item, index) in getData('medLMedC')" :key="index">{{item.title}}</p></th>
-        <th style="backgroundColor: #FF7373;" class="text-right"><p v-for="(item, index) in getData('medLHighC')" :key="index">{{item.title}}</p></th>
+        <th style="backgroundColor: #76E376" class="text-left text-dark"><p v-for="(item, index) in getData('medLLowC')" :key="index">{{item.title}}</p></th>
+        <th style="backgroundColor: #FFE882;" class="text-right text-dark"><p v-for="(item, index) in getData('medLMedC')" :key="index">{{item.title}}</p></th>
+        <th style="backgroundColor: #FF7373;" class="text-right text-dark"><p v-for="(item, index) in getData('medLHighC')" :key="index">{{item.title}}</p></th>
       </tr>
       <tr>
         <th class="text-left">Low Likelihood</th>
-        <th style="backgroundColor: #76E376" class="text-left"><p v-for="(item, index) in getData('lowLLowC')" :key="index">{{item.title}}</p></th>
-        <th style="backgroundColor: #76E376;" class="text-right"><p v-for="(item, index) in getData('lowLMedC')" :key="index">{{item.title}}</p></th>
-        <th style="backgroundColor: #FFE882;" class="text-right"><p v-for="(item, index) in getData('lowLHighC')" :key="index">{{item.title}}</p></th>
+        <th style="backgroundColor: #76E376" class="text-left text-dark"><p v-for="(item, index) in getData('lowLLowC')" :key="index">{{item.title}}</p></th>
+        <th style="backgroundColor: #76E376;" class="text-right text-dark"><p v-for="(item, index) in getData('lowLMedC')" :key="index">{{item.title}}</p></th>
+        <th style="backgroundColor: #FFE882;" class="text-right text-dark"><p v-for="(item, index) in getData('lowLHighC')" :key="index">{{item.title}}</p></th>
       </tr>
     </table>
   </div>

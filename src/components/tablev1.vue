@@ -1,6 +1,6 @@
 <template>
   <div class="table">
-    <h5 class="ml-2 w-full py-2 px-2" :style="{ backgroundColor: getColorMode(color) }">{{ title }}</h5>
+    <h5 class="ml-2 w-full py-2 px-2 text-dark" :style="{ backgroundColor: getColorMode(color) }">{{ title }}</h5>
     <table :id="'tableEl_' + title" class="tableEl w-full">
       <tr>
         <th class="text-left">Layer</th>

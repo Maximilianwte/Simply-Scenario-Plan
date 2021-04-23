@@ -228,3 +228,20 @@ th, td {
   visibility: visible;
   opacity: 1;
 }
+
+/* Chartist styling */
+
+.ct-grids {
+  stroke:rgba(224, 224, 224, 0.452);
+}
+
+.ct-series-a .ct-line,
+.ct-series-a .ct-point {
+  fill: rgb(255, 62, 88);
+  stroke: none;
+}
+
+.ct-series-b .ct-line,
+.ct-series-b .ct-point {
+  fill: rgb(123, 255, 62);
+}
