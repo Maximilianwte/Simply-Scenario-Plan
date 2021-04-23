@@ -86,7 +86,6 @@ let output_functions = {
   buildRiskMatrixData() {
     var output = {};
     const outputVars = store.state.outcomeVariables;
-    const scenarioVars = store.state.scenarioVariables;
     const inputData = this.aggregateImpacts();
     var calculationData = {
       likelihood: [],
@@ -94,84 +93,98 @@ let output_functions = {
     };
     for (var i = 0; i < outputVars.length; i++) {
       for (var j = 0; j < inputData[outputVars[i].title].length; j++) {
+        // calculate impact as number instead of "k", "m", "b" units
+        switch (inputData[outputVars[i].title][j].unit) {
+          case " ": {
+            var multiplier = 1;
+            break;
+          }
+          case "k": {
+            multiplier = 1000;
+            break;
+          }
+          case "m": {
+            multiplier = 1*10**6;
+            break;
+          }
+          case "b": {
+            multiplier = 1*10**9;
+            break;
+          }
+          default: {
+            multiplier = 1;
+            break;
+          }
+        }
+        inputData[outputVars[i].title][j].impactAsAbsNumber = Math.abs(inputData[outputVars[i].title][j].impact * multiplier);
         // build array of all likelihoods and impacts first to check whats how high compared
         calculationData.likelihood.push(
           inputData[outputVars[i].title][j].pathProb
         );
         calculationData.consequence.push(
-          inputData[outputVars[i].title][j].impact
+          inputData[outputVars[i].title][j].impactAsAbsNumber
         );
       }
     }
     calculationData.likelihood.sort((a, b) => a - b);
     calculationData.consequence.sort((a, b) => a - b);
-    const quantil25 = (calculationData.likelihood.length / 4).toFixed(0),
-      quantil75 = ((calculationData.likelihood.length / 4) * 3).toFixed(0);
-    const breakPoints = {
-      likelihood: {
-        low: calculationData.likelihood[quantil25],
-        medium: calculationData.likelihood[quantil75],
-      },
-      consequence: {
-        low: calculationData.consequence[quantil25],
-        medium: calculationData.consequence[quantil75],
-      },
-    };
+    const medianL = calculationData.likelihood[(calculationData.likelihood.length / 2).toFixed(0)],
+    medianC = calculationData.consequence[(calculationData.likelihood.length / 2).toFixed(0)]
+
     for (var i = 0; i < outputVars.length; i++) {
       output[outputVars[i].title] = {
-        lowLLowC: inputData["Happiness"].filter(
+        lowLLowC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb <= breakPoints.likelihood.low &&
-            item.impact <= breakPoints.consequence.low
+            item.pathProb <= (medianL * 0.66) &&
+            item.impactAsAbsNumber <= (medianC * 0.66)
         ),
-        medLLowC: inputData["Happiness"].filter(
+        medLLowC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > breakPoints.likelihood.low &&
-            item.pathProb <= breakPoints.likelihood.medium &&
-            item.impact <= breakPoints.consequence.low
+            item.pathProb > (medianL * 0.66) &&
+            item.pathProb <= (medianL * 1.75) &&
+            item.impactAsAbsNumber <= (medianC * 0.66)
         ),
-        highLLowC: inputData["Happiness"].filter(
+        highLLowC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > breakPoints.likelihood.medium &&
-            item.impact <= breakPoints.consequence.low
+            item.pathProb > (medianL * 1.75) &&
+            item.impactAsAbsNumber <= (medianC * 0.66)
         ),
-        lowLMedC: inputData["Happiness"].filter(
+        lowLMedC: inputData[outputVars[i].title].filter(
             (item) =>
-              item.pathProb <= breakPoints.likelihood.low &&
-              item.impact > breakPoints.consequence.low &&
-              item.impact <= breakPoints.consequence.medium
+              item.pathProb <= (medianL * 0.66) &&
+              item.impactAsNumber > (medianC * 0.66) &&
+              item.impactAsAbsNumber <= (medianC * 1.75)
           ),
-        medLMedC: inputData["Happiness"].filter(
+        medLMedC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > breakPoints.likelihood.low &&
-            item.pathProb <= breakPoints.likelihood.medium &&
-            item.impact > breakPoints.consequence.low &&
-            item.impact <= breakPoints.consequence.medium
+            item.pathProb > (medianL * 0.66) &&
+            item.pathProb <= (medianL * 1.75) &&
+            item.impactAsAbsNumber > (medianC * 0.66) &&
+            item.impactAsAbsNumber <= (medianC * 1.75)
         ),
-        highLMedC: inputData["Happiness"].filter(
+        highLMedC: inputData[outputVars[i].title].filter(
             (item) =>
-              item.pathProb > breakPoints.likelihood.medium &&
-              item.impact > breakPoints.consequence.low &&
-              item.impact <= breakPoints.consequence.medium
+              item.pathProb > (medianL * 1.75) &&
+              item.impactAsAbsNumber > (medianC * 0.66) &&
+              item.impactAsAbsNumber <= (medianC * 1.75)
           ),
-        lowLHighC: inputData["Happiness"].filter(
+        lowLHighC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb <= breakPoints.likelihood.low &&
-            item.impact > breakPoints.consequence.medium
+            item.pathProb <= (medianL * 0.66) &&
+            item.impactAsAbsNumber > (medianC * 1.75)
         ),
-        medLHighC: inputData["Happiness"].filter(
+        medLHighC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > breakPoints.likelihood.low &&
-            item.pathProb <= breakPoints.likelihood.medium &&
-            item.impact > breakPoints.consequence.medium
+            item.pathProb > (medianL * 0.66) &&
+            item.pathProb <= (medianL * 1.75) &&
+            item.impactAsAbsNumber > (medianC * 1.75)
         ),
-        highLHighC: inputData["Happiness"].filter(
+        highLHighC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > breakPoints.likelihood.medium &&
-            item.impact > breakPoints.consequence.medium
+            item.pathProb > (medianL * 1.75) &&
+            item.impactAsAbsNumber > (medianC * 1.75)
         ),
       };
-      console.log(output)
     }
     return output;
   },

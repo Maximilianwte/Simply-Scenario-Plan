@@ -8,7 +8,7 @@
         <th class="text-right">Probability</th>
         <th class="text-right">Impact</th>
       </tr>
-      <tr v-for="scenario in data" :key="scenario.title">
+      <tr v-for="(scenario, index) in data" :key="index">
         <td class="text-left">{{scenario.list}}</td>
         <td class="text-left">{{scenario.title}}</td>
         <td class="text-right">{{scenario.pathProb}}%</td>
