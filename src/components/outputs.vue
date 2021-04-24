@@ -30,8 +30,7 @@
           <li>
             <ul>
               <button
-                class="border-b-2 py-2 cursor-pointer hover:bg-gray-100"
-                @click="exportTables('xlsx')"
+                class="border-b-2 py-2 cursor-pointer bg-gray-100 text-gray-300 hover:bg-gray-100"
               >
                 Download Excel (.xlsx)
               </button>
@@ -119,9 +118,9 @@
       </div>
     </div>
     <chartist
-      class="mt-12"
+      class="mt-12 md:px-20 lg:px-64"
       type="Line"
-      :data="getDistribution[getSelectedRiskMatrixValue]"
+      :data="getDistribution[getSelectedChartValue]"
       :options="chartOptions"
       ratio="ct-major-second"
     />
@@ -164,6 +163,7 @@ export default {
       showMatrixMenu: false,
       showDistributionMenu: false,
       selectedRiskMatrix: "Happiness",
+      selectedChart: "Happiness",
       chartOptions: {
         height: "300px",
         lineSmooth: true,
@@ -190,6 +190,9 @@ export default {
     getSelectedRiskMatrixValue() {
       return this.selectedRiskMatrix;
     },
+    getSelectedChartValue() {
+      return this.selectedChart;
+    },
     getDistribution() {
       return output_functions.buildDistribution();
     },
@@ -204,6 +207,8 @@ export default {
 
       switch (type) {
         case "xlsx": {
+
+
           var dataType = "application/vnd.ms-excel";
           var fileType = ".xlsx";
 
@@ -288,8 +293,8 @@ export default {
       this.showMatrixMenu = false;
     },
     setDistribution(id) {
-      this.selectedRiskMatrix = id;
-      this.showMatrixMenu = false;
+      this.selectedChart = id;
+      this.showDistributionMenu = false;
     },
   },
   mounted() {},

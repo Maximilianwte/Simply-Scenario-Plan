@@ -66,7 +66,6 @@ export default new Vuex.Store({
       } else if (payload == "dec" && state.ui.uiStep > 0) {
         state.ui.uiStep--;
       }
-      console.log(state.ui.uiStep)
       this.commit("setDataToCookie", "ui");
     },
     switchDarkMode(state) {
@@ -114,9 +113,14 @@ export default new Vuex.Store({
     },
     deleteScenarioVariable(state, payload) {
       var displayID = "scenarioVariables_" + (payload.listID+1) + "#" + payload.id;
+      console.log(displayID)
+      console.log(state.scenarioVariables[payload.listID])
+      console.log(state.connectedShapes)
       state.connectedShapes.forEach(list => testAllElements(list));
+      console.log(state.connectedShapes)
       state.connectedShapes = state.connectedShapes.filter(list => list.length != 0)
-      state.scenarioVariables[payload.listID].splice(payload.id-1, 1);
+      var index = state.scenarioVariables[payload.listID].findIndex(item => item.id == payload.id)
+      state.scenarioVariables[payload.listID].splice(index, 1);
       this.commit("setDataToCookie", "scenarioVariables");
 
       function testAllElements(list) {
@@ -300,6 +304,7 @@ export default new Vuex.Store({
             title: "New Variable",
             top: 6,
             left: 4,
+            color: "#85E0FF"
           },
         ],
         scenarioVariables: [
@@ -309,7 +314,9 @@ export default new Vuex.Store({
               displayId: 0,
               title: "Scenario A",
               prob: 0,
-              impact: [0]
+              impact: [0],
+              unit: [" "],
+              color: "#FFBCB5"
             },
           ],
         ],
