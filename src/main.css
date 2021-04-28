@@ -35,6 +35,10 @@ a:hover {
   z-index: 20;
 }
 
+.rotate {
+  transform: skewX(15deg);
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(10, 10%);

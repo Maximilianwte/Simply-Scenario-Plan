@@ -14,6 +14,12 @@ export default new Router({
       component: Front
     },
     {
+      path: '/home',
+      name: 'home2',
+      props: true,
+      component: () => import( /* webpackChunkName: "about" */ './views/home.vue')
+    },
+    {
       path: '/imprint',
       name: 'imprint',
       // route level code-splitting
