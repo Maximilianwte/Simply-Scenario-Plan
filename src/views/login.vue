@@ -1,6 +1,7 @@
 <template>
   <div id="register" class="flex-col">
-    <form class="flex-col text-xl mt-24">
+    <form class="flex-col text-xl mt-32">
+      <h5 class="mb-12 w-2/3 text-center text-alternative">{{getSendFromText}}</h5>
             <div id="LoginText" class="flex items-center mb-16">
         <p class="mr-4">Need an account first?</p>
         <router-link to="/register">
@@ -43,7 +44,18 @@ export default {
       warnText: null,
     };
   },
-  computed: {},
+  computed: {
+    getSendFromText() {
+      switch (this.$route.query.sendFrom) {
+        case "template": {
+          return "Please login first before you start customizing your template."
+        }
+        default: {
+          return null
+        }
+      }
+    }
+  },
   methods: {
     checkInputs() {
       if (

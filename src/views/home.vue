@@ -16,7 +16,7 @@
     <div id="template" class="w-2/3 flex h-80 mt-20 border rounded">
       <div class="left h-full w-1/4 border-r-2">
         <p class="mt-4 ml-4 mb-2 text-alternative">Templates</p>
-        <li @mouseleave="setMouse != true ? (activeHoverTemplate = null) : ''">
+        <li @mouseleave="setMouse != true ? (activeHoverTemplate = 'smallBusiness') : ''">
           <ul
             class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
             @click="setMouse = true"
@@ -40,7 +40,14 @@
           </ul>
         </li>
       </div>
-      <div class="right h-full w-3/4">{{ getTemplateImage }}</div>
+      <div class="right h-full relative w-3/4">{{ getTemplateImage }}
+      
+      <button class="bg-main hover:bg-alternative absolute bottom-0 right-0 mb-4 mr-6 text-white text w-48 rounded py-2 px-4" @click="clickStartWithTemplate" >Start customizing the template</button>
+      </div>
+    </div>
+    <div id="note" class="text-2xl text-focus">
+        <h5>- Put in text why risk planning is needed for good business</h5>
+        <h5>- Put in banner with the steps of the process</h5>
     </div>
     <div id="featureTracker" class="border-2 mt-12 rounded px-8 py-4">
       <h4 class="text-xl">Feature Tracker</h4>
@@ -107,12 +114,13 @@
 </template>
 <script>
 import progressBar from "../components/progressBar";
+import store from "../store";
 export default {
   components: { progressBar },
   data() {
     return {
       setMouse: false,
-      activeHoverTemplate: null,
+      activeHoverTemplate: 'smallBusiness',
     };
   },
   computed: {
@@ -144,6 +152,21 @@ export default {
       var untilRelease = this.getDayToRelease(releaseDay);
       return Math.round(100 - (untilRelease / fullDevTime) * 100);
     },
+    clickStartWithTemplate() {
+        const states = {
+            'smallBusiness': {
+                // put in the state here.
+            }
+        }
+        //store.commit("setCompleteState", states[this.activeHoverTemplate])
+        // check login state
+        if (store.state.ui.login == true) {
+            this.$router.push({ path: 'app' })
+        }
+        else {
+            this.$router.push({ path: 'login', query: {sendFrom: 'template'} })
+        }
+    }
   },
 };
 </script>

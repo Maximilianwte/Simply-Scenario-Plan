@@ -11,6 +11,8 @@ export default new Vuex.Store({
       dark: false,
       // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
       uiStep: 0,
+      login: false,
+      user: null,
     },
 
     // ---- Variables ----
@@ -263,6 +265,9 @@ export default new Vuex.Store({
           }
         }
       }
+    },
+    setCompleteState(state, payload) {
+      Object.assign(state, payload);
     },
     // ---- Handle Cookie Cache ----
 
