@@ -14,7 +14,7 @@ export default {
     },
     computed: {
         getLoadStyle() {
-            return "backgroundColor: #ff396a; width: " + this.loadState/100*this.fullWidth + "px"
+            return "backgroundColor: #e84855; width: " + this.loadState/100*this.fullWidth + "px"
         }
     }
 }

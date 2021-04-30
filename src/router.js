@@ -20,6 +20,18 @@ export default new Router({
       component: () => import( /* webpackChunkName: "about" */ './views/home.vue')
     },
     {
+      path: '/register',
+      name: 'register',
+      props: true,
+      component: () => import( /* webpackChunkName: "about" */ './views/register.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      props: true,
+      component: () => import( /* webpackChunkName: "about" */ './views/login.vue')
+    },
+    {
       path: '/imprint',
       name: 'imprint',
       // route level code-splitting
