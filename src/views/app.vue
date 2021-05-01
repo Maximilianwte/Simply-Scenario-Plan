@@ -74,9 +74,9 @@
 </template>
 
 <script>
-import declareOutcomeVariables from "../components/declareOutcomeVariables";
-import declareScenarioVariables from "../components/declareScenarioVariables";
-import outputs from "../components/outputs";
+import declareOutcomeVariables from "./declareOutcomeVariables";
+import declareScenarioVariables from "./declareScenarioVariables";
+import outputs from "./outputs";
 import store from "../store";
 export default {
   components: {

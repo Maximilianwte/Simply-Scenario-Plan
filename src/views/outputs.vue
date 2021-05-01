@@ -124,6 +124,7 @@
       :options="chartOptions"
       ratio="ct-major-second"
     />
+    <processView />
 
     <!-- UI Handling Buttons -->
 
@@ -152,11 +153,12 @@
 <script>
 import store from "../store";
 import output_functions from "../data/generate_output";
-import tablev1 from "./tablev1";
-import riskMatrix from "./riskMatrix";
+import tablev1 from "../components/tablev1";
+import riskMatrix from "../components/riskMatrix";
+import processView from "../components/processView";
 import $ from "jquery";
 export default {
-  components: { tablev1, riskMatrix },
+  components: { tablev1, riskMatrix, processView },
   data() {
     return {
       showDownloadTablesMenu: false,
@@ -297,6 +299,8 @@ export default {
       this.showDistributionMenu = false;
     },
   },
-  mounted() {},
+  mounted() {
+    output_functions.aggregateToProcess();
+  },
 };
 </script>

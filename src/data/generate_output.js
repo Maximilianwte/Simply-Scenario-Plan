@@ -83,6 +83,52 @@ let output_functions = {
     }
     return output;
   },
+  aggregateToProcess() {
+    var output = {};
+    const outputVars = store.state.outcomeVariables;
+    const scenarioVars = store.state.scenarioVariables;
+
+    for (var i = 0; i < outputVars.length; i++) {
+      output[outputVars[i].title] = [];
+      output[outputVars[i].title][0] = [];
+      // Fill all layer 1 scemario variables
+
+      for (var j = 0; j < scenarioVars[0].length; j++) {
+        if (
+          scenarioVars[0][j].impact[i] != undefined &&
+          scenarioVars[0][j].impact[i] != 0
+        ) {
+          output[outputVars[i].title][0].push({
+            title: scenarioVars[0][j].title,
+            id: scenarioVars[0][j].id,
+            prob: scenarioVars[0][j].prob,
+            pathProb: scenarioVars[0][j].prob,
+            impact: scenarioVars[0][j].impact[i],
+            unit: scenarioVars[0][j].unit[i],
+          });
+          // Here add that findConnected goes over the next layer as well -> so copy 
+          // copy the loop and build below where 0 is replaced with iteration
+          var connectedVarPaths = this.findConnectedVariables(0, output[outputVars[i].title][0][j].id);
+          for (var k = 0; k < connectedVarPaths.length; k++) {
+            var layerInObject = connectedVarPaths[k].scenarioLayer-1;
+            var idInObject = connectedVarPaths[k].varId;
+            output[outputVars[i].title][layerInObject] == undefined ? output[outputVars[i].title][layerInObject] = {} : null;
+            output[outputVars[i].title][layerInObject][scenarioVars[0][j].id] = {
+              title: scenarioVars[layerInObject][idInObject].title,
+              id: scenarioVars[layerInObject][idInObject].id,
+              prob: scenarioVars[layerInObject][idInObject].prob,
+              // here I should multiply with the var before
+              pathProb: scenarioVars[layerInObject][idInObject].prob,
+              impact: scenarioVars[layerInObject][idInObject].impact[i],
+              unit: scenarioVars[layerInObject][idInObject].unit[i],
+            }
+          }
+        }
+      }
+    }
+
+    console.log(output);
+  },
   buildRiskMatrixData() {
     var output = {};
     const outputVars = store.state.outcomeVariables;
@@ -266,6 +312,32 @@ let output_functions = {
       output[outputVars[i].title].series[0].push(0);
     }
     return output;
+  },
+  findConnectedVariables(layer, id) {
+    const connectedShapes = store.state.connectedShapes;
+    var pathOtherVar = [];
+    var shapeID = "scenarioVariables_" + (layer + 1) + "#" + id;
+    // find if the shape is somewhere in connections
+    var connectionIndex = undefined;
+    for (var i = 0; i < connectedShapes.length; i++) {
+      var connectionIndex = connectedShapes[i].findIndex(
+        (item) => item == shapeID
+      );
+      if (connectionIndex != -1) {
+        var otherIndex = connectionIndex == 0 ? 1 : 0;
+        // first item in here is the list, second one is the varId
+        pathOtherVar.push({
+          scenarioLayer: connectedShapes[i][otherIndex].substring(
+            connectedShapes[i][otherIndex].indexOf("_") + 1,
+            connectedShapes[i][otherIndex].indexOf("#")
+          ),
+          varId: connectedShapes[i][otherIndex].substring(
+            connectedShapes[i][otherIndex].indexOf("#") + 1
+          ),
+        });
+      }
+    }
+    return pathOtherVar;
   },
 };
 
