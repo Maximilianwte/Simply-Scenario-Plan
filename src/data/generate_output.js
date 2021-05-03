@@ -106,14 +106,19 @@ let output_functions = {
             impact: scenarioVars[0][j].impact[i],
             unit: scenarioVars[0][j].unit[i],
           });
-          // Here add that findConnected goes over the next layer as well -> so copy 
+          // Here add that findConnected goes over the next layer as well -> so copy
           // copy the loop and build below where 0 is replaced with iteration
-          var connectedVarPaths = this.findConnectedVariables(0, output[outputVars[i].title][0][j].id);
+          var connectedVarPaths = this.findConnectedVariables(
+            0,
+            output[outputVars[i].title][0][j].id
+          );
           for (var k = 0; k < connectedVarPaths.length; k++) {
-            var layerInObject = connectedVarPaths[k].scenarioLayer-1;
+            var layerInObject = connectedVarPaths[k].scenarioLayer - 1;
             var idInObject = connectedVarPaths[k].varId;
-            output[outputVars[i].title][layerInObject] == undefined ? output[outputVars[i].title][layerInObject] = {} : null;
-            output[outputVars[i].title][layerInObject][scenarioVars[0][j].id] = {
+            output[outputVars[i].title][layerInObject] == undefined
+              ? (output[outputVars[i].title][layerInObject] = [])
+              : null;
+            output[outputVars[i].title][layerInObject].push({
               title: scenarioVars[layerInObject][idInObject].title,
               id: scenarioVars[layerInObject][idInObject].id,
               prob: scenarioVars[layerInObject][idInObject].prob,
@@ -121,13 +126,37 @@ let output_functions = {
               pathProb: scenarioVars[layerInObject][idInObject].prob,
               impact: scenarioVars[layerInObject][idInObject].impact[i],
               unit: scenarioVars[layerInObject][idInObject].unit[i],
+            });
+          }
+        }
+      }
+      for (var j = 1; j < output[outputVars[i].title].length; j++) {
+        for (var l = 0; l < output[outputVars[i].title][j].length; l++) {
+          var connectedVarPaths = this.findConnectedVariables(
+            j,
+            output[outputVars[i].title][j][l].id
+          );
+          for (var k = 0; k < connectedVarPaths.length; k++) {
+            var layerInObject = connectedVarPaths[k].scenarioLayer - 1;
+            var idInObject = connectedVarPaths[k].varId;
+            output[outputVars[i].title][layerInObject] == undefined
+            ? (output[outputVars[i].title][layerInObject] = [])
+            : null;
+            if (output[outputVars[i].title][layerInObject].find(item => item.id == idInObject) == undefined) {
+            output[outputVars[i].title][layerInObject].push({
+              title: scenarioVars[layerInObject][idInObject].title,
+              id: scenarioVars[layerInObject][idInObject].id,
+              prob: scenarioVars[layerInObject][idInObject].prob,
+              // here I should multiply with the var before
+              pathProb: scenarioVars[layerInObject][idInObject].prob,
+              impact: scenarioVars[layerInObject][idInObject].impact[i],
+              unit: scenarioVars[layerInObject][idInObject].unit[i],
+            });
             }
           }
         }
       }
     }
-
-    console.log(output);
   },
   buildRiskMatrixData() {
     var output = {};
