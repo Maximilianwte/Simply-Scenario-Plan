@@ -52,6 +52,7 @@ export default new Vuex.Store({
     // ---- Connected Shapes ----
     // ["outcomeVariables0", "scenarioVariables_1#1"]
     connectedShapes: [],
+    connectedShapesOutput: [],
     // ---- Return Cache ----
 
     returnCache: {
@@ -83,6 +84,9 @@ export default new Vuex.Store({
     addConnection(state, payload) {
       state.connectedShapes.push(payload);
       this.commit("setDataToCookie", "connectedShapes");
+    },
+    addAllOutputConnections(state, payload) {
+      state.connectedShapesOutput = payload;
     },
     deleteConnection(state, payload) {
       state.connectedShapes.splice(payload, 1);

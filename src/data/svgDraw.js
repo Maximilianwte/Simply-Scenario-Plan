@@ -129,8 +129,13 @@ let svgDraw = {
     // call function for drawing the path
     this.drawPath(svg, path, startX, startY, endX, endY);
   },
-  connectElementsRightLeft(svg, path, startId, endId) {
-    var svgContainer = document.getElementById("front");
+  connectElementsRightLeft(svg, path, startId, endId, type) {
+    if (type == "output") {
+      var svgContainer = document.getElementById("processView");
+    }
+    else {
+      var svgContainer = document.getElementById("declareScenarioVariables");
+    }
     var svg = $("#"+svg);
     var path = $("#"+path);
     var startElem = document.getElementById(startId);
@@ -200,6 +205,17 @@ let svgDraw = {
     }
     for (var i = 0; i < connections.length; i++) {
       this.connectElementsRightLeft("svg"+(i+1), "path"+(i+1), connections[i][0], connections[i][1]);
+    }
+    //this.$forceUpdate();
+  },
+  connectAllInOutputProcess() {
+    const connections = store.state.connectedShapesOutput;
+    for (var i = 1; i < connections.length; i++) {
+      $("#svg" + i).attr("height", "0");
+      $("#svg" + i).attr("width", "0");
+    }
+    for (var i = 0; i < connections.length; i++) {
+      this.connectElementsRightLeft("svg"+(i+1), "path"+(i+1), connections[i][0], connections[i][1], "output");
     }
     //this.$forceUpdate();
   },

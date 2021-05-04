@@ -105,6 +105,7 @@ let output_functions = {
             pathProb: scenarioVars[0][j].prob,
             impact: scenarioVars[0][j].impact[i],
             unit: scenarioVars[0][j].unit[i],
+            color: scenarioVars[0][j].color,
           });
           // Here add that findConnected goes over the next layer as well -> so copy
           // copy the loop and build below where 0 is replaced with iteration
@@ -126,6 +127,7 @@ let output_functions = {
               pathProb: scenarioVars[layerInObject][idInObject].prob,
               impact: scenarioVars[layerInObject][idInObject].impact[i],
               unit: scenarioVars[layerInObject][idInObject].unit[i],
+              color: scenarioVars[layerInObject][idInObject].color,
             });
           }
         }
@@ -151,12 +153,14 @@ let output_functions = {
               pathProb: scenarioVars[layerInObject][idInObject].prob,
               impact: scenarioVars[layerInObject][idInObject].impact[i],
               unit: scenarioVars[layerInObject][idInObject].unit[i],
+              color: scenarioVars[layerInObject][idInObject].color,
             });
             }
           }
         }
       }
     }
+    return output;
   },
   buildRiskMatrixData() {
     var output = {};

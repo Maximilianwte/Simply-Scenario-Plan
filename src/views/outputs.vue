@@ -124,7 +124,10 @@
       :options="chartOptions"
       ratio="ct-major-second"
     />
-    <processView />
+    <!-- Process View -->
+
+    <h4 class="ml-6 mt-20 mb-6 text-xl">4. Process View</h4>
+    <processView :data="getProcessData[getSelectedChartValue]" />
 
     <!-- UI Handling Buttons -->
 
@@ -189,6 +192,9 @@ export default {
     getRiskMatrixData() {
       return output_functions.buildRiskMatrixData();
     },
+    getProcessData() {
+      return output_functions.aggregateToProcess();
+    },
     getSelectedRiskMatrixValue() {
       return this.selectedRiskMatrix;
     },
@@ -209,8 +215,6 @@ export default {
 
       switch (type) {
         case "xlsx": {
-
-
           var dataType = "application/vnd.ms-excel";
           var fileType = ".xlsx";
 
@@ -299,8 +303,6 @@ export default {
       this.showDistributionMenu = false;
     },
   },
-  mounted() {
-    output_functions.aggregateToProcess();
-  },
+  mounted() {},
 };
 </script>
