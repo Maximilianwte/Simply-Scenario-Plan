@@ -1,36 +1,71 @@
-import $ from "jquery";
+import axios from "axios";
+import store from "../store";
+
+let localURL = "http://localhost:8888/.netlify/functions";
+let productionURL = "https://gallant-wing-60a535.netlify.app/.netlify/functions";
+let activeURL = localURL;
 
 let logic_functions = {
-    upload_request(in_file) {
-        $.post("http://localhost:8888/.netlify/functions/send_upload",
-            JSON.stringify(in_file),
-            function (response) {
-                return response;
-            }
-        );
-    },
-    set_authCookie(input = 7) {
-        var d = new Date();
-        d.setTime(d.getTime() + (input * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        document.cookie = "auth=true" + ";" + expires + ";path=/";
-        console.log("cookie set")
-    },
-    read_authCookie(cookie) {
-        var name = cookie + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
+  create_user(userFile) {
+    return axios.post(activeURL + "/user_functions/create_user", userFile).then(response => {
+      return response
+    })
+  },
+  /* old farmify st */
+
+  update_userAccess(in_file, value) {
+    if (value == "email") {
+      return axios.post(activeURL + "/user_functions/update_userAccess/email", in_file).then(response => {
+        return response;
+      })
+    } else {
+      return axios.post(activeURL + "/user_functions/update_userAccess/password", in_file).then(response => {
+        return response;
+      })
     }
+  },
+  send_login(in_file) {
+    return axios.post(activeURL + "/user_functions/read_user", in_file).then(response => {
+      return response.data
+    })
+  },
+  fetch_farms() {
+    return axios.get(activeURL + "/farm_functions/read_allFarms", ).then(response => {
+      return response.data
+    })
+  },
+  fetch_groups() {
+    return axios.get(activeURL + "/farm_functions/read_allGroups", ).then(response => {
+      return response.data
+    })
+  },
+  updateSavedFarms() {
+    var reqObject = {
+      Email: store.state.profile.data.Email,
+      SavedFarms: store.state.profile.data.savedFarms
+    }
+    axios.post(activeURL + "/user_functions/update_savedFarms", reqObject).then(response => {
+      return 200
+    })
+  },
+  updateLocation() {
+    var reqObject = {
+      Email: store.state.profile.data.Email,
+      Location: store.state.location,
+      GeoCode: store.state.geoCode
+    }
+    axios.post(activeURL + "/user_functions/update_location", reqObject).then(response => {
+      return 200
+    })
+  },
+  get_geoCodeOpenCage(location) {
+    return axios.get('https://api.opencagedata.com/geocode/v1/json?key=d066a4fbf9964946af519566f421efbb&q=' + encodeURIComponent(location) + '&pretty=1&no_annotations=1', ).then(response => {
+      console.log([response.data.results[0].geometry.lng, response.data.results[0].geometry.lat])
+      return [response.data.results[0].geometry.lng, response.data.results[0].geometry.lat]
+    })
+  }
 }
+
+
 
 export default logic_functions
