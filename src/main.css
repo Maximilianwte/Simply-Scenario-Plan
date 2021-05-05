@@ -79,7 +79,7 @@ a:hover {
 
 input, select {
   background: none;
-  color: #424b6950;
+  padding: 0 0.5rem;
 }
 .theme_dark {
   --main: #fff;

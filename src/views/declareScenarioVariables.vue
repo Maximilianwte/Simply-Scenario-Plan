@@ -99,8 +99,8 @@ export default {
     svgDraw.updateAndConnectAll();
   }
 };
-$(window).resize(function() {
+/* $(window).resize(function() {
   svgDraw.updateAndConnectAll();
-});
+}); */
 </script>
 

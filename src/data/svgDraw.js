@@ -141,6 +141,9 @@ let svgDraw = {
     var startElem = document.getElementById(startId);
     var endElem = document.getElementById(endId);
 
+    if (startElem == null) {
+      console.log("null",startId )
+    }
     // if first element is lower than the second, swap!
     if (startElem.offsetTop > endElem.offsetTop) {
       var temp = startElem;

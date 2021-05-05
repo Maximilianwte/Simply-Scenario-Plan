@@ -127,7 +127,15 @@
     <!-- Process View -->
 
     <h4 class="ml-6 mt-20 mb-6 text-xl">4. Process View</h4>
-    <processView :data="getProcessData[getSelectedChartValue]" />
+    <template class="mt-4" v-for="outcomeVar in getOutcomeVariables">
+      <template v-if="getProcessData[outcomeVar.title][0].length > 0">
+        <processView
+          :data="getProcessData[outcomeVar.title]"
+          :key="outcomeVar.id"
+          :outcomeVar="outcomeVar"
+        />
+      </template>
+    </template>
 
     <!-- UI Handling Buttons -->
 

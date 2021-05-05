@@ -24,7 +24,7 @@
         <div
           v-for="(item, index) in list"
           :key="index"
-          :id="'outputVar_' + (list_index + 1) + '_' + index"
+          :id="'outputVar_' + (list_index + 1) + '_' + item.id"
           class="scenarioVar px-4 py-6 w-40 text-center mt-2 text-xl rounded"
           :style="getColor(item.color)"
         >
@@ -37,11 +37,9 @@
           </p>
         </div>
       </div>
-      <div class="outputVarContainer flex-col">
-        <div
-          class="scenarioVar px-4 py-6 mt-2 text-xl rounded bg-alternative"
-        >
-          Happiness
+      <div class="outputVarContainer ml-20 flex-col">
+        <div :id="'outcomeVar_' + outcomeVar.id" class="scenarioVar px-4 py-6 w-32 text-center mt-2 text-xl rounded" :style="getColor(outcomeVar.color)">
+          {{outcomeVar.title}}
         </div>
       </div>
     </div>
@@ -50,8 +48,9 @@
 <script>
 import store from "../store";
 import svgDraw from "../data/svgDraw";
+import $ from "jquery";
 export default {
-  props: ["data"],
+  props: ["data", "outcomeVar"],
   computed: {
     nConnectionsOutput() {
       return store.state.connectedShapesOutput.length;
@@ -86,13 +85,25 @@ export default {
             ),
         ]);
       }
+      for (var i = 0; i < this.data[this.data.length - 1].length; i++) {
+        connectedShapesOutput.push([
+          "outcomeVar_" + this.outcomeVar.id,
+          "outputVar_" +
+            this.data.length +
+            "_" +
+            this.data[this.data.length - 1][i].id
+        ]);
+      }
       store.commit("addAllOutputConnections", connectedShapesOutput);
       svgDraw.connectAllInOutputProcess();
-      console.log(connectedShapesOutput);
     },
   },
   mounted() {
+    console.log(this.data)
     this.connectShapes();
   },
 };
+/* $(window).resize(function () {
+  svgDraw.connectAllInOutputProcess();
+}); */
 </script>

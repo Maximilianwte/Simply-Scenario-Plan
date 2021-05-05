@@ -41,8 +41,16 @@
       <h6 class="w-full text-center">Which file do you want to load?</h6>
       <!-- show list of file names from backend here -->
       <li class="rounded px-2 py-2 border-2 my-4">
-        <ul @click="setLoadFile('idOfFile from v-for')" class="py-2 hover:bg-gray-100 cursor-pointer" :class="[loadFile == 'idOfFile from v-for' ? 'bg-gray-100' : null]">File 1 (last saved 20.04.2021)</ul>
-        <ul class="py-2 hover:bg-gray-100 cursor-pointer">File 2 (last saved 28.04.2021)</ul>
+        <ul
+          @click="setLoadFile('idOfFile from v-for')"
+          class="py-2 hover:bg-gray-100 cursor-pointer"
+          :class="[loadFile == 'idOfFile from v-for' ? 'bg-gray-100' : null]"
+        >
+          File 1 (last saved 20.04.2021)
+        </ul>
+        <ul class="py-2 hover:bg-gray-100 cursor-pointer">
+          File 2 (last saved 28.04.2021)
+        </ul>
       </li>
       <div class="rowButtons mt-4">
         <button
@@ -80,7 +88,7 @@
       <h6 class="text-focus">{{ warnText }}</h6>
       <div class="rowButtons mt-4">
         <button
-          @click="handleSaveFile"
+          @click="handleSaveNewFile"
           class="px-6 py-2 bg-focus text-white mx-2 rounded cursor-pointer hover:bg-main"
         >
           Save
@@ -134,10 +142,16 @@
             Load File
           </li>
           <li
-            @click="askSaveFile = true"
+            @click="handleSaveFile"
             class="border-b-2 py-2 cursor-pointer hover:bg-gray-100"
           >
             Save File
+          </li>
+          <li
+            @click="askSaveFile = true"
+            class="border-b-2 py-2 cursor-pointer hover:bg-gray-100"
+          >
+            Save as new
           </li>
           <li
             @click="askClearAll = true"
@@ -179,7 +193,7 @@ export default {
       nVarLists: 1,
       menuActive: false,
       askClearAll: false,
-      askLoadFile: true,
+      askLoadFile: false,
       askSaveFile: false,
       loadFile: null,
       fileName: this.getFileName,
@@ -243,6 +257,14 @@ export default {
       this.askLoadFile = false;
     },
     handleSaveFile() {
+      if (store.state.user.fileName != undefined) {
+        // do stuff
+      }
+      else {
+        this.askSaveFile = true;
+      }
+    },
+    handleSaveNewFile() {
       if (this.fileName.length > 3) {
         store.commit("");
         console.log(this.fileName);

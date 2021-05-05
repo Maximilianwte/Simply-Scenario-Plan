@@ -16,7 +16,7 @@ export default new Vuex.Store({
     user: {
       login: false,
       id: null,
-      fileName: "work",
+      fileName: null,
       // put in a time here
       lastChanged: null
     },
