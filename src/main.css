@@ -117,9 +117,9 @@ svg:hover {
   transition: 0.3s;
 }
 
-li {
+/* li {
   list-style: none;
-}
+} */
 
 .clickThrough {
   pointer-events: none;
@@ -248,4 +248,49 @@ th, td {
 .ct-series-b .ct-line,
 .ct-series-b .ct-point {
   fill: rgb(123, 255, 62);
+}
+
+.path1 {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 1s linear forwards 1s;
+  stroke: 2rem;
+  left: calc(0%);
+}
+
+.path2 {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 1s linear forwards 4s;
+  left: calc(50%);
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+#div1 {
+  top: calc(21.5rem);
+  right: 50%;
+  animation: fadeIn .2s linear forwards 1.5s;
+  visibility: hidden;
+  transform: translateX(-100%);
+}
+
+#div2 {
+  top: calc(21.5rem);
+  right: -10%;
+  animation: fadeIn .2s linear forwards 4.5s;
+  visibility: hidden;
+  transform: translateX(-100%);
+}
+
+
+@keyframes fadeIn {
+  100% {
+    visibility: visible;
+    transform: translateX(-50%);
+  }
 }

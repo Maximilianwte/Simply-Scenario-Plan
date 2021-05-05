@@ -216,6 +216,12 @@ export default {
   methods: {
     moveUI(val) {
       store.commit("moveUI", val);
+      this.$router.push({
+        name: "app",
+        params: {
+          id: 1,
+        },
+      });
     },
     exportTables(type) {
       this.showDownloadTablesMenu = false;

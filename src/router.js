@@ -14,7 +14,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/app',
+      path: '/app/:id?',
       name: 'app',
       props: true,
       component: () => import( /* webpackChunkName: "about" */ './views/app.vue')

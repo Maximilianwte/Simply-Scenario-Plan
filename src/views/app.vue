@@ -2,9 +2,9 @@
   <div id="front" class="w-full flex">
     <!-- ---- Components ---- -->
 
-    <declareOutcomeVariables v-if="getUIStep == 0" />
-    <declareScenarioVariables v-if="getUIStep == 1" />
-    <outputs v-if="getUIStep == 2" />
+    <declareOutcomeVariables v-if="id == 0" />
+    <declareScenarioVariables v-if="id == 1" />
+    <outputs v-if="id == 2" />
 
     <!-- ---- Overlay for clearAll Menu ---- -->
 
@@ -40,18 +40,18 @@
     >
       <h6 class="w-full text-center">Which file do you want to load?</h6>
       <!-- show list of file names from backend here -->
-      <li class="rounded px-2 py-2 border-2 my-4">
-        <ul
+      <ul class="rounded px-2 py-2 border-2 my-4">
+        <li
           @click="setLoadFile('idOfFile from v-for')"
           class="py-2 hover:bg-gray-100 cursor-pointer"
           :class="[loadFile == 'idOfFile from v-for' ? 'bg-gray-100' : null]"
         >
           File 1 (last saved 20.04.2021)
-        </ul>
-        <ul class="py-2 hover:bg-gray-100 cursor-pointer">
+        </li>
+        <li class="py-2 hover:bg-gray-100 cursor-pointer">
           File 2 (last saved 28.04.2021)
-        </ul>
-      </li>
+        </li>
+      </ul>
       <div class="rowButtons mt-4">
         <button
           @click="handleLoadFile"
@@ -182,12 +182,14 @@ import declareOutcomeVariables from "./declareOutcomeVariables";
 import declareScenarioVariables from "./declareScenarioVariables";
 import outputs from "./outputs";
 import store from "../store";
+import $ from "jquery";
 export default {
   components: {
     declareOutcomeVariables,
     declareScenarioVariables,
     outputs,
   },
+  props: ["id"],
   data() {
     return {
       nVarLists: 1,
@@ -259,8 +261,7 @@ export default {
     handleSaveFile() {
       if (store.state.user.fileName != undefined) {
         // do stuff
-      }
-      else {
+      } else {
         this.askSaveFile = true;
       }
     },
@@ -272,6 +273,13 @@ export default {
       }
     },
   },
-  mounted() {},
+  mounted() {
+    this.$router.push({
+      name: "app",
+      params: {
+        id: this.getUIStep,
+      },
+    });
+  },
 };
 </script>

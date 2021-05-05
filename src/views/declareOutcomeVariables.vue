@@ -152,6 +152,12 @@ export default {
 
     moveUI(val) {
       store.commit("moveUI", val);
+      this.$router.push({
+        name: 'app',
+        params: {
+          id: 1
+        }
+      }) 
     },
     addItem() {
       if (store.state.outcomeVariables.length < 5) {
