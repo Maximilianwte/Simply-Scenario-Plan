@@ -48,7 +48,6 @@
 <script>
 import store from "../store";
 import svgDraw from "../data/svgDraw";
-import $ from "jquery";
 export default {
   props: ["data", "outcomeVar"],
   computed: {
@@ -95,15 +94,15 @@ export default {
         ]);
       }
       store.commit("addAllOutputConnections", connectedShapesOutput);
-      svgDraw.connectAllInOutputProcess();
     },
   },
-  mounted() {
+  created() {
     console.log(this.data)
     this.connectShapes();
   },
+  mounted() {
+
+    svgDraw.connectAllInOutputProcess();
+  }
 };
-/* $(window).resize(function () {
-  svgDraw.connectAllInOutputProcess();
-}); */
 </script>

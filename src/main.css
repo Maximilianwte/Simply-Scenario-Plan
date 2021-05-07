@@ -160,6 +160,17 @@ svg:hover {
   display: block;
 }
 
+.floatingTop {
+  bottom: calc(0.5rem + 100%);
+  right: 50%;
+  transform: translateX(50%);
+  display: none;
+}
+
+.item:hover .floatingTop{
+  display: block;
+}
+
 /* Output table */
 
 th, td {
@@ -253,16 +264,26 @@ th, td {
 .path1 {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation: dash 1s linear forwards 1s;
+  animation: dash 1.5s ease-out forwards 1s;
   stroke: 2rem;
   left: calc(0%);
+  top: 6.5rem;
 }
 
 .path2 {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
-  animation: dash 1s linear forwards 4s;
+  animation: dash 1.5s ease-out forwards 3s;
   left: calc(50%);
+  top: 6.5rem;
+}
+
+.path3 {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 1.5s ease-out forwards 5.5s;
+  left: calc(90%);
+  top: 6.5rem;
 }
 
 @keyframes dash {
