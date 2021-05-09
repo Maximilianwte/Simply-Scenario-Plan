@@ -172,7 +172,6 @@ export default {
   },
   watch: {
     getConnections: function () {
-      console.log(this.getConnections)
       svgDraw.updateAndConnectAll();
     },
   },
@@ -302,13 +301,19 @@ export default {
     // ---- Variable Operations ----
 
     addItem() {
+      if (this.getItems.length == 0) {
+          var id =  0
+      }
+      else {
+        id = this.getItems[this.getItems.length - 1].id + 1    
+      }
       var item = {
-        id: this.getItems[this.getItems.length - 1].id + 1,
+        id: id,
         title: "New Scenario",
         prob: 0,
         color: this.getColor(),
-        impact: [0],
-        unit: [""]
+        impact: Array(this.getOutcomeVars.length).fill(0),
+        unit: Array(this.getOutcomeVars.length).fill(" ")
       };
       store.commit("addScenarioVariable", {
         listID: this.idList,

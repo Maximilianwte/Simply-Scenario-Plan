@@ -49,6 +49,8 @@ let output_functions = {
                       "pathOtherVar that coudlnt be found ",
                       pathOtherVar
                     );
+                    /* connectedShapes.splice(l, 1);
+                    break; */
                   }
                   if (curVar.impact[i] != null) {
                     var item = {
@@ -188,6 +190,9 @@ let output_functions = {
         likelihood: [],
         consequence: [],
       };
+      inputData[outputVars[i].title] = inputData[outputVars[i].title].filter(
+        (item) => item.impact != 0
+      );
 
       for (var j = 0; j < inputData[outputVars[i].title].length; j++) {
         // calculate impact as number instead of "k", "m", "b" units
@@ -301,7 +306,9 @@ let output_functions = {
         likelihood: [],
         consequence: [],
       };
-
+      inputData[outputVars[i].title] = inputData[outputVars[i].title].filter(
+        (item) => item.impact != 0
+      );
       for (var j = 0; j < inputData[outputVars[i].title].length; j++) {
         // calculate impact as number instead of "k", "m", "b" units
         switch (inputData[outputVars[i].title][j].unit) {
