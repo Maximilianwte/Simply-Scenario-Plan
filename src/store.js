@@ -88,6 +88,11 @@ export default new Vuex.Store({
     // ---- Add Data ----
 
     addConnection(state, payload) {
+      for (var i = 0; i < state.connectedShapes.length; i++) {
+        if (state.connectedShapes[i].length < 2) {
+          state.connectedShapes.splice(i, 1)
+        }
+      }
       state.connectedShapes.push(payload);
       this.commit("setDataToCookie", "connectedShapes");
     },

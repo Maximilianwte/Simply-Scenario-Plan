@@ -85,7 +85,7 @@
             </div>
           </div>
           <div
-            v-if="item.impact[0] == 0 || IDsetImpact == item.id"
+            v-if="IDsetImpact == item.id || item.impact[0] == ''"
             id="changeVarFloating"
             class="absolute flex"
           >
@@ -172,6 +172,7 @@ export default {
   },
   watch: {
     getConnections: function () {
+      console.log(this.getConnections)
       svgDraw.updateAndConnectAll();
     },
   },

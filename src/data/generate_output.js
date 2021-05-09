@@ -33,30 +33,43 @@ let output_functions = {
                     connectedShapes[l][otherIndex].indexOf("#") + 1
                   ),
                 };
-                var otherObject = output[outputVars[i].title].find(
-                  (element) =>
-                    element.list == pathOtherVar.scenarioLayer &&
-                    element.id == pathOtherVar.varId
-                );
-                if (curVar.impact[i] != null) {
-                  var item = {
-                    id: curVar.id,
-                    list: j + 1,
-                    title: curVar.title,
-                    prob: curVar.prob,
-                    pathProb: (
-                      (curVar.prob / 100) *
-                      (otherObject.pathProb / 100) *
-                      100
-                    ).toFixed(2),
-                    impact: curVar.impact[i],
-                    unit: curVar.unit[i],
-                  };
-                  outputVars[i].title in output
-                    ? output[outputVars[i].title].push(item)
-                    : (output[outputVars[i].title] = [item]);
+                if (output[outputVars[i].title].length > 0) {
+                  var otherObject = output[outputVars[i].title].find(
+                    (element) =>
+                      element.list == pathOtherVar.scenarioLayer &&
+                      element.id == pathOtherVar.varId
+                  );
+                  if (otherObject == undefined) {
+                    console.log("outputVar ", outputVars[i].title);
+                    console.log(
+                      "data in that var ",
+                      output[outputVars[i].title].length
+                    );
+                    console.log(
+                      "pathOtherVar that coudlnt be found ",
+                      pathOtherVar
+                    );
+                  }
+                  if (curVar.impact[i] != null) {
+                    var item = {
+                      id: curVar.id,
+                      list: j + 1,
+                      title: curVar.title,
+                      prob: curVar.prob,
+                      pathProb: (
+                        (curVar.prob / 100) *
+                        (otherObject.pathProb / 100) *
+                        100
+                      ).toFixed(2),
+                      impact: curVar.impact[i],
+                      unit: curVar.unit[i],
+                    };
+                    outputVars[i].title in output
+                      ? output[outputVars[i].title].push(item)
+                      : (output[outputVars[i].title] = [item]);
+                  }
+                  break;
                 }
-                break;
               }
             }
           }
@@ -142,19 +155,23 @@ let output_functions = {
             var layerInObject = connectedVarPaths[k].scenarioLayer - 1;
             var idInObject = connectedVarPaths[k].varId;
             output[outputVars[i].title][layerInObject] == undefined
-            ? (output[outputVars[i].title][layerInObject] = [])
-            : null;
-            if (output[outputVars[i].title][layerInObject].find(item => item.id == idInObject) == undefined) {
-            output[outputVars[i].title][layerInObject].push({
-              title: scenarioVars[layerInObject][idInObject].title,
-              id: scenarioVars[layerInObject][idInObject].id,
-              prob: scenarioVars[layerInObject][idInObject].prob,
-              // here I should multiply with the var before
-              pathProb: scenarioVars[layerInObject][idInObject].prob,
-              impact: scenarioVars[layerInObject][idInObject].impact[i],
-              unit: scenarioVars[layerInObject][idInObject].unit[i],
-              color: scenarioVars[layerInObject][idInObject].color,
-            });
+              ? (output[outputVars[i].title][layerInObject] = [])
+              : null;
+            if (
+              output[outputVars[i].title][layerInObject].find(
+                (item) => item.id == idInObject
+              ) == undefined
+            ) {
+              output[outputVars[i].title][layerInObject].push({
+                title: scenarioVars[layerInObject][idInObject].title,
+                id: scenarioVars[layerInObject][idInObject].id,
+                prob: scenarioVars[layerInObject][idInObject].prob,
+                // here I should multiply with the var before
+                pathProb: scenarioVars[layerInObject][idInObject].prob,
+                impact: scenarioVars[layerInObject][idInObject].impact[i],
+                unit: scenarioVars[layerInObject][idInObject].unit[i],
+                color: scenarioVars[layerInObject][idInObject].color,
+              });
             }
           }
         }
@@ -166,7 +183,6 @@ let output_functions = {
     var output = {};
     const outputVars = store.state.outcomeVariables;
     const inputData = this.aggregateImpacts();
-
     for (var i = 0; i < outputVars.length; i++) {
       var calculationData = {
         likelihood: [],
@@ -213,13 +229,12 @@ let output_functions = {
       calculationData.consequence.sort((a, b) => a - b);
       const medianL =
           calculationData.likelihood[
-            (calculationData.likelihood.length / 2).toFixed(0)
+            (calculationData.likelihood.length / 2).toFixed(0) - 1
           ],
         medianC =
           calculationData.consequence[
-            (calculationData.likelihood.length / 2).toFixed(0)
+            (calculationData.likelihood.length / 2).toFixed(0) - 1
           ];
-
       output[outputVars[i].title] = {
         lowLLowC: inputData[outputVars[i].title].filter(
           (item) =>
@@ -240,7 +255,7 @@ let output_functions = {
         lowLMedC: inputData[outputVars[i].title].filter(
           (item) =>
             item.pathProb <= medianL * 0.66 &&
-            item.impactAsNumber > medianC * 0.66 &&
+            item.impactAsAbsNumber > medianC * 0.66 &&
             item.impactAsAbsNumber <= medianC * 1.75
         ),
         medLMedC: inputData[outputVars[i].title].filter(
@@ -274,7 +289,6 @@ let output_functions = {
         ),
       };
     }
-
     return output;
   },
   buildDistribution() {
@@ -345,6 +359,22 @@ let output_functions = {
       output[outputVars[i].title].series[0].push(0);
     }
     return output;
+  },
+  buildText() {
+    const impactTexts = [
+      {
+        text: "That's the price of X liters of milk.",
+        unit: 0.8,
+      },
+      {
+        text: "That's the price of X liters of gasonline.",
+        unit: 1.4,
+      },
+      {
+        text: "That's the price of X liters of gasonline.",
+        unit: 1.4,
+      },
+    ];
   },
   findConnectedVariables(layer, id) {
     const connectedShapes = store.state.connectedShapes;

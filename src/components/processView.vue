@@ -97,11 +97,10 @@ export default {
     },
   },
   created() {
-    console.log(this.data)
     this.connectShapes();
   },
   mounted() {
-
+    this.connectShapes();
     svgDraw.connectAllInOutputProcess();
   }
 };
