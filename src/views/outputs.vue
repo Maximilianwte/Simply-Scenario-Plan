@@ -175,8 +175,8 @@ export default {
       showDownloadTablesMenu: false,
       showMatrixMenu: false,
       showDistributionMenu: false,
-      selectedRiskMatrix: "Happiness",
-      selectedChart: "Happiness",
+      selectedRiskMatrix: store.state.outcomeVariables[0].title,
+      selectedChart: store.state.outcomeVariables[0].title,
       chartOptions: {
         height: "300px",
         lineSmooth: true,

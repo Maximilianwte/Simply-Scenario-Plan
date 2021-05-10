@@ -375,6 +375,7 @@ export default {
       return null;
     },
     cacheValues(id, type, outcomevarId) {
+      this.IDsetImpact = id;
       if (type == "impact" || type == "unit") {
         this.cachedValue = this.getItems[id][type][outcomevarId];
       } else {
