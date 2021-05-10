@@ -258,22 +258,31 @@ export default {
                     "#" +
                     iterItems
                 );
-                if (
-                  posX > elmnt.offsetLeft &&
-                  posX < elmnt.offsetLeft + elmnt.offsetWidth &&
-                  posY > elmnt.offsetTop &&
-                  posY < elmnt.offsetTop + elmnt.offsetHeight
-                ) {
-                  var found = false;
-                  // If connections already exists, delete the connection
-                  store.state.connectedShapes.forEach((connectionList, index) => {
-                    if (connectionList.includes(divId) && connectionList.includes(elmnt.id)) {
-                      store.commit("deleteConnection", index)
-                      found = true;
-                    }
-                  })
-                  // If the connection couldn't be found, add it
-                  found == false ? store.commit("addConnection", [divId, elmnt.id]) : null;
+                if (elmnt != undefined) {
+                  if (
+                    posX > elmnt.offsetLeft &&
+                    posX < elmnt.offsetLeft + elmnt.offsetWidth &&
+                    posY > elmnt.offsetTop &&
+                    posY < elmnt.offsetTop + elmnt.offsetHeight
+                  ) {
+                    var found = false;
+                    // If connections already exists, delete the connection
+                    store.state.connectedShapes.forEach(
+                      (connectionList, index) => {
+                        if (
+                          connectionList.includes(divId) &&
+                          connectionList.includes(elmnt.id)
+                        ) {
+                          store.commit("deleteConnection", index);
+                          found = true;
+                        }
+                      }
+                    );
+                    // If the connection couldn't be found, add it
+                    found == false
+                      ? store.commit("addConnection", [divId, elmnt.id])
+                      : null;
+                  }
                 }
               }
             }
@@ -302,10 +311,9 @@ export default {
 
     addItem() {
       if (this.getItems.length == 0) {
-          var id =  0
-      }
-      else {
-        id = this.getItems[this.getItems.length - 1].id + 1    
+        var id = 0;
+      } else {
+        id = this.getItems[this.getItems.length - 1].id + 1;
       }
       var item = {
         id: id,
@@ -313,7 +321,7 @@ export default {
         prob: 0,
         color: this.getColor(),
         impact: Array(this.getOutcomeVars.length).fill(0),
-        unit: Array(this.getOutcomeVars.length).fill(" ")
+        unit: Array(this.getOutcomeVars.length).fill(" "),
       };
       store.commit("addScenarioVariable", {
         listID: this.idList,

@@ -130,12 +130,9 @@ export default new Vuex.Store({
     },
     deleteScenarioVariable(state, payload) {
       var displayID = "scenarioVariables_" + (payload.listID+1) + "#" + payload.id;
-      console.log(displayID)
-      console.log(state.scenarioVariables[payload.listID])
-      console.log(state.connectedShapes)
-      state.connectedShapes.forEach(list => testAllElements(list));
-      console.log(state.connectedShapes)
-      state.connectedShapes = state.connectedShapes.filter(list => list.length != 0)
+      state.connectedShapes = state.connectedShapes.filter(list => (testAllElements(list) == 0));
+      state.connectedShapes = state.connectedShapes.filter(list => list.length > 0)
+      //state.connectedShapes = state.connectedShapes.filter(list => list.length != 0)
       var index = state.scenarioVariables[payload.listID].findIndex(item => item.id == payload.id)
       state.scenarioVariables[payload.listID].splice(index, 1);
       this.commit("setDataToCookie", "scenarioVariables");
@@ -143,10 +140,10 @@ export default new Vuex.Store({
       function testAllElements(list) {
         for (var i = 0; i < list.length; i++) {
           if (list[i] == displayID) {
-            list.splice(i);
-            break;
+            return 1
           } 
         }
+        return 0;
       }
     },
     deleteOutcomeVariable(state, payload) {
