@@ -110,8 +110,7 @@ let output_functions = {
 
       for (var j = 0; j < scenarioVars[0].length; j++) {
         if (
-          scenarioVars[0][j].impact[i] != undefined &&
-          scenarioVars[0][j].impact[i] != 0
+          scenarioVars[0][j].impact[i] != undefined
         ) {
           output[outputVars[i].title][0].push({
             title: scenarioVars[0][j].title,
@@ -134,6 +133,11 @@ let output_functions = {
             output[outputVars[i].title][layerInObject] == undefined
               ? (output[outputVars[i].title][layerInObject] = [])
               : null;
+              if (
+                output[outputVars[i].title][layerInObject].find(
+                  item => (item.id == idInObject)
+                ) == undefined
+              ) {
             output[outputVars[i].title][layerInObject].push({
               title: scenarioVars[layerInObject][idInObject].title,
               id: scenarioVars[layerInObject][idInObject].id,
@@ -143,11 +147,11 @@ let output_functions = {
               impact: scenarioVars[layerInObject][idInObject].impact[i],
               unit: scenarioVars[layerInObject][idInObject].unit[i],
               color: scenarioVars[layerInObject][idInObject].color,
-            });
+            });}
           }
         }
       }
-      for (var j = 1; j < output[outputVars[i].title].length; j++) {
+/*       for (var j = 1; j < output[outputVars[i].title].length; j++) {
         for (var l = 0; l < output[outputVars[i].title][j].length; l++) {
           var connectedVarPaths = this.findConnectedVariables(
             j,
@@ -161,9 +165,11 @@ let output_functions = {
               : null;
             if (
               output[outputVars[i].title][layerInObject].find(
-                (item) => item.id == idInObject
+                item => (item.id == idInObject)
               ) == undefined
             ) {
+              console.log(output[outputVars[i].title][layerInObject])
+              console.log(scenarioVars[layerInObject][idInObject].title)
               output[outputVars[i].title][layerInObject].push({
                 title: scenarioVars[layerInObject][idInObject].title,
                 id: scenarioVars[layerInObject][idInObject].id,
@@ -177,7 +183,7 @@ let output_functions = {
             }
           }
         }
-      }
+      } */
     }
     return output;
   },

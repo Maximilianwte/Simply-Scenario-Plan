@@ -129,14 +129,15 @@ let svgDraw = {
     // call function for drawing the path
     this.drawPath(svg, path, startX, startY, endX, endY);
   },
-  connectElementsRightLeft(svg, path, startId, endId, type) {
+  connectElementsRightLeft(svg, path, startId, endId, type, containerId) {
     if (type == "output") {
-      var svgContainer = document.getElementById("processView");
+      var svgContainer = document.getElementById("processView_" + containerId);
+      var svg = $("#processView_" + containerId).children("#"+svg);
     }
     else {
       var svgContainer = document.getElementById("declareScenarioVariables");
+      var svg = $("#"+svg);
     }
-    var svg = $("#"+svg);
     var path = $("#"+path);
     var startElem = document.getElementById(startId);
     var endElem = document.getElementById(endId);
@@ -167,7 +168,7 @@ let svgDraw = {
     // calculate path's end (x,y) coords
     var endX = endCoord.left + endElem.offsetWidth - svgLeft;
     var endY = endCoord.top + 0.5 * endElem.offsetHeight  - svgTop;
-
+    console.log("draw ", svg, " ", startCoord, " ", endCoord)
     // call function for drawing the path
     this.drawPathRightLeft(svg, path, startX, startY, endX, endY, startElem.offsetWidth, endElem.offsetWidth);
   },
@@ -213,12 +214,16 @@ let svgDraw = {
   },
   connectAllInOutputProcess() {
     const connections = store.state.connectedShapesOutput;
-    for (var i = 1; i < connections.length; i++) {
-      $("#svg" + i).attr("height", "0");
-      $("#svg" + i).attr("width", "0");
-    }
-    for (var i = 0; i < connections.length; i++) {
-      this.connectElementsRightLeft("svg"+(i+1), "path"+(i+1), connections[i][0], connections[i][1], "output");
+    const outcomeVariables = store.state.outcomeVariables;
+    for (var i = 0; i < outcomeVariables.length; i++) {
+      console.log("run ", outcomeVariables[i].title)
+      /* for (var j = 1; j < connections[outcomeVariables[i].id].length; j++) {
+        $("#svg_" + outcomeVariables[i].id + "_" + j).attr("height", "0");
+        $("#svg" + outcomeVariables[i].id + "_" + j).attr("width", "0");
+      } */
+      for (var j = 0; j < connections[outcomeVariables[i].id].length; j++) {
+        this.connectElementsRightLeft("svg"+(j+1), "path"+(j+1), connections[outcomeVariables[i].id][j][0], connections[outcomeVariables[i].id][j][1], "output", outcomeVariables[i].id);
+      }
     }
     //this.$forceUpdate();
   },

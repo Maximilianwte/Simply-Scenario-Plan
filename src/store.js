@@ -96,8 +96,9 @@ export default new Vuex.Store({
       state.connectedShapes.push(payload);
       this.commit("setDataToCookie", "connectedShapes");
     },
+    // i must have the ability to process for multiple vars
     addAllOutputConnections(state, payload) {
-      state.connectedShapesOutput = payload;
+      state.connectedShapesOutput[payload.id] = payload.values;
     },
     deleteConnection(state, payload) {
       state.connectedShapes.splice(payload, 1);
@@ -280,6 +281,7 @@ export default new Vuex.Store({
     },
     setCompleteState(state, payload) {
       Object.assign(state, payload);
+      this.commit("setDataToCookie", null)
     },
     // ---- Handle Cookie Cache ----
 

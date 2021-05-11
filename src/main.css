@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@500;800&display=swap');
 
 body {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Exo', sans-serif;
   --dark: #2c405a;
   --light: #fff;
 }
@@ -37,44 +37,6 @@ a:hover {
 
 .rotate {
   transform: skewX(15deg);
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(10, 10%);
-}
-
-@media only screen and (min-width: 768px) {
-  .md-grid-container {
-    display: grid;
-    grid-template-columns: repeat(10, auto);
-  }
-  .grid-item-3 {
-    grid-column: span 5;
-  }
-  .grid-item-2 {
-    grid-column: span 5;
-  }
-}
-
-@media only screen and (min-width: 992px) {
-  .lg-grid-container {
-    display: grid;
-    grid-template-columns: repeat(10, 10%);
-  }
-  .grid-item-3 {
-    grid-column: span 3;
-  }
-  .grid-item-2 {
-    grid-column: span 5;
-  }
-}
-
-@media only screen and (min-width: 1332px) {
-  .md-grid-container {
-    display: grid;
-    grid-template-columns: repeat(10, 10%);
-  }
 }
 
 input, select {
@@ -116,10 +78,6 @@ svg:hover {
   fill: var(--alternative);
   transition: 0.3s;
 }
-
-/* li {
-  list-style: none;
-} */
 
 .clickThrough {
   pointer-events: none;
@@ -261,6 +219,8 @@ th, td {
   fill: rgb(123, 255, 62);
 }
 
+/* Stuff for home 1 (ugly build) */
+
 .path1 {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
@@ -308,6 +268,7 @@ th, td {
   transform: translateX(-100%);
 }
 
+/* Animation for home 2 */
 
 @keyframes fadeIn {
   100% {
@@ -315,3 +276,15 @@ th, td {
     transform: translateX(-50%);
   }
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.8s ease;
+  overflow: hidden;
+  visibility: visible;
+  opacity: 1;
+  position: absolute;
+ }
+ .fade-enter, .fade-leave-to {
+  opacity: 0;
+  visibility: hidden;
+ }
