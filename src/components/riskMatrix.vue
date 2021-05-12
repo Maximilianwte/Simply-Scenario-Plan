@@ -10,21 +10,21 @@
       </tr>
       <tr>
         <th class="text-left">High Likelihood</th>
-        <th style="backgroundColor: #FFE882;" class="text-left text-dark"><div class="relative item" v-for="(item, index) in getData('highLLowC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FFE882" /></div></th>
-        <th style="backgroundColor: #FF7373;" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('highLMedC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FF7373" /></div></th>
-        <th style="backgroundColor: #FF5E5E" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('highLHighC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FF5E5E" /></div></th>
+        <td style="backgroundColor: #FFE882;" class="text-left text-dark"><div class="relative item" v-for="(item, index) in getData('highLLowC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FFE882" /></div></td>
+        <td style="backgroundColor: #FF7373;" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('highLMedC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FF7373" /></div></td>
+        <td style="backgroundColor: #FF5E5E" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('highLHighC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FF5E5E" /></div></td>
       </tr>
       <tr>
         <th class="text-left">Medium Likelihood</th>
-        <th style="backgroundColor: #76E376" class="text-left text-dark"><div class="relative item" v-for="(item, index) in getData('medLLowC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#76E376" /></div></th>
-        <th style="backgroundColor: #FFE882;" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('medLMedC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FFE882" /></div></th>
-        <th style="backgroundColor: #FF7373;" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('medLHighC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FF7373" /></div></th>
+        <td style="backgroundColor: #76E376" class="text-left text-dark"><div class="relative item" v-for="(item, index) in getData('medLLowC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#76E376" /></div></td>
+        <td style="backgroundColor: #FFE882;" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('medLMedC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FFE882" /></div></td>
+        <td style="backgroundColor: #FF7373;" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('medLHighC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FF7373" /></div></td>
       </tr>
       <tr>
         <th class="text-left">Low Likelihood</th>
-        <th style="backgroundColor: #76E376" class="text-left text-dark"><div class="relative item" v-for="(item, index) in getData('lowLLowC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#76E376" /></div></th>
-        <th style="backgroundColor: #76E376;" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('lowLMedC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#76E376" /></div></th>
-        <th style="backgroundColor: #FFE882;" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('lowLHighC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FFE882" /></div></th>
+        <td style="backgroundColor: #76E376" class="text-left text-dark"><div class="relative item" v-for="(item, index) in getData('lowLLowC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#76E376" /></div></td>
+        <td style="backgroundColor: #76E376;" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('lowLMedC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#76E376" /></div></td>
+        <td style="backgroundColor: #FFE882;" class="text-right text-dark"><div class="relative item" v-for="(item, index) in getData('lowLHighC')" :key="index"><p>{{item.title}}</p><hoverItem :item="item" color="#FFE882" /></div></td>
       </tr>
     </table>
   </div>

@@ -25,7 +25,7 @@
           v-for="(item, index) in list"
           :key="index"
           :id="'outputVar_' + outcomeVar.id + '_' + (list_index + 1) + '_' + item.id"
-          class="scenarioVar px-4 py-6 w-40 text-center mt-2 text-xl rounded"
+          class="scenarioVar px-4 py-6 w-48 text-center mt-2 text-xl rounded"
           :style="getColor(item.color)"
         >
           {{ item.title }}

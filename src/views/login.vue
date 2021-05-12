@@ -6,7 +6,7 @@
         <p class="mr-4">Need an account first?</p>
         <router-link to="/register">
         <button
-          class="bg-focus hover:bg-main text-white text-xl rounded py-2 px-4"
+          class="border-2 border-main hover:border-alternative hover:text-alternative text-xl rounded py-2 px-4"
         >
           Register
         </button>

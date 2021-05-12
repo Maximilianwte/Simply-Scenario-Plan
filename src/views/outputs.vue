@@ -27,31 +27,31 @@
           v-if="showDownloadTablesMenu"
           class="dropdownBelow absolute border-2 mt-1 py-2 w-full px-2 bg-bg rounded"
         >
-          <li>
-            <ul>
+          <ul>
+            <li>
               <button
                 class="border-b-2 py-2 cursor-pointer bg-gray-100 text-gray-300 hover:bg-gray-100"
               >
                 Download Excel (.xlsx)
               </button>
-            </ul>
-            <ul>
+            </li>
+            <li>
               <button
                 class="border-b-2 py-2 cursor-pointer hover:bg-gray-100"
                 @click="exportTables('csv')"
               >
                 Download CSV (.csv)
               </button>
-            </ul>
-            <ul>
+            </li>
+            <li>
               <button
                 class="py-2 cursor-pointer hover:bg-gray-100"
                 @click="exportTables('json')"
               >
                 Download JSON (.json)
               </button>
-            </ul>
-          </li>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -71,16 +71,16 @@
           v-if="showMatrixMenu"
           class="absolute border-2 mt-1 py-2 w-48 px-2 bg-bg rounded"
         >
-          <li>
-            <ul v-for="item in getOutcomeVariables" :key="item.id">
+          <ul>
+            <li v-for="item in getOutcomeVariables" :key="item.id">
               <button
                 class="py-2 cursor-pointer w-full hover:bg-gray-100"
                 @click="setMatrix(item.title)"
               >
                 {{ item.title }}
               </button>
-            </ul>
-          </li>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -104,16 +104,16 @@
           v-if="showDistributionMenu"
           class="absolute border-2 mt-1 py-2 w-48 px-2 bg-bg rounded"
         >
-          <li>
-            <ul v-for="item in getOutcomeVariables" :key="item.id">
+          <ul>
+            <li v-for="item in getOutcomeVariables" :key="item.id">
               <button
                 class="py-2 cursor-pointer w-full hover:bg-gray-100"
                 @click="setDistribution(item.title)"
               >
                 {{ item.title }}
               </button>
-            </ul>
-          </li>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

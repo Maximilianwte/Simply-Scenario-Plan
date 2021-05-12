@@ -5,7 +5,7 @@
         <p class="mr-4">Already have an account?</p>
         <router-link to="/login">
         <button
-          class="bg-focus hover:bg-main text-white text-xl rounded py-2 px-4"
+          class="border-2 border-main hover:border-alternative hover:text-alternative text-xl rounded py-2 px-4"
         >
           Login
         </button>
