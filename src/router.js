@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/home2.vue'
+import Home2 from './views/home2.vue'
+import Home from './views/home.vue'
 
 Vue.use(Router)
 
@@ -12,6 +13,12 @@ export default new Router({
       name: 'home',
       props: true,
       component: Home
+    },
+    {
+      path: '/2',
+      name: 'home',
+      props: true,
+      component: Home2
     },
     {
       path: '/app/:id?',

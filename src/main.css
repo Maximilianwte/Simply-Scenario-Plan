@@ -79,6 +79,11 @@ svg:hover {
   transition: 0.3s;
 }
 
+.light svg {
+  stroke: var(--bg);
+  stroke-width: .05rem;
+}
+
 .clickThrough {
   pointer-events: none;
 }
@@ -108,6 +113,11 @@ svg:hover {
 .centerY {
   top: 50%;
   transform: translateY(-50%);
+}
+
+.centerX {
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .floatingMenu {
@@ -219,55 +229,6 @@ th, td {
   fill: rgb(123, 255, 62);
 }
 
-/* Stuff for home 1 (ugly build) */
-
-.path1 {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: dash 1.5s ease-out forwards 1s;
-  stroke: 2rem;
-  left: calc(0%);
-  top: 6.5rem;
-}
-
-.path2 {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: dash 1.5s ease-out forwards 3s;
-  left: calc(50%);
-  top: 6.5rem;
-}
-
-.path3 {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: dash 1.5s ease-out forwards 5.5s;
-  left: calc(90%);
-  top: 6.5rem;
-}
-
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-#div1 {
-  top: calc(21.5rem);
-  right: 50%;
-  animation: fadeIn .2s linear forwards 1.5s;
-  visibility: hidden;
-  transform: translateX(-100%);
-}
-
-#div2 {
-  top: calc(21.5rem);
-  right: -10%;
-  animation: fadeIn .2s linear forwards 4.5s;
-  visibility: hidden;
-  transform: translateX(-100%);
-}
-
 /* Animation for home 2 */
 
 @keyframes fadeIn {
@@ -288,3 +249,28 @@ th, td {
   opacity: 0;
   visibility: hidden;
  }
+
+ /* Arrow bounce */
+
+ .arrowBounce {
+  animation: bounce 3s infinite ;
+}
+
+.arrowBounce svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+  }
+  40% {
+      transform: translateY(-15px);
+  }
+  60% {
+      transform: translateY(-10px);
+  }
+}
