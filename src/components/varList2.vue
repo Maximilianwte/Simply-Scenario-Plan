@@ -150,7 +150,7 @@
       </div>
       <button
         @click="addItem"
-        class="absolute bottom-0 mb-8 px-6 py-3 rounded-full bg-main text-bg hover:bg-focus"
+        class="absolute bottom-0 mb-8 w-16 h-16 rounded-full bg-main text-bg hover:bg-focus"
       >
         +
       </button>

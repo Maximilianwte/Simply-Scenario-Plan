@@ -38,7 +38,7 @@
         @click="addList"
         tooltip-content="Add another scenario layer to chain events later in time."
         tooltip-position="down"
-        class="px-6 py-3 rounded-full bg-main text-bg hover:bg-focus text-2xl"
+        class="w-16 h-16 rounded-full bg-main text-bg hover:bg-focus text-2xl"
       >
         +
       </button>

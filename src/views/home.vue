@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="px-12">
+  <div id="home" class="px-6 md:px-12">
     <div id="top" class="lg:flex min-h-screen pt-24 relative">
       <div class="left lg:w-1/2 flex-col lg:block">
         <h2
@@ -85,8 +85,8 @@
         </router-link>
         <p>The app is 100% free.</p>
       </div>
-    <div id="template" class="w-2/3 flex h-80 mt-64 border rounded">
-      <div class="left h-full w-1/4 border-r-2">
+    <div id="template" class="flex mt-64 border rounded">
+      <div class="left h-full md:w-1/4 border-r-2">
         <p class="mt-4 ml-4 mb-2 text-alternative">Templates</p>
         <ul
           @mouseleave="
@@ -116,8 +116,8 @@
           </li>
         </ul>
       </div>
-      <div class="right h-full relative w-3/4">
-        {{ getTemplateImage }}
+      <div class="right relative md:w-96">
+        <img class="w-full" :src="resolve_img_url(getTemplateImage)" alt="">
 
         <button
           class="bg-main hover:bg-alternative absolute bottom-0 right-0 mb-4 mr-6 text-white text w-48 rounded py-2 px-4"
@@ -234,7 +234,7 @@ export default {
     getTemplateImage() {
       switch (this.activeHoverTemplate) {
         case "smallBusiness": {
-          return "smallBusinessImgPathHere";
+          return "template1.png";
         }
         case "salesPitch": {
           return "salesPitchPathHere";
@@ -246,6 +246,10 @@ export default {
     },
   },
   methods: {
+        resolve_img_url: function (path) {
+      let images = require.context("../assets/", false, /\.png$|\.jpg$/);
+      return images("./" + path);
+    },
     getDayToRelease(releaseDay) {
       var release = new Date(releaseDay);
       var today = new Date();

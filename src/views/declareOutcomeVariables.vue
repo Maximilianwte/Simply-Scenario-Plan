@@ -68,7 +68,7 @@
       <button
         @click="addItem"
         id="addVariable"
-        class="px-6 py-3 absolute bottom-0 mb-8 rounded-full text-bg hover:bg-focus text-2xl"
+        class="w-16 h-16 absolute bottom-0 mb-8 rounded-full text-bg hover:bg-focus text-2xl"
         :class="getBgAddOutcomeVar"
         tooltip-content="Add another outcome variable?"
         tooltip-position="up-abs"
