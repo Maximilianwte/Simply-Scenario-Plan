@@ -102,14 +102,42 @@
       </div>
     </div>
 
-        <!-- ---- Overlay for report bug & give feedback ---- -->
+    <!-- ---- Overlay for Not built for mobile ---- -->
+
+    <div
+      id="notBuildForMobile"
+      v-if="getIfMobile"
+      class="fixed light w-2/3 z-20 flex mt-4 ml-4 py-4 shadow text-xl bg-bg rounded border-focus border-4"
+    >
+      <svg
+        class="w-20 mx-6"
+        style="stroke-width: 0.8rem"
+        version="1.0"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M108.5.7C78.9 4.9 54 25.7 43.6 54.8l-3.1 8.7-.3 189.3c-.2 187.8-.2 189.5 1.8 198 5.4 22.8 21.3 42.5 42.5 52.7 17.3 8.3 13.8 8 93.5 8 68.7 0 70.6-.1 73.9-2 5.6-3.3 9.3-8.7 9.9-14.4.7-7.2-.5-11.7-4.1-15.8-6.7-7.6-3.3-7.3-76.7-7.3-72.1 0-72.7 0-82.2-6.1-6.4-4.2-12.5-11-15.6-17.7l-2.7-5.7v-373l3.3-6.7c4.1-8.4 12.8-16.7 20.9-20l5.8-2.3 104-.3C316.6 40 318.6 40 325.2 42c10.8 3.3 18.9 10.3 24.1 21l3.2 6.5.5 118c.5 127.1.3 120.9 5.8 126.9 8.6 9.2 22.6 8.4 30.6-1.7l3.1-3.9V63.5l-3.1-8.7c-9.2-25.7-28.4-43.9-54.6-52L327.5.5l-108-.1c-59.4-.1-109.3.1-111 .3z"
+        />
+        <path
+          d="M189.6 72.4c-7.8 2.9-12.6 9.9-12.6 18.4 0 8.8 3.7 14.7 11.5 18.3 3.5 1.6 6.7 1.9 28 1.9 27 0 29.2-.5 35.2-7.3 5.6-6.4 5.9-17.9.6-24.5-6.1-7.5-6.8-7.7-34.3-7.9-19.1-.2-25.4 0-28.4 1.1zM314.5 343.9c-4.7 2.2-8.9 6.4-10.4 10.4-1.4 3.6-1.4 11.7-.1 15.4.6 1.5 13.3 15.1 28.3 30l27.2 27.3-27.2 27.2c-15 15-27.7 28.6-28.3 30.1-1.3 3.7-1.3 11.8.1 15.4 2.5 6.6 11 12.3 18.4 12.3 7.5 0 11-2.8 38-29.9 14.3-14.4 26.4-26.1 27-26.1.6 0 12.7 11.7 27 26.1 16.6 16.7 27.4 26.8 30 28 11.5 5.4 26.1-2.6 27.3-15 1-10.8 1.6-10-28.6-40.4L415.6 427l27.6-27.8c30.2-30.3 29.6-29.5 28.6-40.3-1.2-12.4-15.8-20.4-27.3-15-2.6 1.2-13.4 11.3-30 28-14.3 14.4-26.4 26.1-27 26.1-.6 0-12.7-11.7-27-26.1-16.6-16.7-27.4-26.8-30-28-5.1-2.4-10.9-2.4-16 0zM209.5 403.2c-8 2.8-12.5 9.1-12.5 17.6 0 8.8 3.7 14.7 11.5 18.3 9.8 4.5 22.7-.6 26.4-10.4 1.7-4.5 1.3-12.4-.9-16.7-4.1-8.1-15.2-12.1-24.5-8.8z"
+        />
+      </svg>
+      <h6 class="w-full">
+        Note: The app is not built for mobile devices right now
+      </h6>
+    </div>
+
+    <!-- ---- Overlay for report bug & give feedback ---- -->
 
     <div
       id="giveFeedbackOverlay"
       v-if="askGiveFeedback"
       class="fixed z-20 centered flex-col w-80 py-4 shadow text-xl bg-bg rounded border-4"
     >
-      <h6 class="w-full px-4">What feature would you enjoy having or what should be changed?</h6>
+      <h6 class="w-full px-4">
+        What feature would you enjoy having or what should be changed?
+      </h6>
       <form class="w-full mt-4 mb-4 px-4">
         <textarea
           type="text"
@@ -296,6 +324,9 @@ export default {
         ? "bg-bg"
         : "bg-gray-200 text-gray-400";
     },
+    getIfMobile() {
+      return navigator.userAgent.toLowerCase().match(/mobile/i);
+    },
   },
   methods: {
     addList() {
@@ -355,12 +386,18 @@ export default {
     },
   },
   mounted() {
-    this.$router.push({
-      name: "app",
-      params: {
-        id: this.getUIStep,
-      },
-    });
+    if (store.state.user.login == false) {
+      this.$router.push({
+        name: "home",
+      });
+    } else {
+      this.$router.push({
+        name: "app",
+        params: {
+          id: this.getUIStep,
+        },
+      });
+    }
   },
 };
 </script>

@@ -59,15 +59,15 @@
       <div class="arrowBounce absolute bottom-0 mb-8 centerX">
         <a href="#video" alt="Scroll down" title="More content below">
           <svg
-          class="w-8"
-          version="1.0"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-        >
-          <path
-            d="M249.2 1.1c-4.5 1.3-10.8 8-12.1 12.6-.8 2.6-1.1 69.9-1.1 216.8v213l-36.7-36.7c-20.3-20.2-38.1-37.2-39.6-37.8-3.7-1.3-11.8-1.3-15.4.1-9.7 3.6-14.9 16.7-10.5 26.1 2 4.3 106.2 110.4 112 114 5.2 3.3 15.2 3.3 20.4 0 5.8-3.6 110-109.7 112-114 4.4-9.4-.8-22.5-10.5-26.1-4-1.5-12.2-1.4-16 .3-1.8.8-19.2 17.4-39.2 37.5l-36 36.1-.5-214.7-.5-214.8-2.4-3.8c-4.7-7.6-15.1-11.3-23.9-8.6z"
-          />
-        </svg>
+            class="w-8"
+            version="1.0"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M249.2 1.1c-4.5 1.3-10.8 8-12.1 12.6-.8 2.6-1.1 69.9-1.1 216.8v213l-36.7-36.7c-20.3-20.2-38.1-37.2-39.6-37.8-3.7-1.3-11.8-1.3-15.4.1-9.7 3.6-14.9 16.7-10.5 26.1 2 4.3 106.2 110.4 112 114 5.2 3.3 15.2 3.3 20.4 0 5.8-3.6 110-109.7 112-114 4.4-9.4-.8-22.5-10.5-26.1-4-1.5-12.2-1.4-16 .3-1.8.8-19.2 17.4-39.2 37.5l-36 36.1-.5-214.7-.5-214.8-2.4-3.8c-4.7-7.6-15.1-11.3-23.9-8.6z"
+            />
+          </svg>
         </a>
       </div>
     </div>
@@ -85,142 +85,168 @@
         </router-link>
         <p>The app is 100% free.</p>
       </div>
-    <div id="template" class="flex mt-64 border rounded">
-      <div class="left h-full md:w-1/4 border-r-2">
-        <p class="mt-4 ml-4 mb-2 text-alternative">Templates</p>
-        <ul
-          @mouseleave="
-            setMouse != true ? (activeHoverTemplate = 'smallBusiness') : ''
-          "
-        >
-          <li
-            class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
-            @click="setMouse = true"
-            @mouseover="activeHoverTemplate = 'smallBusiness'"
+      <div id="template" class="flex mt-64 border rounded">
+        <div class="left h-full md:w-1/4 border-r-2">
+          <p class="mt-4 ml-4 mb-2 text-alternative">Templates</p>
+          <ul
+            @mouseleave="
+              setMouse != true ? (activeHoverTemplate = 'smallBusiness') : ''
+            "
           >
-            Small Business Plan
-          </li>
-          <li
-            class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
-            @click="setMouse = true"
-            @mouseover="activeHoverTemplate = 'salesPitch'"
-          >
-            Sales Pitch Scenario Plan
-          </li>
-          <li
-            class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
-            @click="setMouse = true"
-            @mouseover="activeHoverTemplate = 'fantasyBasketball'"
-          >
-            Fantasy Basketball Draft Plan
-          </li>
-        </ul>
-      </div>
-      <div class="right relative md:w-96">
-        <img class="w-full" :src="resolve_img_url(getTemplateImage)" alt="">
+            <li
+              class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
+              @click="setMouse = true"
+              @mouseover="activeHoverTemplate = 'smallBusiness'"
+            >
+              Small Business Plan
+            </li>
+            <li
+              class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
+              @click="setMouse = true"
+              @mouseover="activeHoverTemplate = 'salesPitch'"
+            >
+              Sales Pitch Scenario Plan
+            </li>
+            <li
+              class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
+              @click="setMouse = true"
+              @mouseover="activeHoverTemplate = 'fantasyBasketball'"
+            >
+              Fantasy Basketball Draft Plan
+            </li>
+          </ul>
+        </div>
+        <div class="right relative md:w-96">
+          <img class="w-full" :src="resolve_img_url(getTemplateImage)" alt="" />
 
-        <button
-          class="bg-main hover:bg-alternative absolute bottom-0 right-0 mb-4 mr-6 text-white text w-48 rounded py-2 px-4"
-          @click="clickStartWithTemplate"
-        >
-          Start customizing the template
-        </button>
-      </div>
-    </div>
-    <h4 class="text-3xl font-extrabold lg:w-full lg:px-16 mt-40 mb-12">What we are building on</h4>
-    <div id="features" class="lg:flex mb-24 relative">
-      <div class="left lg:w-1/2 flex-col justify-start">
-        <div id="featureTracker" class="px-8 py-4">
-          <h4 class="text-xl">Upcoming Features</h4>
-          <p class="text-base text-alternative">
-            What features will be released next?
-          </p>
-          <ul class="mt-8 mb-4">
-            <li class="flex items-center justify-between">
-              <div class="text">
-                <h6 class="mr-4">1. Backend Integration</h6>
-                <p class="text-sm text-alternative">
-                  Release in {{ getDayToRelease("05/20/2021") }} days.
-                </p>
-              </div>
-              <progressBar
-                class=""
-                :loadState="getLoadState('05/19/2021', 40)"
-              />
-            </li>
-            <li class="flex items-center justify-between mt-4">
-              <div class="text">
-                <h6 class="mr-4">2. More charting features</h6>
-                <p class="text-sm text-alternative">
-                  Release in {{ getDayToRelease("05/31/2021") }} days.
-                </p>
-              </div>
-              <progressBar
-                class=""
-                :loadState="getLoadState('05/31/2021', 40)"
-              />
-            </li>
-          </ul>
+          <button
+            class="bg-main hover:bg-alternative absolute bottom-0 right-0 mb-4 mr-6 text-white text w-48 rounded py-2 px-4"
+            @click="clickStartWithTemplate"
+          >
+            Start customizing the template
+          </button>
         </div>
       </div>
-      <div class="right lg:w-1/2 flex-col justify-start">
-        <div id="featureVoter" class="px-8 py-4 mt-8">
-          <h4 class="text-xl">Vote Features</h4>
-          <p class="text-base text-alternative">
-            What feature do you want built next?
-          </p>
-          <ul class="mt-8 mb-4">
-            <li class="flex items-center">
-              <h6 class="mr-4">1. More colors</h6>
-              <button
-                class="bg-focus hover:bg-main text-white rounded px-4 py-2"
-              >
-                Vote
-              </button>
-            </li>
-            <li class="flex items-center mt-4">
-              <h6 class="mr-4">2. Saving all data</h6>
-              <button
-                class="bg-focus hover:bg-main text-white rounded px-4 py-2"
-              >
-                Vote
-              </button>
-            </li>
-            <li class="flex items-center mt-4">
-              <input
-                type="text"
-                class="w-40 border-2 rounded mr-4"
-                placeholder="3. New input"
-              />
-              <button
-                class="bg-focus hover:bg-main text-white rounded px-4 py-2"
-              >
-                Vote
-              </button>
-            </li>
-          </ul>
+      <h4 class="text-3xl font-extrabold lg:w-full lg:px-16 mt-40 mb-12">
+        What we are building on
+      </h4>
+      <div id="features" class="lg:flex mb-24 relative">
+        <div class="left lg:w-1/2 flex-col justify-start">
+          <div id="featureTracker" class="px-8 py-4">
+            <h4 class="text-xl">Upcoming Features</h4>
+            <p class="text-base text-alternative">
+              What features will be released next?
+            </p>
+            <ul class="mt-8 mb-4">
+              <li class="flex items-center justify-between">
+                <div class="text">
+                  <h6 class="mr-4">1. Backend Integration</h6>
+                  <p class="text-sm text-alternative">
+                    Release in {{ getDayToRelease("05/20/2021") }} days.
+                  </p>
+                </div>
+                <progressBar
+                  class=""
+                  :loadState="getLoadState('05/19/2021', 40)"
+                />
+              </li>
+              <li class="flex items-center justify-between mt-4">
+                <div class="text">
+                  <h6 class="mr-4">2. More charting features</h6>
+                  <p class="text-sm text-alternative">
+                    Release in {{ getDayToRelease("05/31/2021") }} days.
+                  </p>
+                </div>
+                <progressBar
+                  class=""
+                  :loadState="getLoadState('05/31/2021', 40)"
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="right lg:w-1/2 flex-col justify-start">
+          <div id="featureVoter" class="px-8 py-4 mt-8">
+            <h4 class="text-xl">Vote Features</h4>
+            <p class="text-base text-alternative">
+              What feature do you want built next?
+            </p>
+            <ul class="mt-8 mb-4">
+              <li class="flex items-center">
+                <h6 class="mr-4">1. More colors</h6>
+                <button
+                  class="bg-focus hover:bg-main text-white rounded px-4 py-2"
+                >
+                  Vote
+                </button>
+              </li>
+              <li class="flex items-center mt-4">
+                <h6 class="mr-4">2. Saving all data</h6>
+                <button
+                  class="bg-focus hover:bg-main text-white rounded px-4 py-2"
+                >
+                  Vote
+                </button>
+              </li>
+              <li class="flex items-center mt-4">
+                <input
+                  type="text"
+                  class="w-40 border-2 rounded mr-4"
+                  placeholder="3. New input"
+                />
+                <button
+                  class="bg-focus hover:bg-main text-white rounded px-4 py-2"
+                >
+                  Vote
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="menu" class="absolute top-0 text-xl right-0 py-2 px-2">
-      <router-link to="/register">
-        <button class="rounded py-1 px-2 mx-2">Register</button>
-      </router-link>
-      <router-link to="/login">
-        <button class="border-2 border-main hover:border-alternative hover:text-alternative rounded py-1 px-2">Login</button>
-      </router-link>
-    </div>
-    <div class="footer absolute bottom-0 left-0 my-2 mx-4">
-      <router-link to="/imprint">
-        <h2>Imprint</h2>
-      </router-link>
+      <div id="menu" class="absolute top-0 text-xl right-0 py-2 px-2">
+        <template v-if="getLogin == false" id="notLoggedIn">
+          <router-link to="/register">
+            <button class="rounded py-1 px-2 mx-2">Register</button>
+          </router-link>
+          <router-link to="/login">
+            <button
+              class="border-2 border-main hover:border-alternative hover:text-alternative rounded py-1 px-2"
+            >
+              Login
+            </button>
+          </router-link>
+        </template>
+        <template v-else id="LoggedIn">
+          <router-link to="/app">
+            <button
+              class="border-2 border-main hover:border-alternative hover:text-alternative rounded py-1 px-2"
+            >
+              Start App
+            </button>
+          </router-link>
+          <router-link to="/profile">
+            <button class="py-1 px-2 hover:text-alternative">Profile</button>
+          </router-link>
+          <button
+            class="py-1 px-2 hover:text-alternative"
+            @click="handleLogout"
+          >
+            Logout
+          </button>
+        </template>
+      </div>
+      <div class="footer absolute bottom-0 left-0 my-2 mx-4">
+        <router-link to="/imprint">
+          <h2>Imprint</h2>
+        </router-link>
+      </div>
     </div>
   </div>
-      </div>
 </template>
 <script>
 import carousel from "../components/svgCarousel";
-import progressBar from "../components/progressBar"
+import progressBar from "../components/progressBar";
 import store from "../store";
 export default {
   components: { carousel, progressBar },
@@ -228,9 +254,9 @@ export default {
     return {
       setMouse: false,
       activeHoverTemplate: "smallBusiness",
-    }
+    };
   },
-    computed: {
+  computed: {
     getTemplateImage() {
       switch (this.activeHoverTemplate) {
         case "smallBusiness": {
@@ -244,9 +270,12 @@ export default {
         }
       }
     },
+    getLogin() {
+      return store.state.user.login;
+    },
   },
   methods: {
-        resolve_img_url: function (path) {
+    resolve_img_url: function (path) {
       let images = require.context("../assets/", false, /\.png$|\.jpg$/);
       return images("./" + path);
     },
@@ -372,11 +401,11 @@ export default {
           },
         },
       };
-      console.log(states[this.activeHoverTemplate])
-      store.commit("setCompleteState", states[this.activeHoverTemplate])
+      console.log(states[this.activeHoverTemplate]);
+      store.commit("setCompleteState", states[this.activeHoverTemplate]);
       // for testing purpose
       this.$router.push({ path: "app" });
-      return 0
+      return 0;
       // check login state
       if (store.state.ui.login == true) {
         this.$router.push({ path: "app" });
@@ -384,6 +413,9 @@ export default {
         this.$router.push({ path: "login", query: { sendFrom: "template" } });
       }
     },
+    handleLogout() {
+      store.commit("setLogout");
+    }
   },
 };
 </script>

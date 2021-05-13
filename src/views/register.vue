@@ -4,12 +4,12 @@
       <div id="LoginText" class="flex items-center mb-16">
         <p class="mr-4">Already have an account?</p>
         <router-link to="/login">
-        <button
-          class="border-2 border-main hover:border-alternative hover:text-alternative text-xl rounded py-2 px-4"
-        >
-          Login
-        </button>
-      </router-link>
+          <button
+            class="border-2 border-main hover:border-alternative hover:text-alternative text-xl rounded py-2 px-4"
+          >
+            Login
+          </button>
+        </router-link>
       </div>
       <label for="email">Email</label>
       <input
@@ -28,6 +28,7 @@
     </form>
     <button
       class="bg-focus hover:bg-main text-white text-xl px-4 py-2 rounded mt-8"
+      @click="sendRegister"
     >
       Register
     </button>
@@ -86,6 +87,8 @@
   </div>
 </template>
 <script>
+import data_functions from "../data/data_functions";
+import store from "../store";
 export default {
   data() {
     return {
@@ -109,6 +112,26 @@ export default {
         }
       } else {
         this.warnText = "Please enter a valid email.";
+      }
+    },
+    sendRegister() {
+      this.checkInputs();
+      if (this.warnText == "") {
+        data_functions
+          .create_user({
+            email: this.email,
+            password: this.password,
+          })
+          .then((response) => {
+            console.log("Status", response);
+            if (response.data == "User already exists") {
+              this.warnText =
+                "There is already a user registered for this email adress. Try logging in.";
+            } else if (response.data == "User created") {
+              store.commit("setUser", { email: this.email });
+              this.$router.push({ path: "app" });
+            }
+          });
       }
     },
   },

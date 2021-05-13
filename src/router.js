@@ -20,6 +20,12 @@ export default new Router({
       component: () => import( /* webpackChunkName: "about" */ './views/app.vue')
     },
     {
+      path: '/profile',
+      name: 'profile',
+      props: true,
+      component: () => import( /* webpackChunkName: "about" */ './views/profile.vue')
+    },
+    {
       path: '/register',
       name: 'register',
       props: true,

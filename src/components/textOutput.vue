@@ -104,7 +104,7 @@ export default {
     },
   },
   mounted() {
-    this.startSlide();
+    //this.startSlide();
   },
 };
 </script>

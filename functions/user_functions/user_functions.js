@@ -10,7 +10,7 @@ var serviceAccount = require("./key.json");
 if (admin.apps.length === 0) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://farmify-2d43e.firebaseio.com"
+    //databaseURL: "https://simplyscenariodb-313606.firebaseio.com"
   });
 }
 let db = admin.firestore();
@@ -27,22 +27,22 @@ router.get("/", (req, res) => {
 
 router.post('/create_user', function (req, res) {
   var inFile = JSON.parse(req.body)
-  let docRef = db.collection('users').where('Email', '==', inFile.Email).limit(1);
+  let docRef = db.collection('users').where('email', '==', inFile.email).limit(1);
   docRef.get()
     .then(snapshot => {
       if (snapshot.empty) {
         let docRef2 = db.collection('users');
 
         docRef2.add({
-          Email: inFile.Email,
-          Password: inFile.Password,
-          Joined: new Date().toDateString()
+          email: inFile.email,
+          password: inFile.password,
+          joined: new Date().toDateString()
         }).then(ref => {
-          res.sendStatus(200);
+          res.send("User created");
         })
       }
       snapshot.forEach(doc => {
-        res.sendStatus(406)
+      res.send("User already exists")
       });
     })
     .catch(err => {

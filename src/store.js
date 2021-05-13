@@ -10,12 +10,12 @@ export default new Vuex.Store({
       colorful: true,
       dark: false,
       // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
-      uiStep: 2
+      uiStep: 0
     },
     // ---- User Data
     user: {
-      login: false,
-      id: null,
+      login: true,
+      email: null,
       fileName: null,
       // put in a time here
       lastChanged: null
@@ -84,6 +84,16 @@ export default new Vuex.Store({
     switchColorfulMode(state) {
       state.ui.colorful = !state.ui.colorful;
       this.commit("setDataToCookie", "ui");
+    },
+    // ---- Handle User ----
+
+    setUser(state, payload) {
+      state.user.email = payload.email;
+      state.user.login = true;
+    },
+    setLogout(state) {
+      state.user.email = "";
+      state.user.login = false;
     },
     // ---- Add Data ----
 
