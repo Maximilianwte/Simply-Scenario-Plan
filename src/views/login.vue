@@ -1,16 +1,18 @@
 <template>
   <div id="register" class="flex-col">
-    <form class="flex-col text-xl mt-32">
-      <h5 class="mb-12 w-2/3 text-center text-alternative">{{getSendFromText}}</h5>
-            <div id="LoginText" class="flex items-center mb-16">
+    <form class="flex-col text-xl mt-24">
+      <h5 class="mb-12 w-2/3 text-center text-alternative">
+        {{ getSendFromText }}
+      </h5>
+      <div id="LoginText" class="flex items-center mb-16">
         <p class="mr-4">Need an account first?</p>
         <router-link to="/register">
-        <button
-          class="border-2 border-main hover:border-alternative hover:text-alternative text-xl rounded py-2 px-4"
-        >
-          Register
-        </button>
-      </router-link>
+          <button
+            class="border-2 border-main hover:border-alternative hover:text-alternative text-xl rounded py-2 px-4"
+          >
+            Register
+          </button>
+        </router-link>
       </div>
       <label for="email">Email</label>
       <input
@@ -27,15 +29,24 @@
         class="rounded border-2 mt-2"
       />
     </form>
+    <div
+      id="forgotPassword"
+      class="mt-4 w-64 flex-col text-alternative text-sm"
+    >
+      <a href="mailto:max@project.de" class="ml-2">Reset password</a>
+    </div>
     <button
-      class="bg-focus hover:bg-main text-white text-xl px-4 py-2 rounded mt-8"
+      class="bg-focus hover:bg-main text-white text-xl px-4 py-2 rounded mt-12"
+      @click="sendLogin"
     >
       Login
     </button>
-    <p id="warnMessage" class="text-xl text-focus mt-4">{{ warnText }}</p>
+    <p id="warnMessage" class="text-xl text-focus mt-4 w-80 text-center">{{ warnText }}</p>
   </div>
 </template>
 <script>
+import data_functions from "../data/data_functions";
+import store from "../store";
 export default {
   data() {
     return {
@@ -48,13 +59,13 @@ export default {
     getSendFromText() {
       switch (this.$route.query.sendFrom) {
         case "template": {
-          return "Please login first before you start customizing your template."
+          return "Please login first before you start customizing your template.";
         }
         default: {
-          return null
+          return null;
         }
       }
-    }
+    },
   },
   methods: {
     checkInputs() {
@@ -71,6 +82,26 @@ export default {
         }
       } else {
         this.warnText = "Please enter a valid email.";
+      }
+    },
+    sendLogin() {
+      this.checkInputs();
+      if (this.warnText == "") {
+        data_functions
+          .send_login({
+            email: this.email,
+            password: this.password,
+          })
+          .then((response) => {
+            console.log("Status", response);
+            if (response.data == "No user") {
+              this.warnText =
+                "There is no user with this email and password combination. Maybe another password?";
+            } else if (response.data == "Found user") {
+              store.commit("setUser", { email: this.email });
+              this.$router.push({ path: "app" });
+            }
+          });
       }
     },
   },

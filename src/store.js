@@ -15,7 +15,7 @@ export default new Vuex.Store({
     // ---- User Data
     user: {
       login: true,
-      email: null,
+      email: "max@web.de",
       fileName: null,
       // put in a time here
       lastChanged: null

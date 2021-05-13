@@ -11,6 +11,11 @@ let logic_functions = {
       return response
     })
   },
+  send_login(in_file) {
+    return axios.post(activeURL + "/user_functions/read_user", in_file).then(response => {
+      return response
+    })
+  },
   /* old farmify st */
 
   update_userAccess(in_file, value) {
@@ -23,11 +28,6 @@ let logic_functions = {
         return response;
       })
     }
-  },
-  send_login(in_file) {
-    return axios.post(activeURL + "/user_functions/read_user", in_file).then(response => {
-      return response.data
-    })
   },
   fetch_farms() {
     return axios.get(activeURL + "/farm_functions/read_allFarms", ).then(response => {
