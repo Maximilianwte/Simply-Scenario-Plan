@@ -168,7 +168,7 @@ let svgDraw = {
     // calculate path's end (x,y) coords
     var endX = endCoord.left + endElem.offsetWidth - svgLeft;
     var endY = endCoord.top + 0.5 * endElem.offsetHeight  - svgTop;
-    console.log("draw ", svg, " ", startCoord, " ", endCoord)
+    //console.log("draw ", svg, " ", startCoord, " ", endCoord)
     // call function for drawing the path
     this.drawPathRightLeft(svg, path, startX, startY, endX, endY, startElem.offsetWidth, endElem.offsetWidth);
   },

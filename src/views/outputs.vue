@@ -1,8 +1,15 @@
 <template>
   <div id="outputs" class="px-10 py-12 w-full">
+        <div id="header" class="text-2xl mt-12 px-4 md:flex">
+      <h2 class="text-4xl flex-col md:w-1/2"
+      >
+        Output
+      </h2>
+      <p class="md:w-1/2 mt-10 md:mt-0">Here we have build some output views for you. You can analyze all possible scenarios in different ways and find ways what to do better.</p>
+    </div>
     <!-- Output table -->
 
-    <h4 class="ml-6 mb-6 text-xl">1. Output Tables</h4>
+    <h4 class="mt-12 ml-6 mb-6 text-xl">1. Output Tables</h4>
     <div class="md-grid-container">
       <tablev1
         class="table px-4 py-2 grid-item-3"
@@ -56,10 +63,17 @@
       </div>
     </div>
 
+    <!-- Text output -->
+    <h4 class="ml-6 mt-20 mb-6 text-xl">2. Text view</h4>
+    <textOutput
+      class="mt-8 h-80 flex-col"
+      :variables="getTableData[getOutcomeVariables[0].title]"
+    />
+
     <!-- Risk Matrices -->
 
     <div class="headerRow flex ml-6 mt-20 mb-6">
-      <h4 class="text-xl">2. Risk Matrices</h4>
+      <h4 class="text-xl">3. Risk Matrices</h4>
       <div class="downloadMenu ml-4 relative">
         <button
           @click="showMatrixMenu = !showMatrixMenu"
@@ -92,7 +106,7 @@
     <!-- Charts -->
 
     <div class="headerRow flex ml-6 mt-20 mb-6">
-      <h4 class="text-xl">3. Distributions</h4>
+      <h4 class="text-xl">4. Distributions</h4>
       <div class="downloadMenu ml-4 relative">
         <button
           @click="showDistributionMenu = !showDistributionMenu"
@@ -126,10 +140,9 @@
     />
     <!-- Process View -->
 
-<h4 class="ml-6 mt-20 mb-6 text-xl">4. Process View</h4>
+    <h4 class="ml-6 mt-20 mb-6 text-xl">5. Process View</h4>
     <template class="mt-4" v-for="outcomeVar in getOutcomeVariables">
       <template v-if="getProcessData[outcomeVar.title][0].length > 0">
-        <h4 :key="outcomeVar.id">{{outcomeVar.id}}</h4>
         <processView
           class="mt-12"
           :data="getProcessData[outcomeVar.title]"
@@ -169,9 +182,10 @@ import output_functions from "../data/generate_output";
 import tablev1 from "../components/tablev1";
 import riskMatrix from "../components/riskMatrix";
 import processView from "../components/processView";
+import textOutput from "../components/textOutput";
 import $ from "jquery";
 export default {
-  components: { tablev1, riskMatrix, processView },
+  components: { tablev1, riskMatrix, processView, textOutput },
   data() {
     return {
       showDownloadTablesMenu: false,

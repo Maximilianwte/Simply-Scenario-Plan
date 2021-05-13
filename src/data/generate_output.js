@@ -373,21 +373,79 @@ let output_functions = {
     }
     return output;
   },
-  buildText() {
+  buildText(variable, index) {
     const impactTexts = [
       {
-        text: "That's the price of X liters of milk.",
+        text: "The possible impact of '{name}' is {impact}. That's the price of {amount} liters of milk.",
         unit: 0.8,
       },
       {
-        text: "That's the price of X liters of gasonline.",
+        text: "The possible impact of '{name}' is {impact}. That's the price of {amount} liters of water. Do you have an idea what you could do about that?",
+        unit: 0.02,
+      },
+      {
+        text: "The possible impact of '{name}' is {impact}. That's the price of {amount} liters of gasoline.",
         unit: 1.4,
       },
       {
-        text: "That's the price of X liters of gasonline.",
-        unit: 1.4,
+        text: "The possible impact of '{name}' is {impact}. You could buy {amount} iPhone 12's with that money.",
+        unit: 1149,
       },
     ];
+
+    switch (variable.unit) {
+      case " ": {
+        var multiplier = 1;
+        break;
+      }
+      case "k": {
+        multiplier = 1000;
+        break;
+      }
+      case "m": {
+        multiplier = 1 * 10 ** 6;
+        break;
+      }
+      case "b": {
+        multiplier = 1 * 10 ** 9;
+        break;
+      }
+      default: {
+        multiplier = 1;
+        break;
+      }
+    }
+    var impactAsAbsNumber = Math.abs(variable.impact) * multiplier
+    var slctItem = impactTexts[index],
+    slctText = slctItem.text;
+
+    var amount = Math.round(impactAsAbsNumber / slctItem.unit);
+    switch (true) {
+      case (amount > 10**9): {
+        var unitAdd = "billion";
+        amount = amount / (10**9);
+        break;
+      }
+      case (amount > 10**6): {
+        var unitAdd = "million";
+        amount = amount / (10**6);
+        break;
+      }
+      case (amount > 10**3): {
+        var unitAdd = "thousand";
+        amount = amount / (10**3);
+        break;
+      }
+      default: {
+        var unitAdd = "";
+        break;
+      }
+    }
+
+    slctText = slctText.replace("{name}", variable.title);
+    slctText = slctText.replace("{impact}", variable.impact + " " + variable.unit);
+    slctText = slctText.replace("{amount}", Math.round(amount) + " " + unitAdd);
+    return slctText;
   },
   findConnectedVariables(layer, id) {
     const connectedShapes = store.state.connectedShapes;
