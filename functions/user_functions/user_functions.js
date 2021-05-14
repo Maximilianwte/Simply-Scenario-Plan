@@ -77,11 +77,11 @@ router.post('/update_userAccess/email', function (req, res) {
   docRef.get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
       db.collection('users').doc(doc.id).update({
-        Email: inFile.newEmail
+        email: inFile.newEmail
       }).then(function () {
         res.send('Email succesfully updated.');
       }).catch(err => {
-        res.send('No fitting email found.');
+        res.status(406).send('No account with that email found.');
       });
     });
   })
@@ -93,11 +93,11 @@ router.post('/update_userAccess/password', function (req, res) {
   docRef.get().then(function (querySnapshot) {
     querySnapshot.forEach(function (doc) {
       db.collection('users').doc(doc.id).update({
-        Password: inFile.newPassword
+        password: inFile.newPassword
       }).then(function () {
         res.send('Password succesfully updated.');
       }).catch(err => {
-        res.send('No fitting password found.');
+        res.status(406).send('No account with that email and password combination found.');
       });
     });
   })

@@ -14,6 +14,12 @@ export default new Router({
       component: Home
     },
     {
+      path: '/test',
+      name: 'test',
+      props: true,
+      component: () => import( /* webpackChunkName: "about" */ './views/test.vue')
+    },
+    {
       path: '/app/:id?',
       name: 'app',
       props: true,

@@ -279,6 +279,7 @@
 <script>
 import declareOutcomeVariables from "./declareOutcomeVariables";
 import declareScenarioVariables from "./declareScenarioVariables";
+import data_functions from "../data/data_functions";
 import outputs from "./outputs";
 import store from "../store";
 import $ from "jquery";
@@ -371,9 +372,16 @@ export default {
     },
     handleSaveNewFile() {
       if (this.fileName.length > 3) {
-        store.commit("");
-        console.log(this.fileName);
-        this.askSaveFile = false;
+        data_functions.saveOrUpdateState({title: this.fileName, state: store.state}).then(res => {
+          if (res.status == 200) {
+            this.askSaveFile = false;
+            // set last update time
+            store.commit("");
+          }
+          else {
+            console.log(res.data);
+          }
+        })
       }
     },
     handleGiveFeedback() {

@@ -11,59 +11,34 @@ let logic_functions = {
       return response
     })
   },
-  send_login(in_file) {
-    return axios.post(activeURL + "/user_functions/read_user", in_file).then(response => {
+  send_login(inFile) {
+    return axios.post(activeURL + "/user_functions/read_user", inFile).then(response => {
       return response
     })
   },
-  /* old farmify st */
-
-  update_userAccess(in_file, value) {
+  update_userAccess(inFile, value) {
     if (value == "email") {
-      return axios.post(activeURL + "/user_functions/update_userAccess/email", in_file).then(response => {
+      return axios.post(activeURL + "/user_functions/update_userAccess/email", inFile).then(response => {
         return response;
       })
     } else {
-      return axios.post(activeURL + "/user_functions/update_userAccess/password", in_file).then(response => {
+      return axios.post(activeURL + "/user_functions/update_userAccess/password", inFile).then(response => {
         return response;
       })
     }
   },
-  fetch_farms() {
-    return axios.get(activeURL + "/farm_functions/read_allFarms", ).then(response => {
+  saveOrUpdateState(inFile) {
+    console.log("started saving", inFile.title)
+    return axios.post(activeURL + "/state_functions/save", {id: store.state.user.id, title: inFile.title, state: inFile.state}).then(response => {
       return response.data
     })
   },
-  fetch_groups() {
-    return axios.get(activeURL + "/farm_functions/read_allGroups", ).then(response => {
+
+  getSavedStates() {
+    return axios.post(activeURL + "/state_functions/load_states", {id: store.state.user.id}).then(response => {
       return response.data
     })
   },
-  updateSavedFarms() {
-    var reqObject = {
-      Email: store.state.profile.data.Email,
-      SavedFarms: store.state.profile.data.savedFarms
-    }
-    axios.post(activeURL + "/user_functions/update_savedFarms", reqObject).then(response => {
-      return 200
-    })
-  },
-  updateLocation() {
-    var reqObject = {
-      Email: store.state.profile.data.Email,
-      Location: store.state.location,
-      GeoCode: store.state.geoCode
-    }
-    axios.post(activeURL + "/user_functions/update_location", reqObject).then(response => {
-      return 200
-    })
-  },
-  get_geoCodeOpenCage(location) {
-    return axios.get('https://api.opencagedata.com/geocode/v1/json?key=d066a4fbf9964946af519566f421efbb&q=' + encodeURIComponent(location) + '&pretty=1&no_annotations=1', ).then(response => {
-      console.log([response.data.results[0].geometry.lng, response.data.results[0].geometry.lat])
-      return [response.data.results[0].geometry.lng, response.data.results[0].geometry.lat]
-    })
-  }
 }
 
 

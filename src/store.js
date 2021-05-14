@@ -16,6 +16,7 @@ export default new Vuex.Store({
     user: {
       login: true,
       email: "max@web.de",
+      id: 10000,
       fileName: null,
       // put in a time here
       lastChanged: null
@@ -90,6 +91,7 @@ export default new Vuex.Store({
     setUser(state, payload) {
       state.user.email = payload.email;
       state.user.login = true;
+      console.log("changed to ", state.user.email)
     },
     setLogout(state) {
       state.user.email = "";
