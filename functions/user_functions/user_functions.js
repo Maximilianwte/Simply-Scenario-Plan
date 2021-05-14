@@ -36,7 +36,8 @@ router.post('/create_user', function (req, res) {
         docRef2.add({
           email: inFile.email,
           password: inFile.password,
-          joined: new Date().toDateString()
+          joined: new Date().toDateString(),
+          nLogins: 1
         }).then(ref => {
           res.send("User created");
         })
@@ -56,13 +57,23 @@ router.post('/read_user', function (req, res) {
   docRef.get().then(snapshot => {
       if (snapshot.empty) {
         console.log('No matching documents.');
-        res.send("No user");
+        res.status(406).send("No user");
       }
+      docRef.get().then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          db.collection('users').doc(doc.id).update({
+            nLogins: doc.data().nLogins + 1
+          })
+        });
+      })
       snapshot.forEach(doc => {
         var data = doc.data();
         if (inFile.password == data.password) {
-          //data = JSON.stringify(data);
-          res.send("Found user");
+          data = JSON.stringify({
+            email: data.email,
+            id: data.id
+          });
+          res.status(200).send(data);
         }
       });
     })

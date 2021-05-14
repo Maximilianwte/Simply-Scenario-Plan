@@ -93,12 +93,13 @@ export default {
             password: this.password,
           })
           .then((response) => {
+            var resData = response.data
             console.log("Status", response);
-            if (response.data == "No user") {
+            if (response.status == 406) {
               this.warnText =
                 "There is no user with this email and password combination. Maybe another password?";
-            } else if (response.data == "Found user") {
-              store.commit("setUser", { email: this.email });
+            } else if (response.status == 200) {
+              store.commit("setUser", { email: this.email, id: resData.id });
               this.$router.push({ path: "app" });
             }
           });

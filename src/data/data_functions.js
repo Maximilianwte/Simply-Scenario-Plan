@@ -30,13 +30,18 @@ let logic_functions = {
   saveOrUpdateState(inFile) {
     console.log("started saving", inFile.title)
     return axios.post(activeURL + "/state_functions/save", {id: store.state.user.id, title: inFile.title, state: inFile.state}).then(response => {
-      return response.data
+      return response
     })
   },
 
   getSavedStates() {
     return axios.post(activeURL + "/state_functions/load_states", {id: store.state.user.id}).then(response => {
-      return response.data
+      return response
+    })
+  },
+  loadSpecificStates(title) {
+    return axios.post(activeURL + "/state_functions/load", {id: store.state.user.id, title: title}).then(response => {
+      return response
     })
   },
 }

@@ -8,61 +8,39 @@
 
     <!-- ---- Overlay for clearAll Menu ---- -->
 
-    <div
-      id="clearAllAskOverlay"
-      v-if="askClearAll"
-      class="fixed z-20 centered flex-col w-80 h-48 shadow text-2xl bg-bg rounded border-4"
-    >
+    <div id="clearAllAskOverlay" v-if="askClearAll"
+      class="fixed z-20 centered flex-col w-80 h-48 shadow text-2xl bg-bg rounded border-4">
       <h6 class="w-full text-center">
         Are you sure you want to clear all edits?
       </h6>
       <div class="rowButtons mt-4">
-        <button
-          @click="handleClearAll"
-          class="px-6 py-2 bg-focus text-white mx-2 rounded cursor-pointer hover:bg-main"
-        >
+        <button @click="handleClearAll" class="px-6 py-2 bg-focus text-white mx-2 rounded cursor-pointer hover:bg-main">
           Yes
         </button>
-        <button
-          @click="askClearAll = false"
-          class="px-6 py-2 bg-focus mx-2 text-white rounded cursor-pointer hover:bg-main"
-        >
+        <button @click="askClearAll = false"
+          class="px-6 py-2 bg-focus mx-2 text-white rounded cursor-pointer hover:bg-main">
           No
         </button>
       </div>
     </div>
     <!-- ---- Overlay for loading file---- -->
 
-    <div
-      id="loadFileAskOverlay"
-      v-if="askLoadFile"
-      class="fixed z-20 centered flex-col w-80 py-4 shadow text-xl bg-bg rounded border-4"
-    >
+    <div id="loadFileAskOverlay" v-if="askLoadFile"
+      class="fixed z-20 centered flex-col w-80 py-4 shadow text-xl bg-bg rounded border-4">
       <h6 class="w-full text-center">Which file do you want to load?</h6>
       <!-- show list of file names from backend here -->
       <ul class="rounded px-2 py-2 border-2 my-4">
-        <li
-          @click="setLoadFile('idOfFile from v-for')"
-          class="py-2 hover:bg-gray-100 cursor-pointer"
-          :class="[loadFile == 'idOfFile from v-for' ? 'bg-gray-100' : null]"
-        >
-          File 1 (last saved 20.04.2021)
-        </li>
-        <li class="py-2 hover:bg-gray-100 cursor-pointer">
-          File 2 (last saved 28.04.2021)
+        <li v-for="(item, index) in allLoadStates" :key="index" @click="setLoadFile(item.title)"
+          class="py-2 hover:bg-gray-100 cursor-pointer" :class="[loadFile == item.title ? 'bg-gray-100' : null]">
+          {{item.title}} (last updated {{item.lastUpdated}})
         </li>
       </ul>
       <div class="rowButtons mt-4">
-        <button
-          @click="handleLoadFile"
-          class="px-6 py-2 bg-focus text-white mx-2 rounded cursor-pointer hover:bg-main"
-        >
+        <button @click="handleLoadFile" class="px-6 py-2 bg-focus text-white mx-2 rounded cursor-pointer hover:bg-main">
           Load file
         </button>
-        <button
-          @click="askLoadFile = false"
-          class="px-6 py-2 bg-focus mx-2 text-white rounded cursor-pointer hover:bg-main"
-        >
+        <button @click="askLoadFile = false"
+          class="px-6 py-2 bg-focus mx-2 text-white rounded cursor-pointer hover:bg-main">
           Go back
         </button>
       </div>
@@ -70,33 +48,21 @@
 
     <!-- ---- Overlay for saving file---- -->
 
-    <div
-      id="saveFileAskOverlay"
-      v-if="askSaveFile"
-      class="fixed z-20 centered flex-col w-80 py-4 shadow text-xl bg-bg rounded border-4"
-    >
+    <div id="saveFileAskOverlay" v-if="askSaveFile"
+      class="fixed z-20 centered flex-col w-80 py-4 shadow text-xl bg-bg rounded border-4">
       <h6 class="w-full text-center">How do you want to name this file?</h6>
       <form class="flex items-center mt-4 mb-4">
         <label for="text" class="mr-4">Filename:</label>
-        <input
-          type="text"
-          v-model="fileName"
-          @change="checkInputs"
-          class="rounded border-2"
-        />
+        <input type="text" v-model="fileName" @change="checkInputs" class="rounded border-2" />
       </form>
       <h6 class="text-focus">{{ warnText }}</h6>
       <div class="rowButtons mt-4">
-        <button
-          @click="handleSaveNewFile"
-          class="px-6 py-2 bg-focus text-white mx-2 rounded cursor-pointer hover:bg-main"
-        >
+        <button @click="handleSaveNewFile"
+          class="px-6 py-2 bg-focus text-white mx-2 rounded cursor-pointer hover:bg-main">
           Save
         </button>
-        <button
-          @click="askSaveFile = false"
-          class="px-6 py-2 bg-focus mx-2 text-white rounded cursor-pointer hover:bg-main"
-        >
+        <button @click="askSaveFile = false"
+          class="px-6 py-2 bg-focus mx-2 text-white rounded cursor-pointer hover:bg-main">
           Don't save
         </button>
       </div>
@@ -104,24 +70,14 @@
 
     <!-- ---- Overlay for Not built for mobile ---- -->
 
-    <div
-      id="notBuildForMobile"
-      v-if="getIfMobile"
-      class="fixed light w-2/3 z-20 flex mt-4 ml-4 py-4 shadow text-xl bg-bg rounded border-focus border-4"
-    >
-      <svg
-        class="w-20 mx-6"
-        style="stroke-width: 0.8rem"
-        version="1.0"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-      >
+    <div id="notBuildForMobile" v-if="getIfMobile"
+      class="fixed light w-2/3 z-20 flex mt-4 ml-4 py-4 shadow text-xl bg-bg rounded border-focus border-4">
+      <svg class="w-20 mx-6" style="stroke-width: 0.8rem" version="1.0" xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512">
         <path
-          d="M108.5.7C78.9 4.9 54 25.7 43.6 54.8l-3.1 8.7-.3 189.3c-.2 187.8-.2 189.5 1.8 198 5.4 22.8 21.3 42.5 42.5 52.7 17.3 8.3 13.8 8 93.5 8 68.7 0 70.6-.1 73.9-2 5.6-3.3 9.3-8.7 9.9-14.4.7-7.2-.5-11.7-4.1-15.8-6.7-7.6-3.3-7.3-76.7-7.3-72.1 0-72.7 0-82.2-6.1-6.4-4.2-12.5-11-15.6-17.7l-2.7-5.7v-373l3.3-6.7c4.1-8.4 12.8-16.7 20.9-20l5.8-2.3 104-.3C316.6 40 318.6 40 325.2 42c10.8 3.3 18.9 10.3 24.1 21l3.2 6.5.5 118c.5 127.1.3 120.9 5.8 126.9 8.6 9.2 22.6 8.4 30.6-1.7l3.1-3.9V63.5l-3.1-8.7c-9.2-25.7-28.4-43.9-54.6-52L327.5.5l-108-.1c-59.4-.1-109.3.1-111 .3z"
-        />
+          d="M108.5.7C78.9 4.9 54 25.7 43.6 54.8l-3.1 8.7-.3 189.3c-.2 187.8-.2 189.5 1.8 198 5.4 22.8 21.3 42.5 42.5 52.7 17.3 8.3 13.8 8 93.5 8 68.7 0 70.6-.1 73.9-2 5.6-3.3 9.3-8.7 9.9-14.4.7-7.2-.5-11.7-4.1-15.8-6.7-7.6-3.3-7.3-76.7-7.3-72.1 0-72.7 0-82.2-6.1-6.4-4.2-12.5-11-15.6-17.7l-2.7-5.7v-373l3.3-6.7c4.1-8.4 12.8-16.7 20.9-20l5.8-2.3 104-.3C316.6 40 318.6 40 325.2 42c10.8 3.3 18.9 10.3 24.1 21l3.2 6.5.5 118c.5 127.1.3 120.9 5.8 126.9 8.6 9.2 22.6 8.4 30.6-1.7l3.1-3.9V63.5l-3.1-8.7c-9.2-25.7-28.4-43.9-54.6-52L327.5.5l-108-.1c-59.4-.1-109.3.1-111 .3z" />
         <path
-          d="M189.6 72.4c-7.8 2.9-12.6 9.9-12.6 18.4 0 8.8 3.7 14.7 11.5 18.3 3.5 1.6 6.7 1.9 28 1.9 27 0 29.2-.5 35.2-7.3 5.6-6.4 5.9-17.9.6-24.5-6.1-7.5-6.8-7.7-34.3-7.9-19.1-.2-25.4 0-28.4 1.1zM314.5 343.9c-4.7 2.2-8.9 6.4-10.4 10.4-1.4 3.6-1.4 11.7-.1 15.4.6 1.5 13.3 15.1 28.3 30l27.2 27.3-27.2 27.2c-15 15-27.7 28.6-28.3 30.1-1.3 3.7-1.3 11.8.1 15.4 2.5 6.6 11 12.3 18.4 12.3 7.5 0 11-2.8 38-29.9 14.3-14.4 26.4-26.1 27-26.1.6 0 12.7 11.7 27 26.1 16.6 16.7 27.4 26.8 30 28 11.5 5.4 26.1-2.6 27.3-15 1-10.8 1.6-10-28.6-40.4L415.6 427l27.6-27.8c30.2-30.3 29.6-29.5 28.6-40.3-1.2-12.4-15.8-20.4-27.3-15-2.6 1.2-13.4 11.3-30 28-14.3 14.4-26.4 26.1-27 26.1-.6 0-12.7-11.7-27-26.1-16.6-16.7-27.4-26.8-30-28-5.1-2.4-10.9-2.4-16 0zM209.5 403.2c-8 2.8-12.5 9.1-12.5 17.6 0 8.8 3.7 14.7 11.5 18.3 9.8 4.5 22.7-.6 26.4-10.4 1.7-4.5 1.3-12.4-.9-16.7-4.1-8.1-15.2-12.1-24.5-8.8z"
-        />
+          d="M189.6 72.4c-7.8 2.9-12.6 9.9-12.6 18.4 0 8.8 3.7 14.7 11.5 18.3 3.5 1.6 6.7 1.9 28 1.9 27 0 29.2-.5 35.2-7.3 5.6-6.4 5.9-17.9.6-24.5-6.1-7.5-6.8-7.7-34.3-7.9-19.1-.2-25.4 0-28.4 1.1zM314.5 343.9c-4.7 2.2-8.9 6.4-10.4 10.4-1.4 3.6-1.4 11.7-.1 15.4.6 1.5 13.3 15.1 28.3 30l27.2 27.3-27.2 27.2c-15 15-27.7 28.6-28.3 30.1-1.3 3.7-1.3 11.8.1 15.4 2.5 6.6 11 12.3 18.4 12.3 7.5 0 11-2.8 38-29.9 14.3-14.4 26.4-26.1 27-26.1.6 0 12.7 11.7 27 26.1 16.6 16.7 27.4 26.8 30 28 11.5 5.4 26.1-2.6 27.3-15 1-10.8 1.6-10-28.6-40.4L415.6 427l27.6-27.8c30.2-30.3 29.6-29.5 28.6-40.3-1.2-12.4-15.8-20.4-27.3-15-2.6 1.2-13.4 11.3-30 28-14.3 14.4-26.4 26.1-27 26.1-.6 0-12.7-11.7-27-26.1-16.6-16.7-27.4-26.8-30-28-5.1-2.4-10.9-2.4-16 0zM209.5 403.2c-8 2.8-12.5 9.1-12.5 17.6 0 8.8 3.7 14.7 11.5 18.3 9.8 4.5 22.7-.6 26.4-10.4 1.7-4.5 1.3-12.4-.9-16.7-4.1-8.1-15.2-12.1-24.5-8.8z" />
       </svg>
       <h6 class="w-full">
         Note: The app is not built for mobile devices right now
@@ -130,22 +86,14 @@
 
     <!-- ---- Overlay for report bug & give feedback ---- -->
 
-    <div
-      id="giveFeedbackOverlay"
-      v-if="askGiveFeedback"
-      class="fixed z-20 centered flex-col w-80 py-4 shadow text-xl bg-bg rounded border-4"
-    >
+    <div id="giveFeedbackOverlay" v-if="askGiveFeedback"
+      class="fixed z-20 centered flex-col w-80 py-4 shadow text-xl bg-bg rounded border-4">
       <h6 class="w-full px-4">
         What feature would you enjoy having or what should be changed?
       </h6>
       <form class="w-full mt-4 mb-4 px-4">
-        <textarea
-          type="text"
-          v-model="feedback"
-          class="rounded border-2 w-full"
-          rows="7"
-        />
-      </form>
+        <textarea type="text" v-model="feedback" class="rounded border-2 w-full" rows="7" />
+        </form>
       <h6 class="text-focus">{{ warnText }}</h6>
       <div class="rowButtons mt-4">
         <button
@@ -197,7 +145,7 @@
             Undo last edit
           </li>
           <li
-            @click="askLoadFile = true"
+            @click="getLoadFiles"
             class="border-b-2 py-2 cursor-pointer hover:bg-gray-100"
           >
             Load File
@@ -282,7 +230,6 @@ import declareScenarioVariables from "./declareScenarioVariables";
 import data_functions from "../data/data_functions";
 import outputs from "./outputs";
 import store from "../store";
-import $ from "jquery";
 export default {
   components: {
     declareOutcomeVariables,
@@ -298,10 +245,12 @@ export default {
       askLoadFile: false,
       askSaveFile: false,
       askGiveFeedback: false,
+      allLoadStates: null,
       loadFile: null,
       fileName: this.getFileName,
       warnText: null,
       feedback: null,
+      autoSaveTimer: null,
     };
   },
   computed: {
@@ -330,6 +279,8 @@ export default {
     },
   },
   methods: {
+    /* UI handling methods */
+    
     addList() {
       this.nVarLists++;
     },
@@ -356,16 +307,40 @@ export default {
         this.warnText = "Please choose a longer file name.";
       }
     },
+    /* Backend methods for loading and saving */
+
+    getLoadFiles() {
+      this.askLoadFile = true;
+      data_functions.getSavedStates().then(res => {
+        if (res.status == 200) {
+          this.allLoadStates = res.data;
+        }
+      })
+    },
     setLoadFile(id) {
       this.loadFile = id;
     },
     handleLoadFile() {
-      store.commit("");
-      this.askLoadFile = false;
+      if (this.loadFile != null) {
+          data_functions.loadSpecificStates(this.loadFile).then(res => {
+        if (res.status == 200) {
+          store.commit("setCompleteState", JSON.parse(res.data.state));
+          this.askLoadFile = false;
+        }
+      })
+      }
     },
     handleSaveFile() {
       if (store.state.user.fileName != undefined) {
-        // do stuff
+        data_functions.saveOrUpdateState({title: store.state.user.fileName, state: store.state}).then(res => {
+          if (res.status == 200) {
+            console.log("updated the saved state at ", new Date().getTime())
+            store.commit("setLastUpdateTime", new Date().getTime());
+          }
+          else {
+            console.log(res.data);
+          }
+        })
       } else {
         this.askSaveFile = true;
       }
@@ -375,8 +350,7 @@ export default {
         data_functions.saveOrUpdateState({title: this.fileName, state: store.state}).then(res => {
           if (res.status == 200) {
             this.askSaveFile = false;
-            // set last update time
-            store.commit("");
+            store.commit("setLastUpdateTime", new Date().getTime());
           }
           else {
             console.log(res.data);
@@ -392,8 +366,24 @@ export default {
         this.askGiveFeedback = false;
       }
     },
+  handleAutoSave() {
+    console.log("check autosave")
+    if (store.state.user.lastChanged == null || ((new Date().getTime() - store.state.user.lastChanged) > (1000 * 60 * 2))) {
+      if (store.state.user.fileName != null) {
+        console.log("start autosave")
+        this.handleSaveFile();
+      }
+    }
+  },
   },
   mounted() {
+    // check every 5 minutes
+    //this.autoSaveTimer = setInterval(this.handleAutoSave, 1000 * 60 * 1);
+    
+    // !!! for testing purposes
+    //store.commit("setFileName", "Test autosave");
+
+    
     if (store.state.user.login == false) {
       this.$router.push({
         name: "home",

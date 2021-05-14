@@ -16,9 +16,9 @@ export default new Vuex.Store({
     user: {
       login: true,
       email: "max@web.de",
-      id: 10000,
-      fileName: null,
-      // put in a time here
+      id: "10000",
+      fileName: "Test autosave",
+      // this keeps track of time for autosaving
       lastChanged: null
     },
 
@@ -90,12 +90,19 @@ export default new Vuex.Store({
 
     setUser(state, payload) {
       state.user.email = payload.email;
+      state.user.id = payload.id;
       state.user.login = true;
       console.log("changed to ", state.user.email)
     },
     setLogout(state) {
       state.user.email = "";
       state.user.login = false;
+    },
+    setLastUpdateTime(state, payload) {
+      state.user.lastChanged = payload;
+    },
+    setFileName(state, payload) {
+      state.user.fileName = payload;
     },
     // ---- Add Data ----
 

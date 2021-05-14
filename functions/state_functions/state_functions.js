@@ -39,7 +39,7 @@ router.post('/save', function (req, res) {
         docRef2.add({
           userId: inFile.id,
           title: inFile.title,
-          state: inFile.state,
+          state: JSON.stringify(inFile.state),
           updated: new Date().toDateString()
         }).then(ref => {
           res.send("State saved");
@@ -47,7 +47,7 @@ router.post('/save', function (req, res) {
       } else {
         snapshot.forEach(doc => {
             db.collection('states').doc(doc.id).update({
-              state: inFile.state,
+              state: JSON.stringify(inFile.state),
               updated: new Date().toDateString()
             }).then(function () {
               res.send('State got updated.');
@@ -72,8 +72,11 @@ router.post('/load_states', function (req, res) {
     // hope making a new array and pushing data works.
     var DatabaseData = new Array();
     snapshot.forEach(doc => {
-      // does .title work like that?
-      DatabaseData.push(doc.data().title);
+      console.log(doc.data().title)
+      DatabaseData.push({
+        title: doc.data().title,
+        lastUpdated: doc.data().updated
+      });
     });
     DatabaseData = JSON.stringify(DatabaseData);
     res.send(DatabaseData);
@@ -83,17 +86,16 @@ router.post('/load_states', function (req, res) {
 // load state of variables
 router.post('/load', function (req, res) {
   var inFile = JSON.parse(req.body);
-  let docRef = db.collection('users').where('Email', '==', inFile.ActiveEmail).limit(1);
-  docRef.get().then(function (querySnapshot) {
-    querySnapshot.forEach(function (doc) {
-      db.collection('users').doc(doc.id).update({
-        Email: inFile.NewEmail
-      }).then(function () {
-        res.send('Email succesfully updated.');
-      }).catch(err => {
-        res.send('No fitting email found.');
-      });
+  let docRef = db.collection('states').where('userId', '==', inFile.id).where('title', '==', inFile.title).limit(1);
+  docRef.get().then(snapshot => {
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+      res.status(404).send("No matching states");
+    }
+    snapshot.forEach(doc => {
+      res.send(JSON.stringify(doc.data()));
     });
+    
   })
 })
 
