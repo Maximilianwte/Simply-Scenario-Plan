@@ -123,7 +123,6 @@ export default {
             password: this.password,
           })
           .then((response) => {
-            console.log("Status", response);
             if (response.data == "User already exists") {
               this.warnText =
                 "There is already a user registered for this email adress. Try logging in.";

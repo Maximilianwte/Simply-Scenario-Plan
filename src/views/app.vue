@@ -361,7 +361,7 @@ export default {
     },
     handleGiveFeedback() {
       if (this.feedback.length > 3) {
-        store.commit("");
+        data_functions.sendFeedback({text: this.feedback});
         console.log(this.feedback);
         this.feedback = null;
         this.askGiveFeedback = false;

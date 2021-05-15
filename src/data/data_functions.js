@@ -27,8 +27,12 @@ let logic_functions = {
       })
     }
   },
+  sendFeedback(inFile) {
+    return axios.post(activeURL + "/state_functions/giveFeedback", {id: store.state.user.id, email: store.state.user.email, text: inFile.text}).then(response => {
+      return response
+    })
+  },
   saveOrUpdateState(inFile) {
-    console.log("started saving", inFile.title)
     return axios.post(activeURL + "/state_functions/save", {id: store.state.user.id, title: inFile.title, state: inFile.state}).then(response => {
       return response
     })

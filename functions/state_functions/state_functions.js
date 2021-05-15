@@ -98,6 +98,19 @@ router.post('/load', function (req, res) {
   })
 })
 
+router.post('/giveFeedback', function (req, res) {
+  var inFile = JSON.parse(req.body);
+  let docRef = db.collection('feedback');
+  docRef.add({
+    email: inFile.email,
+    id: inFile.id,
+    sent: new Date().toDateString(),
+    text: inFile.text,
+  }).then(ref => {
+    res.send("Feedback sucessfully sent.");
+  })
+})
+
 
 app.use('/.netlify/functions/state_functions', router);
 
