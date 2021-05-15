@@ -350,6 +350,7 @@ export default {
         data_functions.saveOrUpdateState({title: this.fileName, state: store.state}).then(res => {
           if (res.status == 200) {
             this.askSaveFile = false;
+            store.commit("setFileName", this.fileName);
             store.commit("setLastUpdateTime", new Date().getTime());
           }
           else {
@@ -381,7 +382,7 @@ export default {
     //this.autoSaveTimer = setInterval(this.handleAutoSave, 1000 * 60 * 1);
     
     // !!! for testing purposes
-    //store.commit("setFileName", "Test autosave");
+    store.commit("setFileName", "Test autosave");
 
     
     if (store.state.user.login == false) {

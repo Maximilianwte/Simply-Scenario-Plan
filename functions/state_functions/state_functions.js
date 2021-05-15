@@ -53,11 +53,10 @@ router.post('/save', function (req, res) {
               res.send('State got updated.');
             });
           })
-          .catch(err => {
-            res.send(err)
-          });
       }
-    })
+    }).catch(err => {
+      res.send(err)
+    });
 })
 
 // load all state names

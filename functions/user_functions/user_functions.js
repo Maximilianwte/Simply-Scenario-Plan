@@ -31,19 +31,23 @@ router.post('/create_user', function (req, res) {
   docRef.get()
     .then(snapshot => {
       if (snapshot.empty) {
-        let docRef2 = db.collection('users');
-
-        docRef2.add({
-          email: inFile.email,
-          password: inFile.password,
-          joined: new Date().toDateString(),
-          nLogins: 1
-        }).then(ref => {
-          res.send("User created");
-        })
+        db.collection('users').orderBy("id", "desc").limit(1).get().then(snapshot => {
+          snapshot.forEach(doc => {
+            let docRef2 = db.collection('users');
+            docRef2.add({
+              email: inFile.email,
+              password: inFile.password,
+              joined: new Date().toDateString(),
+              id: (parseInt(doc.data().id) + 1).toString(),
+              nLogins: 1
+            }).then(ref => {
+              res.send("User created");
+            })
+          })
+        });
       }
       snapshot.forEach(doc => {
-      res.send("User already exists")
+        res.send("User already exists")
       });
     })
     .catch(err => {

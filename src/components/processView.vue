@@ -2,8 +2,8 @@
   <div :id="'processView_' + outcomeVar.id">
     <svg
       v-for="id in nConnectionsOutput"
-      :key="'svg' + id"
-      :id="'svg' + id"
+      :key="'svg_' + outcomeVar.id + '_' + id"
+      :id="'svg_' + outcomeVar.id + '_' + id"
       class="absolute clickThrough"
       width="0"
       height="0"
