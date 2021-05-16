@@ -38,6 +38,7 @@ router.post('/create_user', function (req, res) {
               email: inFile.email,
               password: inFile.password,
               joined: new Date().toDateString(),
+              lastLogin: "",
               id: (parseInt(doc.data().id) + 1).toString(),
               nLogins: 1
             }).then(ref => {
@@ -66,7 +67,8 @@ router.post('/read_user', function (req, res) {
       docRef.get().then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           db.collection('users').doc(doc.id).update({
-            nLogins: doc.data().nLogins + 1
+            nLogins: doc.data().nLogins + 1,
+            lastLogin: new Date().toDateString()
           })
         });
       })

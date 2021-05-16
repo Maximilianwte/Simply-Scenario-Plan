@@ -180,6 +180,16 @@
           >
             Switch Dark Mode
           </li>
+          <li class="border-b-2 py-2 cursor-pointer hover:bg-gray-100">          <router-link to="/profile">
+            <button>Profile</button>
+          </router-link></li>
+          <li class="border-b-2 py-2 cursor-pointer hover:bg-gray-100">
+                      <button
+                        @click="handleLogout"
+          >
+            Logout
+          </button>
+          </li>
           <li class="flex items-center justify-between mt-2 px-4">
             <button
               id="giveFeedback"
@@ -376,6 +386,10 @@ export default {
       }
     }
   },
+  handleLogout() {
+      store.commit("setLogout");
+      this.$router.push({ name: "home" });
+    }
   },
   mounted() {
     // check every 5 minutes
