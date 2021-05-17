@@ -49,8 +49,6 @@
       id="backUIStep"
       class="absolute left-0 centerY px-3 py-3 rounded-full text-2xl"
       style="transform: rotateY(180deg)"
-      tooltip-content="Go back to editing outcome variables."
-      tooltip-position="left-abs"
       @click="moveUI('dec')"
     >
       <svg

@@ -155,7 +155,6 @@ let svgDraw = {
     // get (top, left) corner coordinates of the svg container
     var svgTop = svgContainer.offsetTop;
     var svgLeft = svgContainer.offsetLeft;
-    console.log("top", svgTop, "left", svgLeft)
 
     // get (top, left) coordinates for the two elements
     var startCoord = { top: startElem.offsetTop, left: startElem.offsetLeft };
@@ -217,11 +216,6 @@ let svgDraw = {
     const connections = store.state.connectedShapesOutput;
     const outcomeVariables = store.state.outcomeVariables;
     for (var i = 0; i < outcomeVariables.length; i++) {
-      console.log("run ", outcomeVariables[i].title, " contId", outcomeVariables[i].id)
-      /* for (var j = 1; j < connections[outcomeVariables[i].id].length; j++) {
-        $("#svg_" + outcomeVariables[i].id + "_" + j).attr("height", "0");
-        $("#svg" + outcomeVariables[i].id + "_" + j).attr("width", "0");
-      } */
       for (var j = 0; j < connections[outcomeVariables[i].id].length; j++) {
         this.connectElementsRightLeft("svg_"+outcomeVariables[i].id+ "_"+(j+1), "path"+(j+1), connections[outcomeVariables[i].id][j][0], connections[outcomeVariables[i].id][j][1], "output", outcomeVariables[i].id);
       }

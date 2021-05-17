@@ -110,7 +110,7 @@
             <li
               class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
               @click="setMouse = true"
-              @mouseover="activeHoverTemplate = 'fantasyBasketball'"
+              @mouseover="activeHoverTemplate = 'fantasyDraft'"
             >
               Fantasy Basketball Draft Plan
             </li>
@@ -391,6 +391,208 @@ export default {
             ["scenarioVariables_1#0", "scenarioVariables_2#1"],
             ["scenarioVariables_1#1", "scenarioVariables_2#1"],
             ["scenarioVariables_1#1", "scenarioVariables_2#2"],
+          ],
+          connectedShapesOutput: [],
+          // ---- Return Cache ----
+
+          returnCache: {
+            returnIndex: 0,
+            values: [],
+          },
+        },
+        salesPitch: {
+          // ---- UI ----
+          ui: {
+            colorful: true,
+            dark: false,
+            // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
+            uiStep: 0,
+          },
+          // ---- User Data
+          user: {
+            login: false,
+            id: null,
+            fileName: null,
+            // put in a time here
+            lastChanged: null,
+          },
+
+          // ---- Variables ----
+
+          outcomeVariables: [
+            {
+              id: 0,
+              displayId: 0,
+              title: "Sale succesful done",
+              color: "#91DBBC",
+              top: 6,
+              left: 4,
+            },
+            {
+              id: 0,
+              displayId: 0,
+              title: "Lead generated",
+              color: "#F2E5AA",
+              top: 6,
+              left: 4,
+            }
+          ],
+          scenarioVariables: [
+            [
+              {
+                id: 0,
+                displayId: 0,
+                title: "Call accepted",
+                prob: 33,
+                impact: [20, 45],
+                unit: ["%", "%"],
+                color: "#85E0FF",
+              },
+              {
+                id: 1,
+                displayId: 1,
+                title: "Call rejected",
+                prob: 66,
+                impact: [-60, -40],
+                unit: ["%"],
+                color: "#F2E5AA",
+              }
+            ],
+            [
+              {
+                id: 0,
+                displayId: 0,
+                title: "Says, he/she has no time",
+                prob: 40,
+                impact: [-40, -25],
+                unit: ["%", "%"],
+                color: "#F2E5AA",
+              },
+              {
+                id: 1,
+                displayId: 1,
+                title: "Shedules next call.",
+                prob: 30,
+                impact: [10, 20],
+                unit: ["%", "%"],
+                color: "#91DBBC",
+              },
+                            {
+                id: 2,
+                displayId: 2,
+                title: "Accepts to shedule demo presentation.",
+                prob: 25,
+                impact: [30, 70],
+                unit: ["%", "%"],
+                color: "#91DBBC",
+              },
+            ],
+          ],
+          // ---- Connected Shapes ----
+          // ["outcomeVariables0", "scenarioVariables_1#1"]
+          connectedShapes: [
+            ["scenarioVariables_1#0", "scenarioVariables_2#0"],
+            ["scenarioVariables_1#0", "scenarioVariables_2#1"],
+            ["scenarioVariables_1#0", "scenarioVariables_2#2"],
+            ["scenarioVariables_1#0", "scenarioVariables_2#1"],
+            ["scenarioVariables_1#1", "scenarioVariables_2#1"],
+            ["scenarioVariables_1#1", "scenarioVariables_2#2"],
+          ],
+          connectedShapesOutput: [],
+          // ---- Return Cache ----
+
+          returnCache: {
+            returnIndex: 0,
+            values: [],
+          },
+        },
+        fantasyDraft: {
+          // ---- UI ----
+          ui: {
+            colorful: true,
+            dark: false,
+            // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
+            uiStep: 0,
+          },
+          // ---- User Data
+          user: {
+            login: false,
+            id: null,
+            fileName: null,
+            // put in a time here
+            lastChanged: null,
+          },
+
+          // ---- Variables ----
+
+          outcomeVariables: [
+            {
+              id: 0,
+              displayId: 0,
+              title: "Draft success",
+              color: "#85E0FF",
+              top: 6,
+              left: 4,
+            }
+          ],
+          scenarioVariables: [
+            [
+              {
+                id: 0,
+                displayId: 0,
+                title: "Drafted LeBron",
+                prob: 15,
+                impact: [20],
+                unit: ["%"],
+                color: "#91DBBC",
+              },
+              {
+                id: 1,
+                displayId: 1,
+                title: "Drafted highest projected player",
+                prob: 10,
+                impact: [12],
+                unit: ["%"],
+                color: "#91DBBC",
+              },
+                            {
+                id: 2,
+                displayId: 2,
+                title: "Drafted another player",
+                prob: 40,
+                impact: [-20],
+                unit: ["%"],
+                color: "#91DBBC",
+              },
+            ],
+            [
+              {
+                id: 0,
+                displayId: 0,
+                title: "Don't have any major injuries in lineup",
+                prob: 25,
+                impact: [40],
+                unit: ["%"],
+                color: "#F2E5AA",
+              },
+              {
+                id: 1,
+                displayId: 1,
+                title: "First round pick gets injured",
+                prob: 5,
+                impact: [-15],
+                unit: ["%"],
+                color: "#91DBBC",
+              },
+            ],
+          ],
+          // ---- Connected Shapes ----
+          // ["outcomeVariables0", "scenarioVariables_1#1"]
+          connectedShapes: [
+            ["scenarioVariables_1#0", "scenarioVariables_2#0"],
+            ["scenarioVariables_1#0", "scenarioVariables_2#1"],
+            ["scenarioVariables_1#1", "scenarioVariables_2#0"],
+            ["scenarioVariables_1#1", "scenarioVariables_2#1"],
           ],
           connectedShapesOutput: [],
           // ---- Return Cache ----

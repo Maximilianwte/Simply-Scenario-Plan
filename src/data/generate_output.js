@@ -36,8 +36,8 @@ let output_functions = {
                 if (output[outputVars[i].title].length > 0) {
                   var otherObject = output[outputVars[i].title].find(
                     (element) =>
-                      element.list == pathOtherVar.scenarioLayer &&
-                      element.id == pathOtherVar.varId
+                    element.list == pathOtherVar.scenarioLayer &&
+                    element.id == pathOtherVar.varId
                   );
                   if (otherObject == undefined) {
                     console.log("outputVar ", outputVars[i].title);
@@ -66,9 +66,9 @@ let output_functions = {
                       impact: curVar.impact[i],
                       unit: curVar.unit[i],
                     };
-                    outputVars[i].title in output
-                      ? output[outputVars[i].title].push(item)
-                      : (output[outputVars[i].title] = [item]);
+                    outputVars[i].title in output ?
+                      output[outputVars[i].title].push(item) :
+                      (output[outputVars[i].title] = [item]);
                   }
                   break;
                 }
@@ -88,9 +88,9 @@ let output_functions = {
                 impact: curVar.impact[i],
                 unit: curVar.unit[i],
               };
-              outputVars[i].title in output
-                ? output[outputVars[i].title].push(item)
-                : (output[outputVars[i].title] = [item]);
+              outputVars[i].title in output ?
+                output[outputVars[i].title].push(item) :
+                (output[outputVars[i].title] = [item]);
             }
           }
         }
@@ -130,46 +130,14 @@ let output_functions = {
           for (var k = 0; k < connectedVarPaths.length; k++) {
             var layerInObject = connectedVarPaths[k].scenarioLayer - 1;
             var idInObject = connectedVarPaths[k].varId;
-            output[outputVars[i].title][layerInObject] == undefined
-              ? (output[outputVars[i].title][layerInObject] = [])
-              : null;
-              if (
-                output[outputVars[i].title][layerInObject].find(
-                  item => (item.id == idInObject)
-                ) == undefined
-              ) {
-            output[outputVars[i].title][layerInObject].push({
-              title: scenarioVars[layerInObject][idInObject].title,
-              id: scenarioVars[layerInObject][idInObject].id,
-              prob: scenarioVars[layerInObject][idInObject].prob,
-              // here I should multiply with the var before
-              pathProb: scenarioVars[layerInObject][idInObject].prob,
-              impact: scenarioVars[layerInObject][idInObject].impact[i],
-              unit: scenarioVars[layerInObject][idInObject].unit[i],
-              color: scenarioVars[layerInObject][idInObject].color,
-            });}
-          }
-        }
-      }
-/*       for (var j = 1; j < output[outputVars[i].title].length; j++) {
-        for (var l = 0; l < output[outputVars[i].title][j].length; l++) {
-          var connectedVarPaths = this.findConnectedVariables(
-            j,
-            output[outputVars[i].title][j][l].id
-          );
-          for (var k = 0; k < connectedVarPaths.length; k++) {
-            var layerInObject = connectedVarPaths[k].scenarioLayer - 1;
-            var idInObject = connectedVarPaths[k].varId;
-            output[outputVars[i].title][layerInObject] == undefined
-              ? (output[outputVars[i].title][layerInObject] = [])
-              : null;
+            output[outputVars[i].title][layerInObject] == undefined ?
+              (output[outputVars[i].title][layerInObject] = []) :
+              null;
             if (
               output[outputVars[i].title][layerInObject].find(
                 item => (item.id == idInObject)
               ) == undefined
             ) {
-              console.log(output[outputVars[i].title][layerInObject])
-              console.log(scenarioVars[layerInObject][idInObject].title)
               output[outputVars[i].title][layerInObject].push({
                 title: scenarioVars[layerInObject][idInObject].title,
                 id: scenarioVars[layerInObject][idInObject].id,
@@ -183,7 +151,40 @@ let output_functions = {
             }
           }
         }
-      } */
+      }
+      /*       for (var j = 1; j < output[outputVars[i].title].length; j++) {
+              for (var l = 0; l < output[outputVars[i].title][j].length; l++) {
+                var connectedVarPaths = this.findConnectedVariables(
+                  j,
+                  output[outputVars[i].title][j][l].id
+                );
+                for (var k = 0; k < connectedVarPaths.length; k++) {
+                  var layerInObject = connectedVarPaths[k].scenarioLayer - 1;
+                  var idInObject = connectedVarPaths[k].varId;
+                  output[outputVars[i].title][layerInObject] == undefined
+                    ? (output[outputVars[i].title][layerInObject] = [])
+                    : null;
+                  if (
+                    output[outputVars[i].title][layerInObject].find(
+                      item => (item.id == idInObject)
+                    ) == undefined
+                  ) {
+                    console.log(output[outputVars[i].title][layerInObject])
+                    console.log(scenarioVars[layerInObject][idInObject].title)
+                    output[outputVars[i].title][layerInObject].push({
+                      title: scenarioVars[layerInObject][idInObject].title,
+                      id: scenarioVars[layerInObject][idInObject].id,
+                      prob: scenarioVars[layerInObject][idInObject].prob,
+                      // here I should multiply with the var before
+                      pathProb: scenarioVars[layerInObject][idInObject].prob,
+                      impact: scenarioVars[layerInObject][idInObject].impact[i],
+                      unit: scenarioVars[layerInObject][idInObject].unit[i],
+                      color: scenarioVars[layerInObject][idInObject].color,
+                    });
+                  }
+                }
+              }
+            } */
     }
     return output;
   },
@@ -239,64 +240,64 @@ let output_functions = {
       calculationData.likelihood.sort((a, b) => a - b);
       calculationData.consequence.sort((a, b) => a - b);
       const medianL =
-          calculationData.likelihood[
-            (calculationData.likelihood.length / 2).toFixed(0) - 1
-          ],
+        calculationData.likelihood[
+          (calculationData.likelihood.length / 2).toFixed(0) - 1
+        ],
         medianC =
-          calculationData.consequence[
-            (calculationData.likelihood.length / 2).toFixed(0) - 1
-          ];
+        calculationData.consequence[
+          (calculationData.likelihood.length / 2).toFixed(0) - 1
+        ];
       output[outputVars[i].title] = {
         lowLLowC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb <= medianL * 0.66 &&
-            item.impactAsAbsNumber <= medianC * 0.66
+          item.pathProb <= medianL * 0.66 &&
+          item.impactAsAbsNumber <= medianC * 0.66
         ),
         medLLowC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > medianL * 0.66 &&
-            item.pathProb <= medianL * 1.75 &&
-            item.impactAsAbsNumber <= medianC * 0.66
+          item.pathProb > medianL * 0.66 &&
+          item.pathProb <= medianL * 1.75 &&
+          item.impactAsAbsNumber <= medianC * 0.66
         ),
         highLLowC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > medianL * 1.75 &&
-            item.impactAsAbsNumber <= medianC * 0.66
+          item.pathProb > medianL * 1.75 &&
+          item.impactAsAbsNumber <= medianC * 0.66
         ),
         lowLMedC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb <= medianL * 0.66 &&
-            item.impactAsAbsNumber > medianC * 0.66 &&
-            item.impactAsAbsNumber <= medianC * 1.75
+          item.pathProb <= medianL * 0.66 &&
+          item.impactAsAbsNumber > medianC * 0.66 &&
+          item.impactAsAbsNumber <= medianC * 1.75
         ),
         medLMedC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > medianL * 0.66 &&
-            item.pathProb <= medianL * 1.75 &&
-            item.impactAsAbsNumber > medianC * 0.66 &&
-            item.impactAsAbsNumber <= medianC * 1.75
+          item.pathProb > medianL * 0.66 &&
+          item.pathProb <= medianL * 1.75 &&
+          item.impactAsAbsNumber > medianC * 0.66 &&
+          item.impactAsAbsNumber <= medianC * 1.75
         ),
         highLMedC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > medianL * 1.75 &&
-            item.impactAsAbsNumber > medianC * 0.66 &&
-            item.impactAsAbsNumber <= medianC * 1.75
+          item.pathProb > medianL * 1.75 &&
+          item.impactAsAbsNumber > medianC * 0.66 &&
+          item.impactAsAbsNumber <= medianC * 1.75
         ),
         lowLHighC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb <= medianL * 0.66 &&
-            item.impactAsAbsNumber > medianC * 1.75
+          item.pathProb <= medianL * 0.66 &&
+          item.impactAsAbsNumber > medianC * 1.75
         ),
         medLHighC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > medianL * 0.66 &&
-            item.pathProb <= medianL * 1.75 &&
-            item.impactAsAbsNumber > medianC * 1.75
+          item.pathProb > medianL * 0.66 &&
+          item.pathProb <= medianL * 1.75 &&
+          item.impactAsAbsNumber > medianC * 1.75
         ),
         highLHighC: inputData[outputVars[i].title].filter(
           (item) =>
-            item.pathProb > medianL * 1.75 &&
-            item.impactAsAbsNumber > medianC * 1.75
+          item.pathProb > medianL * 1.75 &&
+          item.impactAsAbsNumber > medianC * 1.75
         ),
       };
     }
@@ -351,14 +352,16 @@ let output_functions = {
 
       output[outputVars[i].title] = {
         labels: [" "],
-        series: [[0]],
+        series: [
+          [0]
+        ],
       };
 
       for (var j = 0; j < calculationData.consequence.length; j++) {
         var filteredItems = inputData[outputVars[i].title].filter(
           (item) => item.impactAsNumber == calculationData.consequence[j]
         );
-        filteredItems.forEach(function(item) {
+        filteredItems.forEach(function (item) {
           if (item.pathProb != 0) {
             output[outputVars[i].title].labels.push(item.impact + item.unit);
             output[outputVars[i].title].series[0].push(
@@ -373,9 +376,95 @@ let output_functions = {
     }
     return output;
   },
+  buildText2() {
+    var output = {};
+    const outputVars = store.state.outcomeVariables;
+    const inputData = this.aggregateImpacts();
+    for (var i = 0; i < outputVars.length; i++) {
+      var calculationData = {
+        likelihood: [],
+        consequence: [],
+      };
+      inputData[outputVars[i].title] = inputData[outputVars[i].title].filter(
+        (item) => item.impact != 0
+      );
+
+      for (var j = 0; j < inputData[outputVars[i].title].length; j++) {
+        // calculate impact as number instead of "k", "m", "b" units
+        switch (inputData[outputVars[i].title][j].unit) {
+          case " ": {
+            var multiplier = 1;
+            break;
+          }
+          case "k": {
+            multiplier = 1000;
+            break;
+          }
+          case "m": {
+            multiplier = 1 * 10 ** 6;
+            break;
+          }
+          case "b": {
+            multiplier = 1 * 10 ** 9;
+            break;
+          }
+          default: {
+            multiplier = 1;
+            break;
+          }
+        }
+        inputData[outputVars[i].title][j].impactAsAbsNumber = Math.abs(
+          inputData[outputVars[i].title][j].impact * multiplier
+        );
+        // build array of all likelihoods and impacts first to check whats how high compared
+        calculationData.likelihood.push(
+          inputData[outputVars[i].title][j].pathProb
+        );
+        calculationData.consequence.push(
+          inputData[outputVars[i].title][j].impactAsAbsNumber
+        );
+      }
+
+      calculationData.likelihood.sort((a, b) => a - b);
+      calculationData.consequence.sort((a, b) => a - b);
+      const medianL =
+        calculationData.likelihood[
+          (calculationData.likelihood.length / 2).toFixed(0) - 1
+        ],
+        medianC =
+        calculationData.consequence[
+          (calculationData.likelihood.length / 2).toFixed(0) - 1
+        ];
+
+      // build text for var with maximum positive consequence
+      var variable = inputData[outputVars[i].title].find(item => item.impactAsAbsNumber == calculationData.consequence[calculationData.consequence.length-1])
+      var slctText = "The variable with the highest positive impact for success in variable {outputvar} is {variable}. The impact is {impact} and the estimated probability for occuring is {prob} %. Is there any way of increasing the likelihood that variable {variable} occurs?"
+      slctText = slctText.replace("{outputvar}", outputVars[i].title);
+      slctText = slctText.replace("{variable}", variable.title);
+      slctText = slctText.replace("{variable}", variable.title);
+      slctText = slctText.replace("{impact}", variable.impact + " " + variable.unit);
+      slctText = slctText.replace("{prob}", variable.pathProb);
+      var slctTextMaxC = slctText;
+
+      // build text for var with maximum negative consequence
+      variable = inputData[outputVars[i].title].find(item => item.impactAsAbsNumber == calculationData.consequence[0])
+      slctText = "The variable with the highest negative impact for success in variable {outputvar} is {variable}. The impact is {impact} and the estimated probability for occuring is {prob} %. Is there any way, you could lower the likelihood of that variable {variable} occuring?"
+      slctText = slctText.replace("{outputvar}", outputVars[i].title);
+      slctText = slctText.replace("{variable}", variable.title);
+      slctText = slctText.replace("{variable}", variable.title);
+      slctText = slctText.replace("{impact}", variable.impact + " " + variable.unit);
+      slctText = slctText.replace("{prob}", variable.pathProb);
+      var slctTextMaxNegC = slctText;
+
+      output[outputVars[i].title] = {
+        "maximumConsequence": slctTextMaxC,
+        "maximumNegConsequence": slctTextMaxNegC
+      }
+    }
+    return output;
+  },
   buildText(variable, index) {
-    const impactTexts = [
-      {
+    const impactTexts = [{
         text: "The possible impact of '{name}' is {impact}. That's the price of {amount} liters of milk.",
         unit: 0.8,
       },
@@ -417,23 +506,23 @@ let output_functions = {
     }
     var impactAsAbsNumber = Math.abs(variable.impact) * multiplier
     var slctItem = impactTexts[index],
-    slctText = slctItem.text;
+      slctText = slctItem.text;
 
     var amount = Math.round(impactAsAbsNumber / slctItem.unit);
     switch (true) {
-      case (amount > 10**9): {
+      case (amount > 10 ** 9): {
         var unitAdd = "billion";
-        amount = amount / (10**9);
+        amount = amount / (10 ** 9);
         break;
       }
-      case (amount > 10**6): {
+      case (amount > 10 ** 6): {
         var unitAdd = "million";
-        amount = amount / (10**6);
+        amount = amount / (10 ** 6);
         break;
       }
-      case (amount > 10**3): {
+      case (amount > 10 ** 3): {
         var unitAdd = "thousand";
-        amount = amount / (10**3);
+        amount = amount / (10 ** 3);
         break;
       }
       default: {

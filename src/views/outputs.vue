@@ -97,7 +97,7 @@
         <div v-if="showProcessMenu" class="absolute border-2 mt-1 py-2 w-48 px-2 bg-bg rounded">
           <ul>
             <li v-for="item in getOutcomeVariables" :key="item.id">
-              <button class="py-2 cursor-pointer w-full hover:bg-gray-100" @click="setProcess(item.title)">
+              <button class="py-2 cursor-pointer w-full hover:bg-gray-100" @click="setProcess(item)">
                 {{ item.title }}
               </button>
             </li>
@@ -105,10 +105,8 @@
         </div>
       </div>
     </div>
-    <processView class="mt-12" :data="getProcessData[selectedProcess]"
-      :outcomeVar="outcomeVar" />
-    {{getProcessData[selectedProcess]}}
-
+    <processView :data="getProcessData[getSelectedProcess.title]"
+      :outcomeVar="getSelectedProcess" />
     <!-- UI Handling Buttons -->
 
     <div class="fixed left-0 top-0 h-screen">
@@ -131,6 +129,7 @@
   import processView from "../components/processView";
   import textOutput from "../components/textOutput";
   import $ from "jquery";
+  import svgDraw from "../data/svgDraw";
   export default {
     components: {
       tablev1,
@@ -146,7 +145,7 @@
         showProcessMenu: false,
         selectedRiskMatrix: store.state.outcomeVariables[0].title,
         selectedChart: store.state.outcomeVariables[0].title,
-        selectedProcess: store.state.outcomeVariables[0].title,
+        selectedProcess: store.state.outcomeVariables[0],
         chartOptions: {
           height: "300px",
           lineSmooth: true,
@@ -178,6 +177,9 @@
       },
       getSelectedChartValue() {
         return this.selectedChart;
+      },
+      getSelectedProcess() {
+        return this.selectedProcess;
       },
       getDistribution() {
         return output_functions.buildDistribution();
@@ -287,11 +289,12 @@
         this.selectedChart = id;
         this.showDistributionMenu = false;
       },
-      setProcess(id) {
-        this.selectedProcess = id;
+      setProcess(variable) {
+        this.selectedProcess = variable;
         this.showProcessMenu = false;
       },
     },
-    mounted() {},
+    mounted() {
+    },
   };
 </script>
