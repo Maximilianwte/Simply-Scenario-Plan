@@ -384,6 +384,7 @@ let output_functions = {
       var calculationData = {
         likelihood: [],
         consequence: [],
+        consequenceAbs: [],
       };
       inputData[outputVars[i].title] = inputData[outputVars[i].title].filter(
         (item) => item.impact != 0
@@ -413,20 +414,26 @@ let output_functions = {
             break;
           }
         }
+        inputData[outputVars[i].title][j].impactAsNumber = inputData[outputVars[i].title][j].impact * multiplier;
         inputData[outputVars[i].title][j].impactAsAbsNumber = Math.abs(
-          inputData[outputVars[i].title][j].impact * multiplier
+        inputData[outputVars[i].title][j].impactAsNumber
         );
+        
         // build array of all likelihoods and impacts first to check whats how high compared
         calculationData.likelihood.push(
           inputData[outputVars[i].title][j].pathProb
         );
-        calculationData.consequence.push(
+        calculationData.consequenceAbs.push(
           inputData[outputVars[i].title][j].impactAsAbsNumber
+        );
+        calculationData.consequence.push(
+          inputData[outputVars[i].title][j].impactAsNumber
         );
       }
 
       calculationData.likelihood.sort((a, b) => a - b);
       calculationData.consequence.sort((a, b) => a - b);
+      calculationData.consequenceAbs.sort((a, b) => a - b);
       const medianL =
         calculationData.likelihood[
           (calculationData.likelihood.length / 2).toFixed(0) - 1
@@ -437,7 +444,7 @@ let output_functions = {
         ];
 
       // build text for var with maximum positive consequence
-      var variable = inputData[outputVars[i].title].find(item => item.impactAsAbsNumber == calculationData.consequence[calculationData.consequence.length-1])
+      var variable = inputData[outputVars[i].title].find(item => item.impactAsNumber == calculationData.consequence[calculationData.consequence.length-1])
       var slctText = "The variable with the highest positive impact for success in variable {outputvar} is {variable}. The impact is {impact} and the estimated probability for occuring is {prob} %. Is there any way of increasing the likelihood that variable {variable} occurs?"
       slctText = slctText.replace("{outputvar}", outputVars[i].title);
       slctText = slctText.replace("{variable}", variable.title);
@@ -447,7 +454,7 @@ let output_functions = {
       var slctTextMaxC = slctText;
 
       // build text for var with maximum negative consequence
-      variable = inputData[outputVars[i].title].find(item => item.impactAsAbsNumber == calculationData.consequence[0])
+      variable = inputData[outputVars[i].title].find(item => item.impactAsNumber == calculationData.consequence[0])
       slctText = "The variable with the highest negative impact for success in variable {outputvar} is {variable}. The impact is {impact} and the estimated probability for occuring is {prob} %. Is there any way, you could lower the likelihood of that variable {variable} occuring?"
       slctText = slctText.replace("{outputvar}", outputVars[i].title);
       slctText = slctText.replace("{variable}", variable.title);
@@ -456,9 +463,32 @@ let output_functions = {
       slctText = slctText.replace("{prob}", variable.pathProb);
       var slctTextMaxNegC = slctText;
 
+      // build text for var with the median consequence
+      variable = inputData[outputVars[i].title].find(item => item.impactAsNumber == calculationData.consequence[0])
+      slctText = "The median consequence for your variable {outputvar} is {medianC}. The median likelihood on the other hand is {medianL} %. Could better your odds of something positive happening or reduce the impact of a negative scenario?"
+      slctText = slctText.replace("{outputvar}", outputVars[i].title);
+      slctText = slctText.replace("{medianC}", medianC);
+      slctText = slctText.replace("{medianL}", medianL);
+      var slctTextMedianImpact = slctText;
+
       output[outputVars[i].title] = {
         "maximumConsequence": slctTextMaxC,
-        "maximumNegConsequence": slctTextMaxNegC
+        "maximumNegConsequence": slctTextMaxNegC,
+        "medianImpact": slctTextMedianImpact
+      }
+
+      // build text for var with the 3 maximum negative consequence
+      if (calculationData.consequence.length > 3) {
+        var variable1 = inputData[outputVars[i].title].find(item => item.impactAsNumber == calculationData.consequence[0]),
+        variable2 = inputData[outputVars[i].title].find(item => item.impactAsNumber == calculationData.consequence[1]),
+        variable3 = inputData[outputVars[i].title].find(item => item.impactAsNumber == calculationData.consequence[2]);
+        slctText = 'The variables with the largest negative impact for your your variable {outputvar} are "{variable1}", "{variable2}" and "{variable3}". Is there a way you could reduce the impact or the likelihood of one of these?'
+        slctText = slctText.replace("{outputvar}", outputVars[i].title);
+        slctText = slctText.replace("{variable1}", variable1.title);
+        slctText = slctText.replace("{variable2}", variable2.title);
+        slctText = slctText.replace("{variable3}", variable3.title);
+        var slctText3MaxNegC = slctText;
+        output[outputVars[i].title]["3maximumNegConsequence"] = slctText3MaxNegC;
       }
     }
     return output;
