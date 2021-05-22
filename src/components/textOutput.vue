@@ -52,23 +52,29 @@
       };
     },
     computed: {
-      getText() {
-        return output_functions.buildText2()
-      },
       getOutcomeVars() {
         return store.state.outcomeVariables;
-      }
+      },
+      getText() {
+        return output_functions.buildText2();
+      },
     },
     methods: {
       startSlide: function () {
         this.timer = setInterval(this.next, 15000);
       },
+
       next: function () {
+        /* this.outcomeVarIndex = Math.round(Math.random() * (this.getOutcomeVars.length - 1));
+        this.outcomeVarTitle = this.getOutcomeVars[this.outcomeVarIndex].title;
+        if (this.getScenarioVars[this.outcomeVarIndex].length > 3) {
+          this.options.push("3maximumNegConsequence")
+        }
+        this.index = Math.round(Math.random() * (this.options.length - 1));
+        this.activeKey = this.options[this.index];
+        this.activeText = this.getText(this.outcomeVarIndex, this.activeKey); */
         this.outcomeVarIndex = Math.round(Math.random() * (this.getOutcomeVars.length - 1));
         this.outcomeVarTitle = this.getOutcomeVars[this.outcomeVarIndex].title;
-        if (this.getText[this.outcomeVarTitle] == undefined) {
-          console.log(this.getText)
-        }
         var keys = Object.keys(this.getText[this.outcomeVarTitle])
         this.index = Math.round(Math.random() * (keys.length - 1));
         this.activeKey = keys[this.index];
@@ -78,7 +84,6 @@
     mounted() {
       this.next();
       this.startSlide();
-      console.log(this.getText)
     },
   };
 </script>

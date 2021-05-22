@@ -493,6 +493,114 @@ let output_functions = {
     }
     return output;
   },
+  /* This was a try of an alternative method, but doesnt seem more efficient. */
+  buildText3(outcomeVarId, key) {
+    const outputVar = store.state.outcomeVariables[outcomeVarId];
+    const inputData = this.aggregateImpacts();
+      var calculationData = {
+        likelihood: [],
+        consequence: [],
+        consequenceAbs: [],
+      };
+      inputData[outputVar.title] = inputData[outputVar.title].filter(
+        (item) => item.impact != 0
+      );
+
+      for (var j = 0; j < inputData[outputVar.title].length; j++) {
+        // calculate impact as number instead of "k", "m", "b" units
+        switch (inputData[outputVar.title][j].unit) {
+          case " ": {
+            var multiplier = 1;
+            break;
+          }
+          case "k": {
+            multiplier = 1000;
+            break;
+          }
+          case "m": {
+            multiplier = 1 * 10 ** 6;
+            break;
+          }
+          case "b": {
+            multiplier = 1 * 10 ** 9;
+            break;
+          }
+          default: {
+            multiplier = 1;
+            break;
+          }
+        }
+        inputData[outputVar.title][j].impactAsNumber = inputData[outputVar.title][j].impact * multiplier;
+        inputData[outputVar.title][j].impactAsAbsNumber = Math.abs(
+        inputData[outputVar.title][j].impactAsNumber
+        );
+        
+        // build array of all likelihoods and impacts first to check whats how high compared
+        calculationData.likelihood.push(
+          inputData[outputVar.title][j].pathProb
+        );
+        calculationData.consequenceAbs.push(
+          inputData[outputVar.title][j].impactAsAbsNumber
+        );
+        calculationData.consequence.push(
+          inputData[outputVar.title][j].impactAsNumber
+        );
+      }
+
+      calculationData.likelihood.sort((a, b) => a - b);
+      calculationData.consequence.sort((a, b) => a - b);
+      calculationData.consequenceAbs.sort((a, b) => a - b);
+      const medianL =
+        calculationData.likelihood[
+          (calculationData.likelihood.length / 2).toFixed(0) - 1
+        ],
+        medianC =
+        calculationData.consequence[
+          (calculationData.likelihood.length / 2).toFixed(0) - 1
+        ];
+
+      switch (key) {
+        case "maximumConsequence": {
+          var variable = inputData[outputVar.title].find(item => item.impactAsNumber == calculationData.consequence[calculationData.consequence.length-1])
+          var slctText = "The variable with the highest positive impact for success in variable {outputvar} is {variable}. The impact is {impact} and the estimated probability for occuring is {prob} %. Is there any way of increasing the likelihood that variable {variable} occurs?"
+          slctText = slctText.replace("{outputvar}", outputVars[i].title);
+          slctText = slctText.replace("{variable}", variable.title);
+          slctText = slctText.replace("{variable}", variable.title);
+          slctText = slctText.replace("{impact}", variable.impact + " " + variable.unit);
+          slctText = slctText.replace("{prob}", variable.pathProb);
+          return slctText;
+        }
+        case "maximumNegConsequence": {
+          variable = inputData[outputVar.title].find(item => item.impactAsNumber == calculationData.consequence[0])
+          slctText = "The variable with the highest negative impact for success in variable {outputvar} is {variable}. The impact is {impact} and the estimated probability for occuring is {prob} %. Is there any way, you could lower the likelihood of that variable {variable} occuring?"
+          slctText = slctText.replace("{outputvar}", outputVars[i].title);
+          slctText = slctText.replace("{variable}", variable.title);
+          slctText = slctText.replace("{variable}", variable.title);
+          slctText = slctText.replace("{impact}", variable.impact + " " + variable.unit);
+          slctText = slctText.replace("{prob}", variable.pathProb);
+          return slctText;
+        }
+        case "medianImpact": {
+          variable = inputData[outputVar.title].find(item => item.impactAsNumber == calculationData.consequence[0])
+          slctText = "The median consequence for your variable {outputvar} is {medianC}. The median likelihood on the other hand is {medianL} %. Could better your odds of something positive happening or reduce the impact of a negative scenario?"
+          slctText = slctText.replace("{outputvar}", outputVars[i].title);
+          slctText = slctText.replace("{medianC}", medianC);
+          slctText = slctText.replace("{medianL}", medianL);
+          return slctText;
+        }
+        case "3maximumNegConsequence": {
+          var variable1 = inputData[outputVars[i].title].find(item => item.impactAsNumber == calculationData.consequence[0]),
+        variable2 = inputData[outputVars[i].title].find(item => item.impactAsNumber == calculationData.consequence[1]),
+        variable3 = inputData[outputVars[i].title].find(item => item.impactAsNumber == calculationData.consequence[2]);
+        slctText = 'The variables with the largest negative impact for your your variable {outputvar} are "{variable1}", "{variable2}" and "{variable3}". Is there a way you could reduce the impact or the likelihood of one of these?'
+        slctText = slctText.replace("{outputvar}", outputVars[i].title);
+        slctText = slctText.replace("{variable1}", variable1.title);
+        slctText = slctText.replace("{variable2}", variable2.title);
+        slctText = slctText.replace("{variable3}", variable3.title);
+        return slctText;
+        }
+      }
+  },
   buildText(variable, index) {
     const impactTexts = [{
         text: "The possible impact of '{name}' is {impact}. That's the price of {amount} liters of milk.",

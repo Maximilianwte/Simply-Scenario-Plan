@@ -2,9 +2,7 @@
   <div id="home" class="px-6 md:px-12">
     <div id="top" class="lg:flex min-h-screen pt-24 relative">
       <div class="left lg:w-1/2 flex-col lg:block">
-        <h2
-          class="text-6xl w-80 lg:ml-24 text-center lg:text-left font-extrabold"
-        >
+        <h2 class="text-6xl w-80 lg:ml-24 text-center lg:text-left font-extrabold">
           Bad things happen
         </h2>
         <!-- <div class="forProjects flex mt-40 text-center mx-12 text-xl">
@@ -58,15 +56,9 @@
       </div>
       <div class="arrowBounce absolute bottom-0 mb-8 centerX">
         <a href="#video" alt="Scroll down" title="More content below">
-          <svg
-            class="w-8"
-            version="1.0"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-          >
+          <svg class="w-8" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path
-              d="M249.2 1.1c-4.5 1.3-10.8 8-12.1 12.6-.8 2.6-1.1 69.9-1.1 216.8v213l-36.7-36.7c-20.3-20.2-38.1-37.2-39.6-37.8-3.7-1.3-11.8-1.3-15.4.1-9.7 3.6-14.9 16.7-10.5 26.1 2 4.3 106.2 110.4 112 114 5.2 3.3 15.2 3.3 20.4 0 5.8-3.6 110-109.7 112-114 4.4-9.4-.8-22.5-10.5-26.1-4-1.5-12.2-1.4-16 .3-1.8.8-19.2 17.4-39.2 37.5l-36 36.1-.5-214.7-.5-214.8-2.4-3.8c-4.7-7.6-15.1-11.3-23.9-8.6z"
-            />
+              d="M249.2 1.1c-4.5 1.3-10.8 8-12.1 12.6-.8 2.6-1.1 69.9-1.1 216.8v213l-36.7-36.7c-20.3-20.2-38.1-37.2-39.6-37.8-3.7-1.3-11.8-1.3-15.4.1-9.7 3.6-14.9 16.7-10.5 26.1 2 4.3 106.2 110.4 112 114 5.2 3.3 15.2 3.3 20.4 0 5.8-3.6 110-109.7 112-114 4.4-9.4-.8-22.5-10.5-26.1-4-1.5-12.2-1.4-16 .3-1.8.8-19.2 17.4-39.2 37.5l-36 36.1-.5-214.7-.5-214.8-2.4-3.8c-4.7-7.6-15.1-11.3-23.9-8.6z" />
           </svg>
         </a>
       </div>
@@ -77,9 +69,7 @@
       </div>
       <div class="cta flex-col mt-6">
         <router-link to="/register">
-          <button
-            class="bg-focus hover:bg-main text-white text-xl rounded py-2 px-4"
-          >
+          <button class="bg-focus hover:bg-main text-white text-xl rounded py-2 px-4">
             Register
           </button>
         </router-link>
@@ -88,30 +78,19 @@
       <div id="template" class="flex mt-64 border rounded">
         <div class="left h-full md:w-1/4 border-r-2">
           <p class="mt-4 ml-4 mb-2 text-alternative">Templates</p>
-          <ul
-            @mouseleave="
+          <ul @mouseleave="
               setMouse != true ? (activeHoverTemplate = 'smallBusiness') : ''
-            "
-          >
-            <li
-              class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
-              @click="setMouse = true"
-              @mouseover="activeHoverTemplate = 'smallBusiness'"
-            >
+            ">
+            <li class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer" @click="setMouse = true"
+              @mouseover="activeHoverTemplate = 'smallBusiness'">
               Small Business Plan
             </li>
-            <li
-              class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
-              @click="setMouse = true"
-              @mouseover="activeHoverTemplate = 'salesPitch'"
-            >
+            <li class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer" @click="setMouse = true"
+              @mouseover="activeHoverTemplate = 'salesPitch'">
               Sales Pitch Scenario Plan
             </li>
-            <li
-              class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer"
-              @click="setMouse = true"
-              @mouseover="activeHoverTemplate = 'fantasyDraft'"
-            >
+            <li class="px-4 py-2 bg-gray-100 hover:bg-gray-300 cursor-pointer" @click="setMouse = true"
+              @mouseover="activeHoverTemplate = 'fantasyDraft'">
               Fantasy Basketball Draft Plan
             </li>
           </ul>
@@ -121,8 +100,7 @@
 
           <button
             class="bg-main hover:bg-alternative absolute bottom-0 right-0 mb-4 mr-6 text-white text w-48 rounded py-2 px-4"
-            @click="clickStartWithTemplate"
-          >
+            @click="clickStartWithTemplate">
             Start customizing the template
           </button>
         </div>
@@ -145,10 +123,7 @@
                     Release in {{ getDayToRelease("05/20/2021") }} days.
                   </p>
                 </div>
-                <progressBar
-                  class=""
-                  :loadState="getLoadState('05/19/2021', 40)"
-                />
+                <progressBar class="" :loadState="getLoadState('05/19/2021', 40)" />
               </li>
               <li class="flex items-center justify-between mt-4">
                 <div class="text">
@@ -157,10 +132,7 @@
                     Release in {{ getDayToRelease("05/31/2021") }} days.
                   </p>
                 </div>
-                <progressBar
-                  class=""
-                  :loadState="getLoadState('05/31/2021', 40)"
-                />
+                <progressBar class="" :loadState="getLoadState('05/31/2021', 40)" />
               </li>
             </ul>
           </div>
@@ -174,29 +146,19 @@
             <ul class="mt-8 mb-4">
               <li class="flex items-center">
                 <h6 class="mr-4">1. More colors</h6>
-                <button
-                  class="bg-focus hover:bg-main text-white rounded px-4 py-2"
-                >
+                <button class="bg-focus hover:bg-main text-white rounded px-4 py-2">
                   Vote
                 </button>
               </li>
               <li class="flex items-center mt-4">
                 <h6 class="mr-4">2. Saving all data</h6>
-                <button
-                  class="bg-focus hover:bg-main text-white rounded px-4 py-2"
-                >
+                <button class="bg-focus hover:bg-main text-white rounded px-4 py-2">
                   Vote
                 </button>
               </li>
               <li class="flex items-center mt-4">
-                <input
-                  type="text"
-                  class="w-40 border-2 rounded mr-4"
-                  placeholder="3. New input"
-                />
-                <button
-                  class="bg-focus hover:bg-main text-white rounded px-4 py-2"
-                >
+                <input type="text" class="w-40 border-2 rounded mr-4" placeholder="3. New input" />
+                <button class="bg-focus hover:bg-main text-white rounded px-4 py-2">
                   Vote
                 </button>
               </li>
@@ -210,28 +172,21 @@
             <button class="rounded py-1 px-2 mx-2">Register</button>
           </router-link>
           <router-link to="/login">
-            <button
-              class="border-2 border-main hover:border-alternative hover:text-alternative rounded py-1 px-2"
-            >
+            <button class="border-2 border-main hover:border-alternative hover:text-alternative rounded py-1 px-2">
               Login
             </button>
           </router-link>
         </template>
         <template v-else id="LoggedIn">
           <router-link to="/app">
-            <button
-              class="border-2 border-main hover:border-alternative hover:text-alternative rounded py-1 px-2"
-            >
+            <button class="border-2 border-main hover:border-alternative hover:text-alternative rounded py-1 px-2">
               Start App
             </button>
           </router-link>
           <router-link to="/profile">
             <button class="py-1 px-2 hover:text-alternative">Profile</button>
           </router-link>
-          <button
-            class="py-1 px-2 hover:text-alternative"
-            @click="handleLogout"
-          >
+          <button class="py-1 px-2 hover:text-alternative" @click="handleLogout">
             Logout
           </button>
         </template>
@@ -245,379 +200,376 @@
   </div>
 </template>
 <script>
-import carousel from "../components/svgCarousel";
-import progressBar from "../components/progressBar";
-import store from "../store";
-export default {
-  components: { carousel, progressBar },
-  data() {
-    return {
-      setMouse: false,
-      activeHoverTemplate: "smallBusiness",
-    };
-  },
-  computed: {
-    getTemplateImage() {
-      switch (this.activeHoverTemplate) {
-        case "smallBusiness": {
-          return "template1.png";
+  import carousel from "../components/svgCarousel";
+  import progressBar from "../components/progressBar";
+  import store from "../store";
+  export default {
+    components: {
+      carousel,
+      progressBar
+    },
+    data() {
+      return {
+        setMouse: false,
+        activeHoverTemplate: "smallBusiness",
+      };
+    },
+    computed: {
+      getTemplateImage() {
+        switch (this.activeHoverTemplate) {
+          case "smallBusiness": {
+            return "template1.png";
+          }
+          case "salesPitch": {
+            return "salesPitchPathHere";
+          }
+          default: {
+            return "show image here of the template";
+          }
         }
-        case "salesPitch": {
-          return "salesPitchPathHere";
-        }
-        default: {
-          return "show image here of the template";
-        }
-      }
+      },
+      getLogin() {
+        return store.state.user.login;
+      },
     },
-    getLogin() {
-      return store.state.user.login;
-    },
-  },
-  methods: {
-    resolve_img_url: function (path) {
-      let images = require.context("../assets/", false, /\.png$|\.jpg$/);
-      return images("./" + path);
-    },
-    getDayToRelease(releaseDay) {
-      var release = new Date(releaseDay);
-      var today = new Date();
-      var difference = Math.round(
-        (release.getTime() - today.getTime()) / (1000 * 3600 * 24)
-      );
+    methods: {
+      resolve_img_url: function (path) {
+        let images = require.context("../assets/", false, /\.png$|\.jpg$/);
+        return images("./" + path);
+      },
+      getDayToRelease(releaseDay) {
+        var release = new Date(releaseDay);
+        var today = new Date();
+        var difference = Math.round(
+          (release.getTime() - today.getTime()) / (1000 * 3600 * 24)
+        );
 
-      return difference > 0 ? difference : "0";
-    },
-    getLoadState(releaseDay, fullDevTime) {
-      var untilRelease = this.getDayToRelease(releaseDay);
-      return Math.round(100 - (untilRelease / fullDevTime) * 100);
-    },
-    clickStartWithTemplate() {
-      const states = {
-        smallBusiness: {
-          // ---- UI ----
-          ui: {
-            colorful: true,
-            dark: false,
-            // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
-            uiStep: 0,
-          },
-          // ---- User Data
-          user: {
-            login: false,
-            id: null,
-            fileName: null,
-            // put in a time here
-            lastChanged: null,
-          },
-
-          // ---- Variables ----
-
-          outcomeVariables: [
-            {
-              id: 0,
-              displayId: 0,
-              title: "Sales",
-              color: "#F2E5AA",
-              top: 6,
-              left: 4,
+        return difference > 0 ? difference : "0";
+      },
+      getLoadState(releaseDay, fullDevTime) {
+        var untilRelease = this.getDayToRelease(releaseDay);
+        return Math.round(100 - (untilRelease / fullDevTime) * 100);
+      },
+      clickStartWithTemplate() {
+        const states = {
+          smallBusiness: {
+            // ---- UI ----
+            ui: {
+              colorful: store.state.ui.colorful,
+              dark: false,
+              // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
+              uiStep: 0,
             },
-            {
-              id: 1,
-              displayId: 1,
-              title: "Employee Happiness",
-              color: "#85E0FF",
-              top: 16,
-              left: 4,
+            // ---- User Data
+            user: {
+              login: store.state.user.login,
+              id: store.state.user.id,
+              email: store.state.user.email,
+              fileName: null,
+              // put in a time here
+              lastChanged: null,
             },
-          ],
-          scenarioVariables: [
-            [
-              {
+
+            // ---- Variables ----
+
+            outcomeVariables: [{
                 id: 0,
                 displayId: 0,
-                title: "Economic Boom",
-                prob: 40,
-                impact: [0, 0],
-                unit: ["", ""],
+                title: "Sales",
                 color: "#F2E5AA",
+                top: 6,
+                left: 4,
               },
               {
                 id: 1,
                 displayId: 1,
-                title: "Economic Recession",
-                prob: 17.5,
-                impact: [0, 0],
-                unit: ["", ""],
-                color: "#91DBBC",
-              },
-            ],
-            [
-              {
-                id: 0,
-                displayId: 0,
-                title: "New product is a success",
-                prob: 40,
-                impact: [20, 7.5],
-                unit: ["%", "%"],
-                color: "#F2E5AA",
-              },
-              {
-                id: 1,
-                displayId: 1,
-                title: "Competitor launches better product",
-                prob: 17.5,
-                impact: [-20, -15],
-                unit: ["%", "%"],
-                color: "#91DBBC",
-              },
-              {
-                id: 2,
-                displayId: 2,
-                title: "Key employee leaves",
-                prob: 17.5,
-                impact: [-5, -30],
-                unit: ["%", "%"],
-                color: "#FFBCB5",
-              },
-            ],
-          ],
-          // ---- Connected Shapes ----
-          // ["outcomeVariables0", "scenarioVariables_1#1"]
-          connectedShapes: [
-            ["scenarioVariables_1#0", "scenarioVariables_2#0"],
-            ["scenarioVariables_1#0", "scenarioVariables_2#1"],
-            ["scenarioVariables_1#0", "scenarioVariables_2#2"],
-            ["scenarioVariables_1#0", "scenarioVariables_2#1"],
-            ["scenarioVariables_1#1", "scenarioVariables_2#1"],
-            ["scenarioVariables_1#1", "scenarioVariables_2#2"],
-          ],
-          connectedShapesOutput: [],
-          // ---- Return Cache ----
-
-          returnCache: {
-            returnIndex: 0,
-            values: [],
-          },
-        },
-        salesPitch: {
-          // ---- UI ----
-          ui: {
-            colorful: true,
-            dark: false,
-            // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
-            uiStep: 0,
-          },
-          // ---- User Data
-          user: {
-            login: false,
-            id: null,
-            fileName: null,
-            // put in a time here
-            lastChanged: null,
-          },
-
-          // ---- Variables ----
-
-          outcomeVariables: [
-            {
-              id: 0,
-              displayId: 0,
-              title: "Sale succesful done",
-              color: "#91DBBC",
-              top: 6,
-              left: 4,
-            },
-            {
-              id: 0,
-              displayId: 0,
-              title: "Lead generated",
-              color: "#F2E5AA",
-              top: 6,
-              left: 4,
-            }
-          ],
-          scenarioVariables: [
-            [
-              {
-                id: 0,
-                displayId: 0,
-                title: "Call accepted",
-                prob: 33,
-                impact: [20, 45],
-                unit: ["%", "%"],
+                title: "Employee Happiness",
                 color: "#85E0FF",
+                top: 16,
+                left: 4,
+              },
+            ],
+            scenarioVariables: [
+              [{
+                  id: 0,
+                  displayId: 0,
+                  title: "Economic Boom",
+                  prob: 40,
+                  impact: [0, 0],
+                  unit: ["", ""],
+                  color: "#F2E5AA",
+                },
+                {
+                  id: 1,
+                  displayId: 1,
+                  title: "Economic Recession",
+                  prob: 17.5,
+                  impact: [0, 0],
+                  unit: ["", ""],
+                  color: "#91DBBC",
+                },
+              ],
+              [{
+                  id: 0,
+                  displayId: 0,
+                  title: "New product is a success",
+                  prob: 40,
+                  impact: [20, 7.5],
+                  unit: ["%", "%"],
+                  color: "#F2E5AA",
+                },
+                {
+                  id: 1,
+                  displayId: 1,
+                  title: "Competitor launches better product",
+                  prob: 17.5,
+                  impact: [-20, -15],
+                  unit: ["%", "%"],
+                  color: "#91DBBC",
+                },
+                {
+                  id: 2,
+                  displayId: 2,
+                  title: "Key employee leaves",
+                  prob: 17.5,
+                  impact: [-5, -30],
+                  unit: ["%", "%"],
+                  color: "#FFBCB5",
+                },
+              ],
+            ],
+            // ---- Connected Shapes ----
+            // ["outcomeVariables0", "scenarioVariables_1#1"]
+            connectedShapes: [
+              ["scenarioVariables_1#0", "scenarioVariables_2#0"],
+              ["scenarioVariables_1#0", "scenarioVariables_2#1"],
+              ["scenarioVariables_1#0", "scenarioVariables_2#2"],
+              ["scenarioVariables_1#0", "scenarioVariables_2#1"],
+              ["scenarioVariables_1#1", "scenarioVariables_2#1"],
+              ["scenarioVariables_1#1", "scenarioVariables_2#2"],
+            ],
+            connectedShapesOutput: [],
+            // ---- Return Cache ----
+
+            returnCache: {
+              returnIndex: 0,
+              values: [],
+            },
+          },
+          salesPitch: {
+            // ---- UI ----
+            ui: {
+              colorful: store.state.ui.colorful,
+              dark: false,
+              // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
+              uiStep: 0,
+            },
+            // ---- User Data
+            user: {
+              login: store.state.user.login,
+              id: store.state.user.id,
+              email: store.state.user.email,
+              fileName: null,
+              // put in a time here
+              lastChanged: null,
+            },
+
+            // ---- Variables ----
+
+            outcomeVariables: [{
+                id: 0,
+                displayId: 0,
+                title: "Sale succesful done",
+                color: "#91DBBC",
+                top: 6,
+                left: 4,
               },
               {
-                id: 1,
-                displayId: 1,
-                title: "Call rejected",
-                prob: 66,
-                impact: [-60, -40],
-                unit: ["%"],
+                id: 0,
+                displayId: 0,
+                title: "Lead generated",
                 color: "#F2E5AA",
+                top: 6,
+                left: 4,
               }
             ],
-            [
-              {
-                id: 0,
-                displayId: 0,
-                title: "Says, he/she has no time",
-                prob: 40,
-                impact: [-40, -25],
-                unit: ["%", "%"],
-                color: "#F2E5AA",
-              },
-              {
-                id: 1,
-                displayId: 1,
-                title: "Shedules next call.",
-                prob: 30,
-                impact: [10, 20],
-                unit: ["%", "%"],
-                color: "#91DBBC",
-              },
-                            {
-                id: 2,
-                displayId: 2,
-                title: "Accepts to shedule demo presentation.",
-                prob: 25,
-                impact: [30, 70],
-                unit: ["%", "%"],
-                color: "#91DBBC",
-              },
+            scenarioVariables: [
+              [{
+                  id: 0,
+                  displayId: 0,
+                  title: "Call accepted",
+                  prob: 33,
+                  impact: [20, 45],
+                  unit: ["%", "%"],
+                  color: "#85E0FF",
+                },
+                {
+                  id: 1,
+                  displayId: 1,
+                  title: "Call rejected",
+                  prob: 66,
+                  impact: [-60, -40],
+                  unit: ["%"],
+                  color: "#F2E5AA",
+                }
+              ],
+              [{
+                  id: 0,
+                  displayId: 0,
+                  title: "Says, he/she has no time",
+                  prob: 40,
+                  impact: [-40, -25],
+                  unit: ["%", "%"],
+                  color: "#F2E5AA",
+                },
+                {
+                  id: 1,
+                  displayId: 1,
+                  title: "Shedules next call.",
+                  prob: 30,
+                  impact: [10, 20],
+                  unit: ["%", "%"],
+                  color: "#91DBBC",
+                },
+                {
+                  id: 2,
+                  displayId: 2,
+                  title: "Accepts to shedule demo presentation.",
+                  prob: 25,
+                  impact: [30, 70],
+                  unit: ["%", "%"],
+                  color: "#91DBBC",
+                },
+              ],
             ],
-          ],
-          // ---- Connected Shapes ----
-          // ["outcomeVariables0", "scenarioVariables_1#1"]
-          connectedShapes: [
-            ["scenarioVariables_1#0", "scenarioVariables_2#0"],
-            ["scenarioVariables_1#0", "scenarioVariables_2#1"],
-            ["scenarioVariables_1#0", "scenarioVariables_2#2"],
-            ["scenarioVariables_1#0", "scenarioVariables_2#1"],
-            ["scenarioVariables_1#1", "scenarioVariables_2#1"],
-            ["scenarioVariables_1#1", "scenarioVariables_2#2"],
-          ],
-          connectedShapesOutput: [],
-          // ---- Return Cache ----
+            // ---- Connected Shapes ----
+            // ["outcomeVariables0", "scenarioVariables_1#1"]
+            connectedShapes: [
+              ["scenarioVariables_1#0", "scenarioVariables_2#0"],
+              ["scenarioVariables_1#0", "scenarioVariables_2#1"],
+              ["scenarioVariables_1#0", "scenarioVariables_2#2"],
+              ["scenarioVariables_1#0", "scenarioVariables_2#1"],
+              ["scenarioVariables_1#1", "scenarioVariables_2#1"],
+              ["scenarioVariables_1#1", "scenarioVariables_2#2"],
+            ],
+            connectedShapesOutput: [],
+            // ---- Return Cache ----
 
-          returnCache: {
-            returnIndex: 0,
-            values: [],
+            returnCache: {
+              returnIndex: 0,
+              values: [],
+            },
           },
-        },
-        fantasyDraft: {
-          // ---- UI ----
-          ui: {
-            colorful: true,
-            dark: false,
-            // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
-            uiStep: 0,
-          },
-          // ---- User Data
-          user: {
-            login: false,
-            id: null,
-            fileName: null,
-            // put in a time here
-            lastChanged: null,
-          },
+          fantasyDraft: {
+            // ---- UI ----
+            ui: {
+              colorful: store.state.ui.colorful,
+              dark: false,
+              // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
+              uiStep: 0,
+            },
+            // ---- User Data
+            user: {
+              login: store.state.user.login,
+              id: store.state.user.id,
+              email: store.state.user.email,
+              fileName: null,
+              // put in a time here
+              lastChanged: null,
+            },
 
-          // ---- Variables ----
+            // ---- Variables ----
 
-          outcomeVariables: [
-            {
+            outcomeVariables: [{
               id: 0,
               displayId: 0,
               title: "Draft success",
               color: "#85E0FF",
               top: 6,
               left: 4,
-            }
-          ],
-          scenarioVariables: [
-            [
-              {
-                id: 0,
-                displayId: 0,
-                title: "Drafted LeBron",
-                prob: 15,
-                impact: [20],
-                unit: ["%"],
-                color: "#91DBBC",
-              },
-              {
-                id: 1,
-                displayId: 1,
-                title: "Drafted highest projected player",
-                prob: 10,
-                impact: [12],
-                unit: ["%"],
-                color: "#91DBBC",
-              },
-                            {
-                id: 2,
-                displayId: 2,
-                title: "Drafted another player",
-                prob: 40,
-                impact: [-20],
-                unit: ["%"],
-                color: "#91DBBC",
-              },
+            }],
+            scenarioVariables: [
+              [{
+                  id: 0,
+                  displayId: 0,
+                  title: "Drafted LeBron",
+                  prob: 15,
+                  impact: [20],
+                  unit: ["%"],
+                  color: "#91DBBC",
+                },
+                {
+                  id: 1,
+                  displayId: 1,
+                  title: "Drafted highest projected player",
+                  prob: 10,
+                  impact: [12],
+                  unit: ["%"],
+                  color: "#91DBBC",
+                },
+                {
+                  id: 2,
+                  displayId: 2,
+                  title: "Drafted another player",
+                  prob: 40,
+                  impact: [-20],
+                  unit: ["%"],
+                  color: "#91DBBC",
+                },
+              ],
+              [{
+                  id: 0,
+                  displayId: 0,
+                  title: "Don't have any major injuries in lineup",
+                  prob: 25,
+                  impact: [40],
+                  unit: ["%"],
+                  color: "#F2E5AA",
+                },
+                {
+                  id: 1,
+                  displayId: 1,
+                  title: "First round pick gets injured",
+                  prob: 5,
+                  impact: [-15],
+                  unit: ["%"],
+                  color: "#91DBBC",
+                },
+              ],
             ],
-            [
-              {
-                id: 0,
-                displayId: 0,
-                title: "Don't have any major injuries in lineup",
-                prob: 25,
-                impact: [40],
-                unit: ["%"],
-                color: "#F2E5AA",
-              },
-              {
-                id: 1,
-                displayId: 1,
-                title: "First round pick gets injured",
-                prob: 5,
-                impact: [-15],
-                unit: ["%"],
-                color: "#91DBBC",
-              },
+            // ---- Connected Shapes ----
+            // ["outcomeVariables0", "scenarioVariables_1#1"]
+            connectedShapes: [
+              ["scenarioVariables_1#0", "scenarioVariables_2#0"],
+              ["scenarioVariables_1#0", "scenarioVariables_2#1"],
+              ["scenarioVariables_1#1", "scenarioVariables_2#0"],
+              ["scenarioVariables_1#1", "scenarioVariables_2#1"],
             ],
-          ],
-          // ---- Connected Shapes ----
-          // ["outcomeVariables0", "scenarioVariables_1#1"]
-          connectedShapes: [
-            ["scenarioVariables_1#0", "scenarioVariables_2#0"],
-            ["scenarioVariables_1#0", "scenarioVariables_2#1"],
-            ["scenarioVariables_1#1", "scenarioVariables_2#0"],
-            ["scenarioVariables_1#1", "scenarioVariables_2#1"],
-          ],
-          connectedShapesOutput: [],
-          // ---- Return Cache ----
+            connectedShapesOutput: [],
+            // ---- Return Cache ----
 
-          returnCache: {
-            returnIndex: 0,
-            values: [],
+            returnCache: {
+              returnIndex: 0,
+              values: [],
+            },
           },
-        },
-      };
-      console.log(states[this.activeHoverTemplate]);
-      store.commit("setCompleteState", states[this.activeHoverTemplate]);
-      // for testing purpose
-      this.$router.push({ path: "app" });
-      return 0;
-      // check login state
-      if (store.state.ui.login == true) {
-        this.$router.push({ path: "app" });
-      } else {
-        this.$router.push({ path: "login", query: { sendFrom: "template" } });
+        };
+        console.log(states[this.activeHoverTemplate]);
+        store.commit("setCompleteState", states[this.activeHoverTemplate]);
+        // for testing purpose
+        this.$router.push({
+          path: "app"
+        });
+        // check login state
+        /* if (store.state.ui.login == true) {
+          this.$router.push({ path: "app" });
+        } else {
+          this.$router.push({ path: "login", query: { sendFrom: "template" } });
+        } */
+      },
+      handleLogout() {
+        store.commit("setLogout");
       }
     },
-    handleLogout() {
-      store.commit("setLogout");
-    }
-  },
-};
+  };
 </script>
