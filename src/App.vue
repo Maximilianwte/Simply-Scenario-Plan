@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="min-h-screen min-w-screen relative text-main bg-bg" :class="getTheme">
+  <div id="app" class="min-h-screen w-screen relative text-main bg-bg" :class="getTheme">
     <router-view />
   </div>
 </template>

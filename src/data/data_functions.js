@@ -32,6 +32,24 @@ let logic_functions = {
       return response
     })
   },
+  voteFeature(title) {
+    var data = {
+      title: title
+    }
+    store.state.user.email != undefined ? data["email"] = store.state.user.email : null;
+    return axios.post(activeURL + "/user_functions/voteFeature", data).then(response => {
+      return response
+    })
+  },
+  askNewFeature(title) {
+    var data = {
+      title: title
+    }
+    store.state.user.email != undefined ? data["email"] = store.state.user.email : null;
+    return axios.post(activeURL + "/user_functions/askNewFeature", data).then(response => {
+      return response
+    })
+  },
   saveOrUpdateState(inFile) {
     return axios.post(activeURL + "/state_functions/save", {id: store.state.user.id, title: inFile.title, state: inFile.state}).then(response => {
       return response

@@ -4,6 +4,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@500;600;800&display=swap');
 
+.w-screen {
+  min-width: 100vw;
+}
+
 body {
   font-family: 'Exo', sans-serif;
   --dark: #2c405a;
@@ -47,7 +51,7 @@ select {
 
 .theme_dark {
   --main: #fff;
-  --alternative: #cacaca;
+  --alternative: #405a7ca9;
   --bg: #252525;
   --focus: #e84855;
 }

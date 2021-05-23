@@ -95,11 +95,11 @@
             </li>
           </ul>
         </div>
-        <div class="right relative md:w-96">
-          <img class="w-full" :src="resolve_img_url(getTemplateImage)" alt="" />
+        <div class="right relative">
+          <img class="w-128" :src="resolve_img_url(getTemplateImage)" alt="" />
 
           <button
-            class="bg-main hover:bg-alternative absolute bottom-0 right-0 mb-4 mr-6 text-white text w-48 rounded py-2 px-4"
+            class="bg-main hover:bg-alternative absolute bottom-0 right-0 mb-4 text-white text w-48 rounded py-2 px-4"
             @click="clickStartWithTemplate">
             Start customizing the template
           </button>
@@ -146,19 +146,19 @@
             <ul class="mt-8 mb-4">
               <li class="flex items-center">
                 <h6 class="mr-4">1. More colors</h6>
-                <button class="bg-focus hover:bg-main text-white rounded px-4 py-2">
+                <button @click="voteFeature('moreColors')" class="bg-focus hover:bg-main text-white rounded px-4 py-2">
                   Vote
                 </button>
               </li>
               <li class="flex items-center mt-4">
                 <h6 class="mr-4">2. Saving all data</h6>
-                <button class="bg-focus hover:bg-main text-white rounded px-4 py-2">
+                <button @click="voteFeature('moreColors')" class="bg-focus hover:bg-main text-white rounded px-4 py-2">
                   Vote
                 </button>
               </li>
               <li class="flex items-center mt-4">
-                <input type="text" class="w-40 border-2 rounded mr-4" placeholder="3. New input" />
-                <button class="bg-focus hover:bg-main text-white rounded px-4 py-2">
+                <input type="text" class="w-40 border-2 rounded mr-4" v-model="newFeatureInput" placeholder="3. New input" />
+                <button @click="askNewFeature()" class="bg-focus hover:bg-main text-white rounded px-4 py-2">
                   Vote
                 </button>
               </li>
@@ -203,6 +203,7 @@
   import carousel from "../components/svgCarousel";
   import progressBar from "../components/progressBar";
   import store from "../store";
+  import data_functions from "../data/data_functions";
   export default {
     components: {
       carousel,
@@ -212,6 +213,7 @@
       return {
         setMouse: false,
         activeHoverTemplate: "smallBusiness",
+        newFeatureInput: null
       };
     },
     computed: {
@@ -219,12 +221,18 @@
         switch (this.activeHoverTemplate) {
           case "smallBusiness": {
             return "template1.png";
+            break
           }
           case "salesPitch": {
-            return "salesPitchPathHere";
+            return "template2.png";
+            break
+          }
+          case "fantasyDraft": {
+            return "template3.png";
+            break
           }
           default: {
-            return "show image here of the template";
+            return "template1.png";
           }
         }
       },
@@ -566,6 +574,14 @@
         } else {
           this.$router.push({ path: "login", query: { sendFrom: "template" } });
         } */
+      },
+      voteForFeature(title) {
+        data_functions.voteFeature(title);
+      },
+      askNewFeature() {
+        if (this.newFeatureInput != null) {
+          data_functions.askNewFeature(this.newFeatureInput);
+        }
       },
       handleLogout() {
         store.commit("setLogout");

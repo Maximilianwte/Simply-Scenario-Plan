@@ -105,7 +105,7 @@
         </div>
       </div>
     </div>
-    <processView :data="getProcessData[getSelectedProcess.title]"
+    <processView class="ml-48 mt-20" :data="getProcessData[getSelectedProcess.title]"
       :outcomeVar="getSelectedProcess" />
     <!-- UI Handling Buttons -->
 

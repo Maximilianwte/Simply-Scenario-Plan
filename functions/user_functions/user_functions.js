@@ -120,6 +120,59 @@ router.post('/update_userAccess/password', function (req, res) {
   })
 })
 
+router.post('/askNewFeature', function (req, res) {
+  var inFile = JSON.parse(req.body)
+  let docRef = db.collection('featureWishDB').where('title', '==', inFile.title).limit(1);
+  docRef.get()
+    .then(snapshot => {
+      if (snapshot.empty) {
+            let docRef2 = db.collection('featureWishDB');
+            docRef2.add({
+              voteCount: doc.data().voteCount + 1,
+              lastVote: new Date().toDateString(),
+              votesFrom: inFile.email != undefined ? doc.data().votesFrom.push(inFile.email) : doc.data().votesFrom
+            }).then(ref => {
+              res.send("New feature wished");
+            })
+      }
+      snapshot.forEach(doc => {
+        doc.data().update({
+          voteCount: doc.data().voteCount + 1,
+          lastVote: new Date().toDateString(),
+          votesFrom: inFile.email != undefined ? doc.data().votesFrom.push(inFile.email) : doc.data().votesFrom
+        }).then(function () {
+          res.send('Feature got new vote.');
+        })
+      });
+    })
+    .catch(err => {
+      res.send(err)
+    });
+})
+
+router.post('/voteFeature', function (req, res) {
+  var inFile = JSON.parse(req.body);
+  let docRef = db.collection('featureWishlist').where('title', '==', inFile.title).limit(1);
+  docRef.get().then(snapshot => {
+    if (snapshot.empty) {
+      res.status(406).send("No items found");
+    }
+    docRef.get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        db.collection('featureWishlist').doc(doc.id).update({
+          voteCount: doc.data().voteCount + 1,
+          lastVote: new Date().toDateString(),
+          votesFrom: inFile.email != undefined ? doc.data().votesFrom.push(inFile.email) : doc.data().votesFrom
+        }).then(function () {
+          res.send('Vote is succesfully added.');
+        })
+      });
+    }).catch(err => {
+        res.status(406).send('Could not update that item.');
+      });
+    });
+})
+
 app.use('/.netlify/functions/user_functions', router);
 
 module.exports.handler = serverless(app);
