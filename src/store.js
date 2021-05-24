@@ -14,6 +14,7 @@ export default new Vuex.Store({
     },
     // ---- User Data
     user: {
+      enableTracking: null,
       login: true,
       email: "max@web.de",
       id: "10000",
@@ -103,6 +104,9 @@ export default new Vuex.Store({
     },
     setFileName(state, payload) {
       state.user.fileName = payload;
+    },
+    setTracking(state, payload) {
+      state.user.enableTracking = payload;
     },
     // ---- Add Data ----
 
@@ -368,6 +372,7 @@ export default new Vuex.Store({
           values: [],
         },
       };
+      cookie_functions.deleteCookie("data");
       for (var id in state) {
         cookie_functions.deleteCookie("data_" + id);
       }

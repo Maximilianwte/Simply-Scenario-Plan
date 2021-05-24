@@ -108,14 +108,14 @@
       <h4 class="text-3xl font-extrabold lg:w-full lg:px-16 mt-40 mb-12">
         What we are building on
       </h4>
-      <div id="features" class="lg:flex mb-24 relative">
-        <div class="left lg:w-1/2 flex-col justify-start">
-          <div id="featureTracker" class="px-8 py-4">
+      <div id="features" class="w-full lg:flex mb-24 relative">
+        <div class="left w-full lg:w-1/2 flex-col justify-start">
+          <div id="featureTracker" class="w-full px-8 py-4">
             <h4 class="text-xl">Upcoming Features</h4>
             <p class="text-base text-alternative">
               What features will be released next?
             </p>
-            <ul class="mt-8 mb-4">
+            <ul class="mt-8 mb-4 w-full">
               <li class="flex items-center justify-between">
                 <div class="text">
                   <h6 class="mr-4">1. Backend Integration</h6>
@@ -137,8 +137,8 @@
             </ul>
           </div>
         </div>
-        <div class="right lg:w-1/2 flex-col justify-start">
-          <div id="featureVoter" class="px-8 py-4 mt-8">
+        <div class="right w-full lg:w-1/2 flex-col justify-start">
+          <div id="featureVoter" class=" px-8 py-4 mt-8">
             <h4 class="text-xl">Vote Features</h4>
             <p class="text-base text-alternative">
               What feature do you want built next?
@@ -157,7 +157,8 @@
                 </button>
               </li>
               <li class="flex items-center mt-4">
-                <input type="text" class="w-40 border-2 rounded mr-4" v-model="newFeatureInput" placeholder="3. New input" />
+                <input type="text" class="w-40 border-2 rounded mr-4" v-model="newFeatureInput"
+                  placeholder="3. New input" />
                 <button @click="askNewFeature()" class="bg-focus hover:bg-main text-white rounded px-4 py-2">
                   Vote
                 </button>
@@ -238,7 +239,7 @@
       },
       getLogin() {
         return store.state.user.login;
-      },
+      }
     },
     methods: {
       resolve_img_url: function (path) {
@@ -586,6 +587,6 @@
       handleLogout() {
         store.commit("setLogout");
       }
-    },
+    }
   };
 </script>

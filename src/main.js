@@ -13,5 +13,6 @@ new Vue({
 }).$mount('#app')
 
 Vue.use(VueAnalytics, {
-  id: 'G-DQQD9C21EP'
+  id: 'G-DQQD9C21EP',
+  router
 });

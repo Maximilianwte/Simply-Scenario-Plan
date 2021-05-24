@@ -7,6 +7,7 @@
       >
         What Outcome Variables do you want to track?
       </h2>
+      <toolOpen class="mt-16" :data="['1. First declare variable.', '2. Work.']" />
     </div>
     <div
       class="drop-zone flex-col w-72 h-screen text-2xl"
@@ -97,7 +98,9 @@
 </template>
 <script>
 import store from "../store";
+import toolOpen from "../components/toolOpen";
 export default {
+  components: {toolOpen},
   data() {
     return {
       componentId: "declareOutcomeVariables",
