@@ -39,14 +39,12 @@
     methods: {
       checkTracking() {
       var enableTracking = cookie_functions.getCookie("enableTracking");
-      console.log(enableTracking, typeof(enableTracking))
       if (enableTracking == "true") {
-          console.log("enabled")
           this.enableCookies()
         }
       },
       enableCookies() {
-        cookie_functions.setCookie("enableTracking", "yes", 90);
+        cookie_functions.setCookie("enableTracking", true, 90);
         store.commit("setTracking", true);
       },
       disableTracking() {
@@ -55,6 +53,7 @@
       },
     },
     mounted() {
+      console.log(document.cookie)
       store.commit("setDataFromCookie");
       this.checkTracking();
     }

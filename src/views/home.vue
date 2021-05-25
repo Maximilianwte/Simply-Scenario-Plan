@@ -563,7 +563,6 @@
             },
           },
         };
-        console.log(states[this.activeHoverTemplate]);
         store.commit("setCompleteState", states[this.activeHoverTemplate]);
         // for testing purpose
         this.$router.push({

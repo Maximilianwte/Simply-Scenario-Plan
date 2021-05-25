@@ -304,7 +304,7 @@ export default new Vuex.Store({
     },
     setCompleteState(state, payload) {
       Object.assign(state, payload);
-      this.commit("setDataToCookie", null)
+      //this.commit("setDataToCookie", null)
     },
     // ---- Handle Cookie Cache ----
 
@@ -372,7 +372,7 @@ export default new Vuex.Store({
           values: [],
         },
       };
-      cookie_functions.deleteCookie("data");
+      cookie_functions.deleteWholeCookie();
       for (var id in state) {
         cookie_functions.deleteCookie("data_" + id);
       }

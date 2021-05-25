@@ -6,13 +6,13 @@ import VueAnalytics from 'vue-analytics';
 Vue.config.productionTip = false
 
 Vue.use(require('vue-chartist'))
+Vue.use(VueAnalytics, {
+  id: 'G-DQQD9C21EP',
+  router
+});
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
 
-Vue.use(VueAnalytics, {
-  id: 'G-DQQD9C21EP',
-  router
-});
