@@ -1,5 +1,5 @@
 <template>
-  <div id="declareOutcomeVariables" class="w-full flex-col text-3xl">
+  <div id="declareOutcomeVariables" class="w-full md:ml-64 mt-64 md:mt-0 flex-col text-3xl">
     <div id="header" class="absolute top-0 left-0 mt-24 ml-12 w-80">
       <h2
         tooltip-content="Outcome variables can be things like revenue amount, employee happiness etc.. everything you want to track."
@@ -7,7 +7,7 @@
       >
         What Outcome Variables do you want to track?
       </h2>
-      <toolOpen class="mt-16" :data="['1. First declare variable.', '2. Work.']" />
+      <toolOpen class="mt-16 ml-10" :data="['1. First you can declare outcome variables, that you want to track.', '2. Outcome variables can be things like revenue amount, employee happiness, sucesses etc.']" />
     </div>
     <div
       class="drop-zone flex-col w-72 h-screen text-2xl"
@@ -36,8 +36,6 @@
           :id="componentId + '#' + item.id"
           class="item w-72 text-center cursor-pointer front rounded py-8 mt-3"
           :style="{ backgroundColor: getColorMode(item.color)}"
-          tooltip-content="Rename your outcome variable. What variable do you want to track?"
-          tooltip-position="right"
         >
           <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
             <button

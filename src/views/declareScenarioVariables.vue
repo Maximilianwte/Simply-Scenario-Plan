@@ -22,6 +22,7 @@
       >
         What scenarios could happen to your business?
       </h2>
+            <toolOpen class="mt-16 ml-10" :data="['1. Here you can edit all scenarios that could affect your business or project.', '2. The scenario layers that span from left to right represent the time axis.', '3. So if you want to chain the likelihood of an event to another one happening before it in time, you can add another scenario layer and connect the scenarios by drag & drop.']" />
     </div>
     <!-- Var List Component -->
 
@@ -83,10 +84,10 @@
 <script>
 import store from "../store";
 import varList from "../components/varList2";
-import $ from "jquery";
+import toolOpen from "../components/toolOpen";
 import svgDraw from "../data/svgDraw";
 export default {
-  components: { varList },
+  components: { varList, toolOpen },
   computed: {
     nConnections() {
       return store.state.connectedShapes.length;

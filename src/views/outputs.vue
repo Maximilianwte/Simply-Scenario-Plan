@@ -129,7 +129,6 @@
   import processView from "../components/processView";
   import textOutput from "../components/textOutput";
   import $ from "jquery";
-  import svgDraw from "../data/svgDraw";
   export default {
     components: {
       tablev1,
@@ -248,6 +247,7 @@
           default: {
             dataType = "text/csv;charset=utf-8";
             fileType = ".csv";
+            tableData = "Grouped by Outcome Variable:" + "\n";
 
             for (var i = 0; i < tables.length; i++) {
               var header = tables[i].getElementsByTagName("h5")[0];
