@@ -53,7 +53,6 @@
       },
     },
     mounted() {
-      console.log(document.cookie)
       store.commit("setDataFromCookie");
       this.checkTracking();
     }

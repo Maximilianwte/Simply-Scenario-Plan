@@ -304,15 +304,14 @@ export default new Vuex.Store({
     },
     setCompleteState(state, payload) {
       Object.assign(state, payload);
-      //this.commit("setDataToCookie", null)
+      this.commit("setDataToCookie");
     },
     // ---- Handle Cookie Cache ----
-
     setDataFromCookie(state) {
       for (var id in state) {
         var data = cookie_functions.getCookie("data_" + id);
         if (data != "") {
-          state[id] = JSON.parse(data);
+          state[id] = JSON.parse(data.replaceAll("_{percent}", "%"));
         }
       }
     },

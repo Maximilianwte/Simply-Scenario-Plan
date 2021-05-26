@@ -271,6 +271,7 @@
             },
             // ---- User Data
             user: {
+              enableTracking: store.state.user.enableTracking,
               login: store.state.user.login,
               id: store.state.user.id,
               email: store.state.user.email,
@@ -298,7 +299,7 @@
                 left: 4,
               },
             ],
-            scenarioVariables: [
+             scenarioVariables: [
               [{
                   id: 0,
                   displayId: 0,
@@ -375,6 +376,7 @@
             },
             // ---- User Data
             user: {
+              enableTracking: store.state.user.enableTracking,
               login: store.state.user.login,
               id: store.state.user.id,
               email: store.state.user.email,
@@ -479,6 +481,7 @@
             },
             // ---- User Data
             user: {
+              enableTracking: store.state.user.enableTracking,
               login: store.state.user.login,
               id: store.state.user.id,
               email: store.state.user.email,

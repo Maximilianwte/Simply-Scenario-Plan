@@ -3,8 +3,7 @@ let cookie_functions = {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         var expires = "expires=" + d.toUTCString();
-        console.log(cname + "=" + JSON.stringify(cvalue) + ";" + expires + ";path=/; SameSite=Strict");
-        document.cookie = cname + "=" + JSON.stringify(cvalue) + ";" + expires + ";path=/; SameSite=Strict";
+        document.cookie = cname + "=" + (JSON.stringify(cvalue).replaceAll("%", "_{percent}")) + ";" + expires + ";path=/; SameSite=Strict";
     },
     getCookie(cname) {
         var name = cname + "=";
