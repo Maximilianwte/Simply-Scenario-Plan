@@ -186,6 +186,10 @@ th {
   position: fixed;
 }
 
+[tooltip-position$="-oth"][tooltip-content] {
+  color: #252525;
+}
+
 [tooltip-position][tooltip-content]::before {
   content: attr(tooltip-content);
   position: absolute;

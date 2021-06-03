@@ -75,7 +75,7 @@
         </router-link>
         <p>The app is 100% free.</p>
       </div>
-      <div id="template" class="flex mt-64 border rounded">
+      <div id="template" class="md:flex mt-64 border rounded">
         <div class="left h-full md:w-1/4 border-r-2">
           <p class="mt-4 ml-4 mb-2 text-alternative">Templates</p>
           <ul @mouseleave="

@@ -70,7 +70,7 @@
 
     <!-- ---- Overlay for Not built for mobile ---- -->
 
-    <div id="notBuildForMobile" v-if="getIfMobile"
+    <!-- <div id="notBuildForMobile" v-if="getIfMobile"
       class="fixed light w-2/3 z-20 flex mt-4 ml-4 py-4 shadow text-xl bg-bg rounded border-focus border-4">
       <svg class="w-20 mx-6" style="stroke-width: 0.8rem" version="1.0" xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512">
@@ -82,7 +82,7 @@
       <h6 class="w-full">
         Note: The app is not built for mobile devices right now
       </h6>
-    </div>
+    </div> -->
 
     <!-- ---- Overlay for report bug & give feedback ---- -->
 
