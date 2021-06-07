@@ -2,11 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import VueAnalytics from 'vue-ua'
+//import VueAnalytics from 'vue-ua'
 Vue.config.productionTip = false
 
 Vue.use(require('vue-chartist'))
-Vue.use(VueAnalytics, {
+/* Vue.use(VueAnalytics, {
   // [Required] The name of your app as specified in Google Analytics.
   appName: 'simplyscenariodb',
   // [Required] The version of your app.
@@ -15,7 +15,7 @@ Vue.use(VueAnalytics, {
   trackingId: 'G-DQQD9C21EP',
   // If you're using vue-router, pass the router instance here.
   vueRouter: router,
-})
+}) */
 new Vue({
   router,
   store,

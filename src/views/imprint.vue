@@ -1,9 +1,9 @@
 <template>
   <div id="imprint">
     <div id="message" class="flex-col">
-      <h3 class="text-4xl mt-20 uppercase">Scenario Plan</h3>
+      <h3 class="text-4xl mt-20 uppercase">Simply Scenario Plan</h3>
       <div id="contact" class="text-center text-2xl mt-10">
-            <h4 class="text-2xl">Maximilian Witte</h4>
+            <h4 class="text-2xl">Built by Maximilian Witte</h4>
             <p>20357 Hamburg, Germany.</p>
             <div id="writeTo" class="mt-6 text-base">
               <p>To report any bugs or issues please write to: </p>

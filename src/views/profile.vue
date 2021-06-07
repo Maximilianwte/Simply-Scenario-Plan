@@ -2,13 +2,14 @@
   <div id="profile" class="flex-col">
     <div class="inside text-center mt-24">
       <h4 class="text-2xl mb-6">1. Change email</h4>
-      <div id="email" class="flex items-center">
+      <div id="email" class="md:flex items-center">
         <form class="text-xl">
           <label for="email">Email</label>
           <input type="email" v-model="email" :placeholder="getEmail" @change="checkInputEmail"
             class="rounded border-2 ml-4" />
         </form>
-        <button class="bg-focus ml-6 hover:bg-main text-white text-xl px-4 py-2 rounded" @click="handleChangeEmail">
+        <button class="bg-focus mt-4 md:mt-0 md:ml-6 hover:bg-main text-white text-xl px-4 py-2 rounded"
+          @click="handleChangeEmail">
           Change email
         </button>
       </div>
@@ -16,26 +17,52 @@
         {{ warnTextEmail }}
       </p>
       <h4 class="text-2xl mb-6 mt-24">2. Change password</h4>
-      <div id="password" class="flex justify-between items-center">
+      <div id="password" class="">
         <form class="text-xl">
-          <div id="row1" class="flex justify-between items-center">
+          <div id="row1" class="flex-col md:flex-row justify-between items-center">
             <label for="password" class="mt-6">Old Password</label>
             <input type="password" v-model="oldPassword" @change="checkInputPassword"
               class="rounded border-2 mt-2 ml-4" />
           </div>
-          <div id="row2" class="mt-10 flex justify-between items-center">
+          <div id="row2" class="mt-10 flex-col md:flex-row justify-between items-center">
             <label for="password" class="mt-6">New Password</label>
             <input type="password" v-model="newPassword" @change="checkInputPassword"
               class="rounded border-2 mt-2 ml-4" />
           </div>
+          <div id="forgotPassword" class="mt-4 w-full flex-col text-alternative text-sm">
+            <a href="mailto:max@project.de" class="ml-2">Reset password</a>
+          </div>
         </form>
-        <button class="bg-focus ml-6 hover:bg-main text-white text-xl px-4 py-2 rounded" @click="handleChangePassword">
+        <button class="bg-focus mt-4 hover:bg-main text-white text-xl px-4 py-2 rounded" @click="handleChangePassword">
           Change Password
         </button>
       </div>
       <p id="warnMessagePassword" class="text-xl text-focus mt-4 w-80">
         {{ warnTextPassword }}
       </p>
+    </div>
+    <div id="deleteAccount" class="mt-24 w-full flex-col text-alternative text-sm">
+            <a href="mailto:max@project.de" class="ml-2">Delete Account</a>
+          </div>
+    <div id="menu" class="absolute top-0 text-xl right-0 py-2 px-2">
+      <template id="LoggedIn">
+        <router-link to="/app">
+          <button class="border-2 border-main hover:border-alternative hover:text-alternative rounded py-1 px-2">
+            Start App
+          </button>
+        </router-link>
+        <router-link to="/">
+          <button class="py-1 px-2 hover:text-alternative">Home</button>
+        </router-link>
+        <button class="py-1 px-2 hover:text-alternative" @click="handleLogout">
+          Logout
+        </button>
+      </template>
+    </div>
+    <div class="footer absolute bottom-0 left-0 my-2 mx-4">
+      <router-link to="/imprint">
+        <h2>Imprint</h2>
+      </router-link>
     </div>
   </div>
 </template>
@@ -90,7 +117,7 @@
           }
         } else {
           this.warnTextPassword =
-            "Please enter your correct old password. If you cannot remember please send us a text to.";
+            "Please enter your correct old password. If you cannot remember please reset your password.";
         }
       },
       handleChangeEmail() {
@@ -129,6 +156,12 @@
           this.warnTextPassword = "Please fill out the data fields first.";
         }
       },
+      handleLogout() {
+        store.commit("setLogout");
+        this.$router.push({
+          path: "/"
+        });
+      }
     },
   };
 </script>
