@@ -90,6 +90,9 @@
 import data_functions from "../data/data_functions";
 import store from "../store";
 export default {
+  metaInfo: {
+      title: 'Register',
+    },
   data() {
     return {
       email: "",

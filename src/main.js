@@ -7,6 +7,9 @@ Vue.config.productionTip = false
 import gtagjs from 'vue-gtagjs'
 gtagjs(router, "G-DQQD9C21EP", {debug: true, scriptId: 'gtagjs'})
 
+import VueMeta from 'vue-meta'
+Vue.use(VueMeta)
+
 Vue.use(require('vue-chartist'))
 new Vue({
   router,

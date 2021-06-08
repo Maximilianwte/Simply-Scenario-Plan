@@ -22,6 +22,12 @@
   import store from "./store.js";
   import cookie_functions from "./data/cookie_functions";
   export default {
+    metaInfo: {
+      // if no subcomponents specify a metaInfo.title, this title will be used
+      title: 'Simply Scenario Plan | The Risk Management App to plan for all scenarios',
+      // all titles will be injected into this template
+      titleTemplate: '%s | Simply Scenario Plan'
+    },
     data() {
       return {
         currentLang: "de",

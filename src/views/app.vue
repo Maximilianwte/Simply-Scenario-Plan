@@ -241,6 +241,9 @@ import data_functions from "../data/data_functions";
 import outputs from "./outputs";
 import store from "../store";
 export default {
+      metaInfo: {
+      title: 'App',
+    },
   components: {
     declareOutcomeVariables,
     declareScenarioVariables,
