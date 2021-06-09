@@ -34,7 +34,7 @@
         <div
           @click.right.prevent
           :id="componentId + '#' + item.id"
-          class="item w-72 text-center cursor-pointer front rounded py-8 mt-3"
+          class="item relative md:w-72 text-center cursor-pointer front rounded py-8 mt-3"
           :style="{ backgroundColor: getColorMode(item.color)}"
         >
           <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">

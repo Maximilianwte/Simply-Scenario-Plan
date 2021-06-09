@@ -1,5 +1,5 @@
 <template>
-  <div id="declareScenarioVariables" class="flex text-3xl">
+  <div id="declareScenarioVariables" class="flex relative text-3xl">
     <svg
       v-for="id in nConnections"
       :key="'svg' + id"
@@ -48,7 +48,7 @@
 
     <button
       id="backUIStep"
-      class="absolute left-0 centerY px-3 py-3 rounded-full text-2xl"
+      class="absolute centerY mt-16 md:mt-0 left-0 px-3 py-3 rounded-full text-2xl"
       style="transform: rotateY(180deg)"
       @click="moveUI('dec')"
     >
@@ -64,8 +64,8 @@
     </button>
     <button
       id="nextUIStep"
-      class="absolute right-0 centerY px-3 py-3 rounded-full text-2xl"
-      tooltip-content="Finished adding scenarios? Look at your scenario dashboard."
+      class="absolute right-0 px-3 py-3 rounded-full text-2xl"
+      tooltip-content="Finished adding scenarios? Go to ouput."
       tooltip-position="left"
       @click="moveUI('inc')"
     >

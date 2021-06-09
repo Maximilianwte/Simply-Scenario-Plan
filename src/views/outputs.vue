@@ -1,5 +1,5 @@
 <template>
-  <div id="outputs" class="px-10 py-12 w-full">
+  <div id="outputs" class="lg:px-10 flex-col py-12 w-full">
     <div id="header" class="text-2xl mt-12 px-4 md:flex">
       <h2 class="text-4xl flex-col md:w-1/2">
         Output
@@ -7,10 +7,15 @@
       <p class="md:w-1/2 mt-10 md:mt-0">Here we have build some output views for you. You can analyze all possible
         scenarios in different ways and find ways what to do better.</p>
     </div>
+    <!-- Note: Please rotate -->
+    <div id="notePleaseRotateDevice" class="md:hidden flex mt-12 ml-6 bg-bg top-0 w-72 text-center text-lg px-6 py-2 border-2 rounded">
+      <svg class="w-32" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M346.5 1.4c-1.6.8-11.4 9.9-21.6 20.2-26.3 26.6-26.3 25.3.3 52.1 9.5 9.5 18.6 17.9 20.4 18.8 10 4.7 21.4-2.3 21.4-13.3 0-5.3-1.1-7.5-6.3-13-2.3-2.3-3.8-4.2-3.5-4.2.4 0 4.2.5 8.4 1.1 37.2 5.1 68.4 31.6 79.7 67.4 2.7 8.6 4.7 20.6 4.7 28.4 0 11.8 12.2 19.3 22 13.5 6.4-3.7 7.5-6.4 7.4-17.7-.2-22.3-8-46.2-21.7-66.7-6.4-9.6-24.1-27.3-33.7-33.7-18.7-12.5-36.4-18.8-61.9-21.9l-5.3-.6 4-4.2c5.1-5.3 6.2-7.5 6.2-12.9 0-10.5-10.9-17.6-20.5-13.3zM153.5 146c-1.1.4-3.3 2.2-5 4l-3 3.1V359l3.8 3.7 3.7 3.8h206l3.7-3.8 3.8-3.7V153l-3.8-3.7-3.7-3.8-101.8-.2c-55.9-.1-102.6.2-103.7.7zM41.1 339.2c-7.5 3.8-8.6 6.3-8.5 18.1.2 22.3 8 46.2 21.7 66.7 6.4 9.6 24.1 27.3 33.7 33.7 18.7 12.5 36.4 18.8 61.9 21.9l5.3.6-4 4.2c-5.1 5.3-6.2 7.5-6.2 12.6 0 9.9 8.4 16.6 18.2 14.5 2.5-.6 7.8-5.1 22.6-19.9 27.8-27.6 27.8-26.2 1.4-52.8-9.6-9.7-19-18.4-20.7-19.3-10.1-4.7-21.5 2.3-21.5 13.3 0 5.3 1.1 7.5 6.3 12.9 2.3 2.4 3.7 4.3 3.2 4.3-3.9 0-20.3-3.4-26-5.3-24.2-8.3-44.6-26.1-56.2-49.2-6-11.8-10.3-29.7-10.3-42.4 0-7.6-5.6-14.3-13-15.6-2.6-.4-4.7 0-7.9 1.7z"/></svg>
+      <h6 class="ml-4">Please rotate your device to view output.</h6>
+    </div>
     <!-- Output table -->
-
-    <h4 class="mt-12 ml-6 mb-6 text-xl">1. Output Tables</h4>
-    <div class="md-grid-container">
+    <div id="container" class="hidden md:block">
+    <h4 class="mt-12 ml-2 md:ml-20 mb-6 text-xl">1. Output Tables</h4>
+    <div class="flex-col lg-grid-container">
       <tablev1 class="table px-4 py-2 grid-item-3" v-for="item in getOutcomeVariables" :key="item.id"
         :title="item.title" :data="getTableData[item.title]" :color="item.color" :id="'table_' + item.title" />
       <div class="downloadMenu relative mt-6 w-48" style="grid-column: 9 / span 1">
@@ -41,7 +46,7 @@
     </div>
 
     <!-- Text output -->
-    <h4 class="ml-6 mt-20 mb-6 text-xl">2. Text view</h4>
+    <h4 class="ml-2 md:ml-20 mt-20 mb-6 text-xl">2. Text view</h4>
     <textOutput class="mt-8 h-80 flex-col" :variables="getTableData[getOutcomeVariables[0].title]" />
 
     <!-- Risk Matrices -->
@@ -63,7 +68,7 @@
         </div>
       </div>
     </div>
-    <riskMatrix class="mt-12" :title="getSelectedRiskMatrixValue"
+    <riskMatrix class="mt-12 md:ml-6" :title="getSelectedRiskMatrixValue"
       :data="getRiskMatrixData[getSelectedRiskMatrixValue]" />
     <!-- Charts -->
 
@@ -105,8 +110,9 @@
         </div>
       </div>
     </div>
-    <processView class="ml-48 mt-20" :data="getProcessData[getSelectedProcess.title]"
+    <processView class="ml-6 mt-20" :data="getProcessData[getSelectedProcess.title]"
       :outcomeVar="getSelectedProcess" />
+    </div>
     <!-- UI Handling Buttons -->
 
     <div class="fixed left-0 top-0 h-screen">

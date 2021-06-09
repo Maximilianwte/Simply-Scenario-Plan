@@ -126,12 +126,14 @@ svg:hover {
   transform: translateX(-50%);
 }
 
-.floatingMenu {
-  display: none;
-}
-
 .item:hover .floatingMenu {
   display: block;
+}
+
+@media only screen and (min-width: 992px) {
+  .floatingMenu {
+    display: none;
+  }
 }
 
 .floatingTop {
@@ -338,7 +340,7 @@ th {
   }
 
   .grid-item-3 {
-    grid-column: span 3;
+    grid-column: span 5;
   }
 
   .grid-item-2 {
@@ -349,7 +351,15 @@ th {
 @media only screen and (min-width: 1332px) {
   .md-grid-container {
     display: grid;
-    grid-template-columns: repeat(10, 10%);
+    grid-template-columns: repeat(13, 7%);
+  }
+
+  .grid-item-3 {
+    grid-column: span 3;
+  }
+
+  .grid-item-2 {
+    grid-column: span 2;
   }
 }
 
