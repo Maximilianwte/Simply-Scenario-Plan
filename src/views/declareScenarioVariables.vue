@@ -32,6 +32,8 @@
       v-for="i in getNVarLists"
       :key="'scenarioVariables_' + i"
       class="ml-12"
+      @addConnectionStart="setAddConnectionStart($event)"
+      :addConnectionStart="addConnectionStart"
     />
     <div class="buttonContainer ml-8 flex-col justify-around">
       <button
@@ -88,6 +90,11 @@ import toolOpen from "../components/toolOpen";
 import svgDraw from "../data/svgDraw";
 export default {
   components: { varList, toolOpen },
+  data() {
+    return {
+      addConnectionStart: null,
+    }
+  },
   computed: {
     nConnections() {
       return store.state.connectedShapes.length;
@@ -99,6 +106,10 @@ export default {
   methods: {
     addList() {
       store.commit("addScenarioList");
+    },
+    setAddConnectionStart(item) {
+      this.addConnectionStart = item;
+      console.log("emit", this.addConnectionStart)
     },
     moveUI(val) {
       store.commit("moveUI", val);

@@ -5,7 +5,7 @@
         Scenario Layer {{ this.idList + 1 }}
       </h3>
       <div v-for="item in getItems" :key="item.displayId" :id="componentId + '#' + item.id" @click.right.prevent
-        @click.right="setOpen(item.id)" @click="addConnectionSecond(componentId + '#' + item.id, item.id)" @dragover.prevent @dragenter.prevent class="text-dark">
+        @click.right="setOpen(item.id)" @click.left="addConnectionSecond(componentId + '#' + item.id)" @dragover.prevent @dragenter.prevent class="text-dark">
         <div v-if="item.id != openID" class="item w-64 text-center cursor-pointer front rounded" :class="getHeight"
           :style="{ backgroundColor: getColorMode(item.color) }"
           @dragend="startDrag(componentId + '#' + item.id, item.id)"
@@ -17,15 +17,15 @@
           <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
             <button id="setConnect" @click="addConnection(componentId + '#' + item.id, item.id)" title="Add new connection"
               class="w-6 h-6 lg:hidden mx-1 rounded-full bg-main text-bg hover:bg-focus">
-              c
+              +
             </button>
             <button id="setImpact" @click="openSetImpactMenu(item.id)" title="Set Impact on Output variables"
               class="w-6 h-6 mx-1 rounded-full bg-main text-bg hover:bg-focus">
-              r
+              i
             </button>
-            <button id="deleteVar" @click="deleteItem(item.id)"
+            <button id="deleteVar" title="Delete Scenario" @click="deleteItem(item.id)"
               class="w-6 h-6 mx-1 rounded-full bg-main text-bg hover:bg-focus">
-              X
+              x
             </button>
           </div>
           <div class="inner mt-3">
@@ -96,7 +96,7 @@
         +
       </button>
       <div v-if="addConnectionStart != null" id="addConnectionNote" class="absolute mb-32 w-56 text-center bottom-0 border-2 px-6 py-2 rounded">
-        Click on another item to connect
+        Click on another scenario to connect them
       </div>
     </div>
   </div>
@@ -105,14 +105,13 @@
   import store from "../store";
   import svgDraw from "../data/svgDraw";
   export default {
-    props: ["id", "idList"],
+    props: ["id", "idList", "addConnectionStart"],
     data() {
       return {
         componentId: this.id,
         openID: null,
         IDsetImpact: null,
         cachedValue: null,
-        addConnectionStart: null,
       };
     },
     watch: {
@@ -236,20 +235,19 @@
           }
         }
       },
-      addConnection(id) {
-        console.log(id)
+      addConnection(id) { 
         if (this.addConnectionStart == id) {
-          this.addConnectionStart = null;
+          this.$emit("addConnectionStart", null)
         }
         else {
-          this.addConnectionStart = id;
+          this.$emit("addConnectionStart", id)
         }
       },
       addConnectionSecond(id) {
-        console.log(this.addConnectionStart)
+        console.log("trigger state entry" , this.addConnectionStart)
         if (this.addConnectionStart != null && this.addConnectionStart != id) {
           store.commit("addConnection", [this.addConnectionStart, id]);
-          this.addConnectionStart = null;
+          //this.addConnectionStart = null;
         }
       },
       onDrop(evt, dropID) {
