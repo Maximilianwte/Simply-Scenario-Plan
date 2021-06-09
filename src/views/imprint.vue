@@ -7,7 +7,7 @@
         <p>20357 Hamburg, Germany.</p>
         <div id="writeTo" class="mt-6 text-base">
           <p>To report any bugs or issues please write to: </p>
-          <a class="ml-4" href="mailto:max@web.de">max@web.de</a>
+          <a class="ml-4" href="mailto:maximilianwte@googlemail.com">maximilianwte@googlemail.com</a>
         </div>
         <div class="privacy text-sm mt-20 text-justify mb-12 px-24">
           <h1 class="text-lg mt-4 mb-4">Privacy Policy</h1>

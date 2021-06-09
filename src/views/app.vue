@@ -69,9 +69,12 @@
     </div>
 
     <!-- ---- Overlay for Not built for mobile ---- -->
-
-    <!-- <div id="notBuildForMobile" v-if="getIfMobile"
-      class="fixed light w-2/3 z-20 flex mt-4 ml-4 py-4 shadow text-xl bg-bg rounded border-focus border-4">
+    <div id="notBuildForMobile" v-if="getMobileNoteShown == false"
+      class="absolute light w-3/4 z-20 md:hidden flex mt-4 ml-4 py-4 shadow text-xl bg-bg rounded">
+      <button id="deleteVar" @click="handleMobileNoteShown"
+        class="w-6 h-6 mx-2 rounded-full text-sm absolute right-0 top-0 mt-2 bg-main text-bg hover:bg-focus">
+        X
+      </button>
       <svg class="w-20 mx-6" style="stroke-width: 0.8rem" version="1.0" xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512">
         <path
@@ -80,9 +83,10 @@
           d="M189.6 72.4c-7.8 2.9-12.6 9.9-12.6 18.4 0 8.8 3.7 14.7 11.5 18.3 3.5 1.6 6.7 1.9 28 1.9 27 0 29.2-.5 35.2-7.3 5.6-6.4 5.9-17.9.6-24.5-6.1-7.5-6.8-7.7-34.3-7.9-19.1-.2-25.4 0-28.4 1.1zM314.5 343.9c-4.7 2.2-8.9 6.4-10.4 10.4-1.4 3.6-1.4 11.7-.1 15.4.6 1.5 13.3 15.1 28.3 30l27.2 27.3-27.2 27.2c-15 15-27.7 28.6-28.3 30.1-1.3 3.7-1.3 11.8.1 15.4 2.5 6.6 11 12.3 18.4 12.3 7.5 0 11-2.8 38-29.9 14.3-14.4 26.4-26.1 27-26.1.6 0 12.7 11.7 27 26.1 16.6 16.7 27.4 26.8 30 28 11.5 5.4 26.1-2.6 27.3-15 1-10.8 1.6-10-28.6-40.4L415.6 427l27.6-27.8c30.2-30.3 29.6-29.5 28.6-40.3-1.2-12.4-15.8-20.4-27.3-15-2.6 1.2-13.4 11.3-30 28-14.3 14.4-26.4 26.1-27 26.1-.6 0-12.7-11.7-27-26.1-16.6-16.7-27.4-26.8-30-28-5.1-2.4-10.9-2.4-16 0zM209.5 403.2c-8 2.8-12.5 9.1-12.5 17.6 0 8.8 3.7 14.7 11.5 18.3 9.8 4.5 22.7-.6 26.4-10.4 1.7-4.5 1.3-12.4-.9-16.7-4.1-8.1-15.2-12.1-24.5-8.8z" />
       </svg>
       <h6 class="w-full">
-        Note: The app is not built for mobile devices right now
+        Note: The app is not optimized for mobile devices right now.<br> But that feature is our
+        upcoming top priority!
       </h6>
-    </div> -->
+    </div>
 
     <!-- ---- Overlay for report bug & give feedback ---- -->
 
@@ -270,6 +274,9 @@ export default {
     getUIStep() {
       return store.state.ui.uiStep;
     },
+    getMobileNoteShown() {
+      return store.state.ui.shownMobile;
+    },
     nStepsToGoBack() {
       return (
         store.state.returnCache.values.length -
@@ -389,6 +396,9 @@ export default {
       }
     }
   },
+  handleMobileNoteShown() {
+    store.commit("setMobileNoteShown");
+  },
   handleLogout() {
       store.commit("setLogout");
       this.$router.push({ name: "home" });
@@ -396,10 +406,8 @@ export default {
   },
   mounted() {
     // check every 5 minutes
-    //this.autoSaveTimer = setInterval(this.handleAutoSave, 1000 * 60 * 1);
-    
-    // !!! for testing purposes
-    store.commit("setFileName", "Test autosave");
+    this.autoSaveTimer = setInterval(this.handleAutoSave, 1000 * 60 * 1);
+  
 
     
     if (store.state.user.login == false) {

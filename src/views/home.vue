@@ -118,21 +118,21 @@
             <ul class="mt-8 mb-4 w-full">
               <li class="flex items-center justify-between">
                 <div class="text">
-                  <h6 class="mr-4">1. Backend Integration</h6>
+                  <h6 class="mr-4">1. Optimize for mobile</h6>
                   <p class="text-sm text-alternative">
-                    Release in {{ getDayToRelease("05/20/2021") }} days.
+                    Release in {{ getDayToRelease("07/12/2021") }} days.
                   </p>
                 </div>
-                <progressBar class="" :loadState="getLoadState('05/19/2021', 40)" />
+                <progressBar class="" :loadState="getLoadState('07/12/2021', 40)" />
               </li>
               <li class="flex items-center justify-between mt-4">
                 <div class="text">
                   <h6 class="mr-4">2. More charting features</h6>
                   <p class="text-sm text-alternative">
-                    Release in {{ getDayToRelease("05/31/2021") }} days.
+                    Release in {{ getDayToRelease("07/20/2021") }} days.
                   </p>
                 </div>
-                <progressBar class="" :loadState="getLoadState('05/31/2021', 40)" />
+                <progressBar class="" :loadState="getLoadState('07/20/2021', 45)" />
               </li>
             </ul>
           </div>
@@ -151,8 +151,8 @@
                 </button>
               </li>
               <li class="flex items-center mt-4">
-                <h6 class="mr-4">2. Saving all data</h6>
-                <button @click="voteFeature('moreColors')" class="bg-focus hover:bg-main text-white rounded px-4 py-2">
+                <h6 class="mr-4">2. Export Data to Excel</h6>
+                <button @click="voteFeature('exportExcel')" class="bg-focus hover:bg-main text-white rounded px-4 py-2">
                   Vote
                 </button>
               </li>
@@ -268,6 +268,7 @@
               dark: false,
               // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
               uiStep: 0,
+              shownMobile: false,
             },
             // ---- User Data
             user: {
@@ -373,6 +374,7 @@
               dark: false,
               // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
               uiStep: 0,
+              shownMobile: false,
             },
             // ---- User Data
             user: {
@@ -478,6 +480,7 @@
               dark: false,
               // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
               uiStep: 0,
+              shownMobile: false,
             },
             // ---- User Data
             user: {

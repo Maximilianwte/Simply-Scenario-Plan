@@ -10,15 +10,16 @@ export default new Vuex.Store({
       colorful: true,
       dark: false,
       // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
-      uiStep: 0
+      uiStep: 0,
+      shownMobile: false,
     },
     // ---- User Data
     user: {
       enableTracking: null,
-      login: true,
-      email: "max@web.de",
-      id: "10000",
-      fileName: "Test autosave",
+      login: false,
+      email: null,
+      id: null,
+      fileName: null,
       // this keeps track of time for autosaving
       lastChanged: null
     },
@@ -85,6 +86,10 @@ export default new Vuex.Store({
     },
     switchColorfulMode(state) {
       state.ui.colorful = !state.ui.colorful;
+      this.commit("setDataToCookie", "ui");
+    },
+    setMobileNoteShown(state) {
+      state.ui.shownMobile = true;
       this.commit("setDataToCookie", "ui");
     },
     // ---- Handle User ----
@@ -334,6 +339,7 @@ export default new Vuex.Store({
           dark: state.ui.dark,
           // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
           uiStep: 0,
+          shownMobile: false,
         },
 
         // ---- Variables ----

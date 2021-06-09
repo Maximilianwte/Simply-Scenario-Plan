@@ -30,7 +30,7 @@
               class="rounded border-2 mt-2 ml-4" />
           </div>
           <div id="forgotPassword" class="mt-4 w-full flex-col text-alternative text-sm">
-            <a href="mailto:max@project.de" class="ml-2">Reset password</a>
+            <a href="mailto:maximilianwtewte@gmail.com?subject=Reset%20password" class="ml-2">Reset password</a>
           </div>
         </form>
         <button class="bg-focus mt-4 hover:bg-main text-white text-xl px-4 py-2 rounded" @click="handleChangePassword">

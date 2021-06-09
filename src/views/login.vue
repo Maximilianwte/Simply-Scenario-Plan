@@ -33,7 +33,7 @@
       id="forgotPassword"
       class="mt-4 w-64 flex-col text-alternative text-sm"
     >
-      <a href="mailto:max@project.de" class="ml-2">Reset password</a>
+      <a href="mailto:maximilianwtewte@gmail.com?subject=Reset%20password" class="ml-2">Reset password</a>
     </div>
     <button
       class="bg-focus hover:bg-main text-white text-xl px-4 py-2 rounded mt-12"
