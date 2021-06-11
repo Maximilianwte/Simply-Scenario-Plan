@@ -33,7 +33,7 @@
       Register
     </button>
     <p id="warnMessage" class="text-xl text-focus mt-4">{{ warnText }}</p>
-    <div class="banner mt-12 flex items-start">
+    <div class="banner mt-12 md:flex items-start">
       <div class="box w-40 mx-6 flex-col text-center">
         <svg
           class="w-16"
@@ -49,7 +49,7 @@
           We keep your information safe and secure.
         </p>
       </div>
-      <div class="box w-40 mx-6 flex-col text-center">
+      <div class="box w-40 mx-6 mt-4 md:mt-0 flex-col text-center">
         <svg
           class="w-16"
           xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@
           This app has no hidden cost, we promise.
         </p>
       </div>
-      <div class="box w-40 mx-6 flex-col text-center">
+      <div class="box w-40 mx-6 mt-4 md:mt-0 flex-col text-center">
         <svg
           class="w-16"
           xmlns="http://www.w3.org/2000/svg"

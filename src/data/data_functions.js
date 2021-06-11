@@ -3,7 +3,7 @@ import store from "../store";
 
 let localURL = "http://localhost:8888/.netlify/functions";
 let productionURL = "https://simplyscenarioplan.netlify.app/.netlify/functions";
-let activeURL = productionURL;
+let activeURL = localURL;
 
 let logic_functions = {
   create_user(userFile) {

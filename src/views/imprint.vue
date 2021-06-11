@@ -1,6 +1,6 @@
 <template>
   <div id="imprint">
-    <div id="message" class="flex-col">
+    <div id="message" class="flex-col px-4 text-center">
       <h3 class="text-4xl mt-20 uppercase">Simply Scenario Plan</h3>
       <div id="contact" class="text-center text-2xl mt-10">
         <h4 class="text-2xl">Built by Maximilian Witte</h4>
@@ -9,7 +9,7 @@
           <p>To report any bugs or issues please write to: </p>
           <a class="ml-4" href="mailto:maximilianwte@googlemail.com">maximilianwte@googlemail.com</a>
         </div>
-        <div class="privacy text-sm mt-20 text-justify mb-12 px-24">
+        <div class="privacy text-sm mt-20 text-justify mb-12 md:px-24">
           <h1 class="text-lg mt-4 mb-4">Privacy Policy</h1>
 
           <p>At simplyscenario.com, accessible from simplyscenario.com, one of our main priorities is the privacy of
