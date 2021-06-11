@@ -382,7 +382,6 @@ export default {
     handleGiveFeedback() {
       if (this.feedback.length > 3) {
         data_functions.sendFeedback({text: this.feedback});
-        console.log(this.feedback);
         this.feedback = null;
         this.askGiveFeedback = false;
       }
@@ -408,8 +407,6 @@ export default {
     // check every 5 minutes
     this.autoSaveTimer = setInterval(this.handleAutoSave, 1000 * 60 * 1);
   
-
-    
     if (store.state.user.login == false) {
       this.$router.push({
         name: "home",

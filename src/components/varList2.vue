@@ -5,7 +5,8 @@
         Scenario Layer {{ this.idList + 1 }}
       </h3>
       <div v-for="item in getItems" :key="item.displayId" :id="componentId + '#' + item.id" @click.right.prevent
-        @click.right="setOpen(item.id)" @click.left="addConnectionSecond(componentId + '#' + item.id)" @dragover.prevent @dragenter.prevent class="text-dark">
+        @click.right="setOpen(item.id)" @click.left="addConnectionSecond(componentId + '#' + item.id)" @dragover.prevent
+        @dragenter.prevent class="text-dark">
         <div v-if="item.id != openID" class="item w-64 text-center cursor-pointer front rounded" :class="getHeight"
           :style="{ backgroundColor: getColorMode(item.color) }"
           @dragend="startDrag(componentId + '#' + item.id, item.id)"
@@ -15,8 +16,8 @@
         <div v-else class="open item w-64 h-48 relative rounded cursor-pointer text-xl"
           :style="{ backgroundColor: getColorMode(item.color) }">
           <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
-            <button id="setConnect" @click="addConnection(componentId + '#' + item.id, item.id)" title="Add new connection"
-              class="w-6 h-6 lg:hidden mx-1 rounded-full bg-main text-bg hover:bg-focus">
+            <button id="setConnect" @click="addConnection(componentId + '#' + item.id, item.id)"
+              title="Add new connection" class="w-6 h-6 lg:hidden mx-1 rounded-full bg-main text-bg hover:bg-focus">
               +
             </button>
             <button id="setImpact" @click="openSetImpactMenu(item.id)" title="Set Impact on Output variables"
@@ -95,7 +96,8 @@
       <button @click="addItem" class="absolute bottom-0 mb-8 w-16 h-16 rounded-full bg-main text-bg hover:bg-focus">
         +
       </button>
-      <div v-if="addConnectionStart != null" id="addConnectionNote" class="absolute mb-32 w-56 text-center bottom-0 border-2 px-6 py-2 rounded">
+      <div v-if="addConnectionStart != null" id="addConnectionNote"
+        class="absolute mb-32 w-56 text-center bottom-0 border-2 px-6 py-2 rounded">
         Click on another scenario to connect them
       </div>
     </div>
@@ -235,19 +237,31 @@
           }
         }
       },
-      addConnection(id) { 
+      addConnection(id) {
         if (this.addConnectionStart == id) {
           this.$emit("addConnectionStart", null)
-        }
-        else {
+        } else {
           this.$emit("addConnectionStart", id)
         }
       },
       addConnectionSecond(id) {
-        console.log("trigger state entry" , this.addConnectionStart)
         if (this.addConnectionStart != null && this.addConnectionStart != id) {
-          store.commit("addConnection", [this.addConnectionStart, id]);
-          //this.addConnectionStart = null;
+          var found = false;
+          store.state.connectedShapes.forEach(
+            (connectionList, index) => {
+              if (
+                connectionList.includes(this.addConnectionStart) &&
+                connectionList.includes(id)
+              ) {
+                store.commit("deleteConnection", index);
+                found = true;
+              }
+            }
+          );
+          if (found == false) {
+            store.commit("addConnection", [this.addConnectionStart, id]);
+          }
+          this.$emit("addConnectionStart", null)
         }
       },
       onDrop(evt, dropID) {

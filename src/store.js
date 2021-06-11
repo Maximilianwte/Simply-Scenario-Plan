@@ -265,6 +265,7 @@ export default new Vuex.Store({
         switch (thisStep.type) {
           case "clearAll": {
             Object.assign(state, thisStep.valAfter);
+            break
           }
           case "addOutcomeVariable": {
             this.commit("addOutcomeVariable", thisStep.valAfter);
@@ -293,7 +294,7 @@ export default new Vuex.Store({
             this.commit("deleteScenarioVariable", {
               listID: thisStep.path,
               id: thisStep.valBefore.id,
-            });;
+            });
             break;
           }
           case "changeScenarioVariable": {

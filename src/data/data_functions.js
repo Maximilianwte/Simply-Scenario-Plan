@@ -2,8 +2,8 @@ import axios from "axios";
 import store from "../store";
 
 let localURL = "http://localhost:8888/.netlify/functions";
-let productionURL = "https://gallant-wing-60a535.netlify.app/.netlify/functions";
-let activeURL = localURL;
+let productionURL = "https://simplyscenarioplan.netlify.app/.netlify/functions";
+let activeURL = productionURL;
 
 let logic_functions = {
   create_user(userFile) {

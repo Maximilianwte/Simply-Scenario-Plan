@@ -122,15 +122,17 @@ router.post('/update_userAccess/password', function (req, res) {
 
 router.post('/askNewFeature', function (req, res) {
   var inFile = JSON.parse(req.body)
+  console.log(inFile)
   let docRef = db.collection('featureWishDB').where('title', '==', inFile.title).limit(1);
   docRef.get()
     .then(snapshot => {
       if (snapshot.empty) {
             let docRef2 = db.collection('featureWishDB');
             docRef2.add({
-              voteCount: doc.data().voteCount + 1,
+              title: inFile.title,
+              voteCount: 1,
               lastVote: new Date().toDateString(),
-              votesFrom: inFile.email != undefined ? doc.data().votesFrom.push(inFile.email) : doc.data().votesFrom
+              votesFrom: inFile.email != undefined ? inFile.email : ""
             }).then(ref => {
               res.send("New feature wished");
             })
@@ -139,7 +141,6 @@ router.post('/askNewFeature', function (req, res) {
         doc.data().update({
           voteCount: doc.data().voteCount + 1,
           lastVote: new Date().toDateString(),
-          votesFrom: inFile.email != undefined ? doc.data().votesFrom.push(inFile.email) : doc.data().votesFrom
         }).then(function () {
           res.send('Feature got new vote.');
         })

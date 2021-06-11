@@ -570,18 +570,14 @@
           },
         };
         store.commit("setCompleteState", states[this.activeHoverTemplate]);
-        // for testing purpose
-        this.$router.push({
-          path: "app"
-        });
         // check login state
-        /* if (store.state.ui.login == true) {
+        if (store.state.ui.login == true) {
           this.$router.push({ path: "app" });
         } else {
           this.$router.push({ path: "login", query: { sendFrom: "template" } });
-        } */
+        }
       },
-      voteForFeature(title) {
+      voteFeature(title) {
         data_functions.voteFeature(title);
       },
       askNewFeature() {

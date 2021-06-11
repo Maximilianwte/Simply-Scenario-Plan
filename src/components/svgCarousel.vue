@@ -104,7 +104,7 @@ export default {
       return images("./" + path);
     },
     startSlide: function () {
-      this.timer = setInterval(this.next, 8000);
+      this.timer = setInterval(this.next, 12000);
     },
 
     next: function () {

@@ -42,7 +42,7 @@
       </p>
     </div>
     <div id="deleteAccount" class="mt-24 w-full flex-col text-alternative text-sm">
-      <a href="mailto:max@project.de" class="ml-2">Delete Account</a>
+      <a href="mailto:maximilianwtewte@gmail.com?subject=Delete%20my%20account" class="ml-2">Delete Account</a>
     </div>
     <div id="menu" class="absolute top-0 text-xl right-0 py-2 px-2">
       <template id="LoggedIn">

@@ -100,6 +100,7 @@ router.post('/load', function (req, res) {
 
 router.post('/giveFeedback', function (req, res) {
   var inFile = JSON.parse(req.body);
+  console.log(inFile)
   let docRef = db.collection('feedback');
   docRef.add({
     email: inFile.email,
