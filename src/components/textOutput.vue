@@ -81,14 +81,6 @@
       },
 
       next: function () {
-        /* this.outcomeVarIndex = Math.round(Math.random() * (this.getOutcomeVars.length - 1));
-        this.outcomeVarTitle = this.getOutcomeVars[this.outcomeVarIndex].title;
-        if (this.getScenarioVars[this.outcomeVarIndex].length > 3) {
-          this.options.push("3maximumNegConsequence")
-        }
-        this.index = Math.round(Math.random() * (this.options.length - 1));
-        this.activeKey = this.options[this.index];
-        this.activeText = this.getText(this.outcomeVarIndex, this.activeKey); */
         this.outcomeVarIndex = Math.round(Math.random() * (this.getOutcomeVars.length - 1));
         this.outcomeVarTitle = this.getOutcomeVars[this.outcomeVarIndex].title;
         var keys = Object.keys(this.getText[this.outcomeVarTitle])

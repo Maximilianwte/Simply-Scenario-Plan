@@ -55,7 +55,6 @@
       },
       disableTracking() {
         store.commit("setTracking", false);
-        this.$ga.disable();
       },
     },
     mounted() {
