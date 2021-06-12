@@ -67,7 +67,7 @@
       <button
         @click="addItem"
         id="addVariable"
-        class="w-16 h-16 absolute bottom-0 mb-8 rounded-full text-bg hover:bg-focus text-2xl"
+        class="w-16 h-16 absolute z-0 bottom-0 mb-8 rounded-full text-bg hover:bg-focus text-2xl"
         :class="getBgAddOutcomeVar"
         tooltip-content="Add another outcome variable?"
         tooltip-position="up-abs"
@@ -77,7 +77,7 @@
     </div>
     <button
       id="nextUIStep"
-      class="absolute right-0 hidden md:block px-3 py-3 rounded-full text-2xl"
+      class="absolute right-0 z-20 hidden md:block px-3 py-3 rounded-full text-2xl"
       tooltip-content="Finished adding outcome variables? Go to add scenario variables."
       tooltip-position="left-abs"
       @click="moveUI('inc')"

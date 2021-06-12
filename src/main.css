@@ -422,3 +422,7 @@ th {
     opacity: 1;
   }
 }
+
+#outcomeVarMenu {
+  z-index: 5;
+}

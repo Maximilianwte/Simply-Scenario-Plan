@@ -13,7 +13,7 @@
           @dragend.right="startDrag(componentId + '#' + item.id, item.id)" draggable>
           {{ item.title }}
         </div>
-        <div v-else class="open item w-64 h-48 relative rounded cursor-pointer text-xl"
+        <div v-else class="open item z-20 w-64 h-48 relative rounded cursor-pointer text-xl"
           :style="{ backgroundColor: getColorMode(item.color) }">
           <div class="floatingMenu absolute text-sm right-0 top-0 mr-2 mt-2">
             <button id="setConnect" @click="addConnection(componentId + '#' + item.id, item.id)"
@@ -60,7 +60,7 @@
                 <path d="M0 101.08h404.308L202.151 303.229 0 101.08z" />
               </svg>
             </div>
-            <div id="outcomeVarMenu" class="bg-gray-100 px-2 py-4 rounded text-base">
+            <div id="outcomeVarMenu" class="bg-gray-100 z-20 px-2 py-4 rounded text-base">
               <div id="headerRow" class="flex ml-10 text-sm">
                 <p class="text-dark w-16 ml-4 text-right">Amount</p>
                 <p class="text-dark w-10 ml-2 text-right">Unit</p>
