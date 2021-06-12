@@ -64,8 +64,8 @@
       </div>
     </div>
     <div class="below flex-col">
-      <div id="video" class="w-full lg:w-2/3 mt-20 h-80 border">
-        <p class="mt-2 ml-2 text-alternative">Video</p>
+      <div id="video" class="mt-20 border">
+        <iframe class="w-full h-48 md:w-128 md:h-80" src="https://www.youtube.com/embed/IHWlB1K7GCU?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       <div class="cta flex-col mt-6">
         <router-link to="/register">
