@@ -16,7 +16,7 @@ export default new Vuex.Store({
     // ---- User Data
     user: {
       enableTracking: null,
-      login: false,
+      login: true,
       email: null,
       id: null,
       fileName: null,

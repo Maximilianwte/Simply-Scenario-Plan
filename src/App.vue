@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="min-h-screen w-screen relative text-main bg-bg" :class="getTheme">
+  <div id="app" class="min-h-screen min-w-screen relative text-main bg-bg" :class="getTheme">
     <router-view />
     <div id="askTracking" v-if="getTrackingState == null"
       class="fixed bottom-0 border-2 px-2 py-2 right-0 mr-16 md:mr-4 mb-4 text-2xl bg-bg">
