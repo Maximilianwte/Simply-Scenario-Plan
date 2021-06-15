@@ -166,8 +166,8 @@ export default {
     addItem() {
       if (store.state.outcomeVariables.length < 5) {
         var item = {
-          id: this.getItems[this.getItems.length - 1].id + 1,
-          displayId: this.getItems[this.getItems.length - 1].displayId + 1,
+          id: this.getItems.length == 0 ? 0 : this.getItems[this.getItems.length - 1].id + 1,
+          displayId: this.getItems.length == 0 ? 0 : this.getItems[this.getItems.length - 1].displayId + 1,
           title: "New Variable",
           color: this.getColor(),
           top: 6 + 10 * this.getItems.length,

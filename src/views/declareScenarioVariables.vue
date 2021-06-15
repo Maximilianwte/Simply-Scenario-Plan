@@ -80,7 +80,6 @@
       },
       setAddConnectionStart(item) {
         this.addConnectionStart = item;
-        console.log("emit", this.addConnectionStart)
       },
       moveUI(val) {
         store.commit("moveUI", val);

@@ -16,7 +16,7 @@ export default new Vuex.Store({
     // ---- User Data
     user: {
       enableTracking: null,
-      login: false,
+      login: true,
       email: null,
       id: null,
       fileName: null,
@@ -178,11 +178,12 @@ export default new Vuex.Store({
     },
     deleteOutcomeVariable(state, payload) {
       state.outcomeVariables.splice(payload.id, 1);
-      state.scenarioVariables.forEach(list => {
+/*       state.scenarioVariables.forEach(list => {
         list.forEach(variable => {
-          variable.splice(payload.id, 1);
+          console.log(variable)
+          //variable.splice(payload.id, 1);
         })
-      })
+      }) */
       this.commit("setDataToCookie", "scenarioVariables");
     },
     // ---- Handle Return Cache ----
