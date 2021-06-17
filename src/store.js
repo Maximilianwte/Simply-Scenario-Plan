@@ -16,7 +16,7 @@ export default new Vuex.Store({
     // ---- User Data
     user: {
       enableTracking: null,
-      login: true,
+      login: false,
       email: null,
       id: null,
       fileName: null,
@@ -30,7 +30,7 @@ export default new Vuex.Store({
       {
         id: 0,
         displayId: 0,
-        title: "Happiness",
+        title: "Output Variable",
         color: "#F2E5AA",
         top: 6,
         left: 4,
@@ -43,17 +43,17 @@ export default new Vuex.Store({
           displayId: 0,
           title: "Scenario A",
           prob: 0,
-          impact: [20],
-          unit: ["b"],
+          impact: [0],
+          unit: [""],
           color: "#85E0FF"
         },
         {
           id: 1,
           displayId: 1,
           title: "Scenario B",
-          prob: 11.2,
-          impact: [-5.2],
-          unit: ["k"],
+          prob: 0,
+          impact: [0],
+          unit: [""],
           color: "#91DBBC"
         }
       ],
