@@ -98,11 +98,12 @@ export default new Vuex.Store({
       state.user.email = payload.email;
       state.user.id = payload.id;
       state.user.login = true;
-      console.log("changed to ", state.user.email)
+      this.commit("setDataToCookie", "user");
     },
     setLogout(state) {
       state.user.email = "";
       state.user.login = false;
+      this.commit("setDataToCookie", "user");
     },
     setLastUpdateTime(state, payload) {
       state.user.lastChanged = payload;
