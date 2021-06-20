@@ -1,6 +1,6 @@
 <template>
-  <div id="declareOutcomeVariables" class="w-full md:ml-64 mt-64 md:mt-0 flex-col text-3xl">
-    <div id="header" class="absolute top-0 left-0 mt-24 ml-4 md:ml-12 md:w-80">
+  <div id="declareOutcomeVariables" class="w-full flex-col lg:pl-64 text-3xl">
+    <div id="header" class="absolute top-0 left-0 ml-4 md:ml-12 mt-12 md:w-80">
       <h2
         tooltip-content="Outcome variables can be things like revenue amount, employee happiness etc.. everything you want to track."
         tooltip-position="down"
@@ -10,7 +10,7 @@
       <toolOpen class="mt-16 md:ml-10" :data="['1. First you can declare outcome variables, that you want to track.', '2. Outcome variables can be things like revenue amount, employee happiness, sucesses etc.']" />
     </div>
     <div
-      class="drop-zone flex-col w-72 h-screen text-2xl"
+      class="drop-zone mt-64 flex-col w-72 md:h-screen text-2xl"
       @dragover.prevent
       @dragenter.prevent
     >

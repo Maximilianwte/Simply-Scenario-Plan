@@ -1,5 +1,5 @@
 <template>
-  <div id="front" class="w-full flex">
+  <div id="front" class="">
     <!-- ---- Components ---- -->
 
     <declareOutcomeVariables v-if="id == 0" />
@@ -9,7 +9,7 @@
     <!-- ---- Overlay for clearAll Menu ---- -->
 
     <div id="clearAllAskOverlay" v-if="askClearAll"
-      class="fixed z-20 centered flex-col w-80 h-48 shadow text-2xl bg-bg rounded border-4">
+      class="fixed centered z-20 flex-col w-80 h-48 shadow text-2xl bg-bg rounded border-4">
       <h6 class="w-full text-center">
         Are you sure you want to clear all edits?
       </h6>
@@ -117,7 +117,7 @@
 
     <!-- ---- Menu button & overlay Dropdown Menu ---- -->
 
-    <div class="fixed right-0 mt-4 mr-4" id="menu">
+    <div class="fixed top-0 right-0 mt-4 mr-4" id="menu">
       <button id="openMenu" class="dots" @click="menuActive = !menuActive">
         <svg
           class="h-8"

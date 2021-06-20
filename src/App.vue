@@ -2,7 +2,7 @@
   <div id="app" class="min-h-screen min-w-screen relative text-main bg-bg" :class="getTheme">
     <router-view />
     <div id="askTracking" v-if="getTrackingState == null"
-      class="fixed bottom-0 border-2 px-2 py-2 right-0 mr-16 md:mr-4 mb-4 text-2xl bg-bg">
+      class="fixed bottom-0 right-0 border-2 px-2 py-2 mr-16 md:mr-4 mb-4 text-2xl bg-bg">
       <h6>Allow cookies?</h6>
       <p class="text-sm w-64 mt-1">We use tracking only to get an understanding what you like about the product and
         what not. No advertising, no data selling!</p>
@@ -10,8 +10,7 @@
         <button @click="enableCookies()"
           class="px-2 py-2 rounded border-2 text-base hover:border-alternative hover:text-alternative">Allow</button>
         <button @click="disableTracking()"
-          class="ml-4 px-2 py-2 rounded border-2 text-base hover:border-alternative hover:text-alternative">Disable
-          {{getTrackingState}}</button>
+          class="ml-4 px-2 py-2 rounded border-2 text-base hover:border-alternative hover:text-alternative">Disable</button>
       </div>
     </div>
   </div>

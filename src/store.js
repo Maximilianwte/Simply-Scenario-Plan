@@ -8,7 +8,7 @@ export default new Vuex.Store({
     // ---- UI ----
     ui: {
       colorful: true,
-      dark: false,
+      dark: true,
       // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
       uiStep: 0,
       shownMobile: false,
@@ -16,7 +16,7 @@ export default new Vuex.Store({
     // ---- User Data
     user: {
       enableTracking: null,
-      login: false,
+      login: true,
       email: null,
       id: null,
       fileName: null,
@@ -325,12 +325,14 @@ export default new Vuex.Store({
       }
     },
     setDataToCookie(state, payload) {
-      if (payload == null) {
-        for (var id in state) {
-          cookie_functions.setCookie("data_" + id, state[id], 90);
+      if (state.user.enableTracking) {
+        if (payload == null) {
+          for (var id in state) {
+            cookie_functions.setCookie("data_" + id, state[id], 90);
+          }
+        } else {
+          cookie_functions.setCookie("data_" + payload, state[payload], 90);
         }
-      } else {
-        cookie_functions.setCookie("data_" + payload, state[payload], 90);
       }
     },
     clearAllEdits(state) {
