@@ -51,7 +51,7 @@ select {
 
 .theme_dark {
   --main: #fff;
-  --alternative: #405a7ca9;
+  --alternative: #adc7e9a9;
   --bg: #252525;
   --focus: #e84855;
 }
@@ -66,6 +66,11 @@ select {
 .svg-light {
   stroke: var(--bg);
   fill: var(--bg);
+}
+
+.svg-dark {
+  stroke: #2c405a ;
+  fill: #2c405a;
 }
 
 .svg-noClick {
@@ -409,4 +414,16 @@ th {
 
 #outcomeVarMenu {
   z-index: 5;
+}
+
+.grid-container-app {
+  display: grid;
+  grid-column-gap: 0.5rem;
+  grid-template-columns: repeat(auto, 25%);
+  grid-template-rows: 1;
+}
+
+.grid-item {
+  grid-column: auto / span 4;
+  grid-row: auto;
 }

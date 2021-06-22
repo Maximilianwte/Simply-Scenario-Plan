@@ -75,9 +75,9 @@
         </router-link>
         <p>The app is 100% free.</p>
       </div>
-      <div id="template" class="md:flex mt-64 border rounded">
+      <div id="template" class="md:flex mt-64 border rounded text-gray-600 bg-white">
         <div class="left h-full md:w-1/4 border-r-2">
-          <p class="mt-4 ml-4 mb-2 text-alternative">Templates</p>
+          <p class="mt-4 ml-4 mb-2">Templates</p>
           <ul @mouseleave="
               setMouse != true ? (activeHoverTemplate = 'smallBusiness') : ''
             ">

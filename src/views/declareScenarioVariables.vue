@@ -1,23 +1,23 @@
 <template>
-  <div id="declareScenarioVariables" class="text-3xl flex">
-          <div id="header" class="pt-24 ml-4 md:ml-12 sm:w-screen md:w-80">
-        <h2
-          tooltip-content="Scenarios can be all possible events that could occure. You can add & edit the scenarios and change the probability of occuring."
-          tooltip-position="down">
-          What scenarios could happen to your business?
-        </h2>
-        <toolOpen class="mt-16 md:ml-10"
-          :data="['1. Here you can edit all scenarios that could affect your business or project.', '2. The scenario layers that span from left to right represent the time axis.', '3. So if you want to chain the likelihood of an event to another one happening before it in time, you can add another scenario layer.', '4. To connect two scenarios or delete the connection you can use drag & drop on desktop. On mobile devices with touch input, you can add and delete by clicking the + button, when the scenario is opened (long tap).']" />
-      </div>
-            <varList :id="'scenarioVariables_' + i" :idList="i - 1" v-for="i in getNVarLists" :key="'scenarioVariables_' + i"
-        class="ml-12 " @addConnectionStart="setAddConnectionStart($event)" :addConnectionStart="addConnectionStart" />
-      <div class="buttonContainer z-0 ml-8 flex-col justify-around">
-        <button id="button_addScenarioVariableList" @click="addList"
-          tooltip-content="Add another scenario layer to chain events later in time." tooltip-position="down"
-          class="w-16 h-16 behind rounded-full bg-main text-bg hover:bg-focus text-2xl">
-          +
-        </button>
-      </div>
+  <div id="declareScenarioVariables" class="text-3xl relative flex">
+    <div id="header" class="pt-24 ml-4 md:ml-12 w-80">
+      <h2
+        tooltip-content="Scenarios can be all possible events that could occure. You can add & edit the scenarios and change the probability of occuring."
+        tooltip-position="down">
+        What scenarios could happen to your business?
+      </h2>
+      <toolOpen class="mt-16 md:ml-10"
+        :data="['1. Here you can edit all scenarios that could affect your business or project.', '2. The scenario layers that span from left to right represent the time axis.', '3. So if you want to chain the likelihood of an event to another one happening before it in time, you can add another scenario layer.', '4. To connect two scenarios or delete the connection you can use drag & drop on desktop. On mobile devices with touch input, you can add and delete by clicking the + button, when the scenario is opened (long tap).']" />
+    </div>
+    <varList :id="'scenarioVariables_' + i" :idList="i - 1" v-for="i in getNVarLists" :key="'scenarioVariables_' + i"
+      class="ml-12" @addConnectionStart="setAddConnectionStart($event)" :addConnectionStart="addConnectionStart" />
+    <div class="buttonContainer z-0 ml-8 flex-col justify-around">
+      <button id="button_addScenarioVariableList" @click="addList"
+        tooltip-content="Add another scenario layer to chain events later in time." tooltip-position="down"
+        class="w-16 h-16 behind rounded-full bg-main text-bg hover:bg-focus text-2xl">
+        +
+      </button>
+    </div>
     <svg v-for="id in nConnections" :key="'svg' + id" :id="'svg' + id" class="absolute top-0 left-0 clickThrough"
       width="0" height="0">
       <path :id="'path' + id" d="M0 0" stroke-width="0.21rem" style="stroke: #cbd5e0; fill: none" />
@@ -43,12 +43,12 @@
     </div>
 
     <button id="nextUIStep2"
-      class="fixed z-20 md:hidden text-xl bg-main hover:bg-focus text-white bottom-0 left-0 mb-6 ml-6 rounded px-4 py-2"
+      class="fixed z-20 md:hidden text-xl bg-main hover:bg-focus text-bg bottom-0 left-0 mb-6 ml-6 rounded px-4 py-2"
       @click="moveUI('dec')">
       Back
     </button>
     <button id="nextUIStep2"
-      class="fixed z-20 md:hidden text-xl bg-main hover:bg-focus text-white bottom-0 right-0 mb-6 mr-6 rounded px-4 py-2"
+      class="fixed z-20 md:hidden text-xl bg-main hover:bg-focus text-bg bottom-0 right-0 mb-6 mr-6 rounded px-4 py-2"
       @click="moveUI('inc')">
       Next
     </button>

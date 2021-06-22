@@ -1,29 +1,23 @@
-# seeds
+# Simply Scenario Plan - The Risk management app
 
-## Project setup
-```
-npm install
-```
+Full implementation using Vue.js 2.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Also working combination of Google Firebase and Netlify Functions used here.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- All code is provided and free for use, learning and further development.
 
-### Run your tests
-```
-npm run test
-```
+### Front Page
+![Front Page](screenshots/screen_front.png)
 
-### Lints and fixes files
-```
-npm run lint
-```
+### The App
+![App](screenshots/screen_app1.png)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![App](screenshots/screen_app2.png)
+
+![App](screenshots/screen_app3.png)
+
+![App](screenshots/screen_app4.png)
+
+![App](screenshots/screen_app5.png)
+
+

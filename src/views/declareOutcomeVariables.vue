@@ -10,7 +10,7 @@
       <toolOpen class="mt-16 md:ml-10" :data="['1. First you can declare outcome variables, that you want to track.', '2. Outcome variables can be things like revenue amount, employee happiness, sucesses etc.']" />
     </div>
     <div
-      class="drop-zone mt-64 flex-col w-72 md:h-screen text-2xl"
+      class="drop-zone mt-64 md:mt-0 flex-col w-72 md:h-screen text-2xl"
       @dragover.prevent
       @dragenter.prevent
     >
@@ -92,7 +92,7 @@
         />
       </svg>
     </button>
-    <button id="nextUIStep2" class="absolute md:hidden text-xl bg-main hover:bg-focus text-white bottom-0 right-0 mb-6 mr-6 rounded px-4 py-2" @click="moveUI('inc')">
+    <button id="nextUIStep2" class="absolute md:hidden text-xl bg-main hover:bg-focus text-bg bottom-0 right-0 mb-6 mr-6 rounded px-4 py-2" @click="moveUI('inc')">
       Next
     </button>
   </div>

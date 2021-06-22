@@ -70,12 +70,12 @@
 
     <!-- ---- Overlay for Not built for mobile ---- -->
     <div id="notBuildForMobile" v-if="getMobileNoteShown == false"
-      class="absolute light w-3/4 z-20 md:hidden flex mt-4 ml-4 py-4 shadow text-xl bg-bg rounded">
-      <button id="deleteVar" @click="handleMobileNoteShown"
-        class="w-6 h-6 mx-2 rounded-full text-sm absolute right-0 top-0 mt-2 bg-main text-bg hover:bg-focus">
+      class="absolute top-0 light w-3/4 z-20 md:hidden flex mt-4 ml-4 py-4 shadow text-dark text-xl bg-gray-100 rounded">
+      <button id="delete" @click="handleMobileNoteShown"
+        class="w-6 h-6 mx-2 rounded-full text-sm absolute right-0 top-0 mt-2 bg-main hover:bg-focus">
         X
       </button>
-      <svg class="w-20 mx-6" style="stroke-width: 0.8rem" version="1.0" xmlns="http://www.w3.org/2000/svg"
+      <svg class="w-20 mx-6 svg-dark" version="1.0" xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512">
         <path
           d="M108.5.7C78.9 4.9 54 25.7 43.6 54.8l-3.1 8.7-.3 189.3c-.2 187.8-.2 189.5 1.8 198 5.4 22.8 21.3 42.5 42.5 52.7 17.3 8.3 13.8 8 93.5 8 68.7 0 70.6-.1 73.9-2 5.6-3.3 9.3-8.7 9.9-14.4.7-7.2-.5-11.7-4.1-15.8-6.7-7.6-3.3-7.3-76.7-7.3-72.1 0-72.7 0-82.2-6.1-6.4-4.2-12.5-11-15.6-17.7l-2.7-5.7v-373l3.3-6.7c4.1-8.4 12.8-16.7 20.9-20l5.8-2.3 104-.3C316.6 40 318.6 40 325.2 42c10.8 3.3 18.9 10.3 24.1 21l3.2 6.5.5 118c.5 127.1.3 120.9 5.8 126.9 8.6 9.2 22.6 8.4 30.6-1.7l3.1-3.9V63.5l-3.1-8.7c-9.2-25.7-28.4-43.9-54.6-52L327.5.5l-108-.1c-59.4-.1-109.3.1-111 .3z" />
@@ -117,7 +117,7 @@
 
     <!-- ---- Menu button & overlay Dropdown Menu ---- -->
 
-    <div class="fixed top-0 right-0 mt-4 mr-4" id="menu">
+    <div class="fixed top-0 z-30 right-0 mt-4 mr-4" id="menu">
       <button id="openMenu" class="dots" @click="menuActive = !menuActive">
         <svg
           class="h-8"

@@ -8,7 +8,7 @@ export default new Vuex.Store({
     // ---- UI ----
     ui: {
       colorful: true,
-      dark: true,
+      dark: false,
       // uiStep 0 (declare outcomeVariables), 1 (declare scenarioVariables)
       uiStep: 0,
       shownMobile: false,
@@ -16,7 +16,7 @@ export default new Vuex.Store({
     // ---- User Data
     user: {
       enableTracking: null,
-      login: true,
+      login: false,
       email: null,
       id: null,
       fileName: null,
