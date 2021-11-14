@@ -1,7 +1,6 @@
 // https://jackwhiting.co.uk/posts/using-firebase-admin-sdk-with-netlify-lambda-functions/
 const express = require("express");
 const serverless = require("serverless-http");
-
 // Firestore
 
 var admin = require("firebase-admin");

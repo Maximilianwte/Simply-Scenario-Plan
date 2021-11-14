@@ -58,7 +58,7 @@
     },
     mounted() {
       store.commit("setDataFromCookie");
-      this.checkTracking();
+      this.checkTracking();      
     }
   }
 </script>
